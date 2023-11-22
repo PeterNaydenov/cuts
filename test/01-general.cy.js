@@ -13,7 +13,7 @@ import Gray from './gray.vue'
 
 describe ( 'General', () => {
     
-    it ( 'Start a director. Director API', () => {
+    it ( 'Start a sreenWriter. ScreenWriter API', () => {
                 const script = screenWriter ();
                 expect ( script ).to.have.property ( 'turnTo' )
                 expect ( script ).to.have.property ( 'close' )
@@ -59,7 +59,7 @@ describe ( 'General', () => {
                             script.setPages ([ 
                                                   { name:'test', page:testPage } 
                                             ])
-                            script.turnTo ( 'test' )
+                            script.turnTo ({ page : 'test' })
                             // cy.get ( '#target' ).click ()
                         })
                     .then ( () => {
@@ -126,7 +126,7 @@ describe ( 'General', () => {
                                               { name:'test', page:testPage } 
                                             , { name: 'blue', page:bluePage }
                                         ])
-                        script.turnTo ( 'test' )
+                        script.turnTo ({ page: 'test' })
                         cy.get ( '#target' ).click ()
                     })
                 .then ( () => {
@@ -146,7 +146,7 @@ describe ( 'General', () => {
 
 
 
-    it.only ( 'Turn to other branch', done => {
+    it ( 'Turn to other branch', done => {
             let 
                   render = false
                 , click = false
@@ -208,7 +208,7 @@ describe ( 'General', () => {
                                             , { name: 'blue', page:bluePage }
                                             , { name: 'gray', page:grayPage }
                                         ])
-                        script.turnTo ( 'test' )
+                        script.turnTo ({ page : 'test' })
                         cy.get ( '#target' ).click ()
                     })
                 .then ( () => {
@@ -216,13 +216,14 @@ describe ( 'General', () => {
                         expect ( click ).to.be.true
                         return cy.wait ( 0 )
                     })
+                .then ( () => script.turnTo ({ page : 'gray' }  ))
                 .then ( () => {
-                        return script.turnTo ( 'gray' )
-                    })
-                .then ( () => {
-                        const pageContent = document.getElementById('container').innerHTML
-                        // expect ( pageContent ).to.be.empty
-                        // TODO: Continue here...
+                        const 
+                              red = document.querySelectorAll ( '.red' )
+                            , blue = document.querySelectorAll ( '.gray' )
+                            ;
+                        expect ( blue.length ).to.be.equal ( 1 )
+                        expect ( red.length ).to.be.equal  ( 0 )
                         done ()
                     })
     }) // it turn to other branch

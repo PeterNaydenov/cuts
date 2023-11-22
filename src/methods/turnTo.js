@@ -6,12 +6,14 @@ function turnTo ( dependencies, state ) {
 /**
  * @function turnTo
  * @description Turn to the requested page
- * @param {string} requestedPage - requested page name
- * @param {Object} options - options object. Optional
- * @param {boolean} options.ssr - flag to indicate if the page is already rendered(ssr: server side rendering). Optional
+ * @param {Object} request - request object
+ * @param {string} request.page - requested page name
+ * @param {Object} request.options - options object. Optional
+ * @param {boolean} request.options.ssr - flag to indicate if the page is already rendered(ssr: server side rendering). Optional
+ * @param {Array} args - arguments to pass to the page method. Optional
  * @returns {Promise} - promise that resolves when the process to 'turned to' is completed
  */
-return function turnTo ( requestedPage, options={ssr:false}) {
+return function turnTo ({page:requestedPage, options={ssr:false}}, ...args ) {
     const 
           { pgMngr, askForPromise, log, findInstructions, setInstruction } = dependencies
         , turnToTask = askForPromise ()
@@ -82,7 +84,7 @@ return function turnTo ( requestedPage, options={ssr:false}) {
     for ( let inst of g ) {
                 [inst]
                     .map ( getStep )
-                    .map ( step => instructions.push ( setInstruction(step) ))
+                    .map ( step => instructions.push ( setInstruction(step),...args ))
                     // Note:  Methods 'show' and 'hide' are async, but we need to provide them a data, 
                     //        so we need to wrap them in a another function that returns a promise
         }
