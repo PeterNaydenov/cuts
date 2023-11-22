@@ -10,7 +10,7 @@ function* findInstructions ( currentName, currentParents, targetName, targetPare
             return
         } 
 
-    if ( targetParents.length === 0 ) {  // Need to close all current parents, then open the target
+    if ( !targetParents || targetParents.length === 0 ) {  // Need to close all current parents, then open the target
             if ( !currentParents ) {
                     yield [ currentName, 'hide' ]
                     yield [ targetName, 'show'   ]

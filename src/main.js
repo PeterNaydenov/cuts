@@ -11,40 +11,6 @@ import methods         from './methods/index.js'
 
 
 
-// /**
-//  * 
-//  * @param {function} inFn - import pattern function
-//  * @returns function getModules
-//  */
-// function getModules ( inFn ) {
-// const requestModules = dynamicImport ( inFn );
-// /**
-//  * @param {Array} list - list of objects with name and src
-//  * @returns {Promise} - Promise that resolves to an array of JS-pages
-//  */
-// return function getModules ( list ) {
-//     const names = [], srcList = [];
-//     list.forEach ( ({name, src}) => {
-//                     names.push ( name )
-//                     srcList.push ( src )
-//             })
-//     return requestModules ( srcList )
-//                 .then ( ls => names.map ( (name, i) => {
-//                                             let d = {}
-//                                             if ( ls[i] )   d[name] = ls[i]
-//                                             return d
-//                                     })
-//                     )
-// }} // getModules func.
-
-
-
-
-
-
-
-
-
 function main ( cfg= {logLevel:0} ) {
      const 
           pgMngr = shortcuts ()
@@ -107,47 +73,6 @@ function main ( cfg= {logLevel:0} ) {
 
         return API
 } // main func.
-
-
-
-
-
-
-
-
-
-
-
-// function main () {       
-//     const pageManager = shortcuts ();
-//     const screenBus = notice ()
-//     const 
-//               test = { name:'test', src:'first'  }
-//             , alt = { name:'alt', src:'second' }
-//             , inFn = src => import ( `../js-pages/pg-${src}.js` )
-//             ;
-//     getModules = getModules ( inFn ) // Apply the import pattern function
-//     getModules ( [test] )
-//         .then (  jsPageList => {
-//                             jsPageList.map ( pg => pageManager.load ( pg )   )
-//                             pageManager.setDependencies ( { screenBus } )
-//                             pageManager.changeContext ( 'test' )
-//                             console.log ( `Available JS-pages: ${pageManager.listContexts ()}` )
-//                             return getModules ( [alt] )
-//                 })
-//         .then ( jsPageList => {
-//                             jsPageList.map ( pg => pageManager.load ( pg )   )
-//                             console.log ( `Available JS-pages: ${pageManager.listContexts ()}` )
-//                 })
-    
-//     screenBus.on ( 'over', function ( c ) {
-//                         console.log ( 'over', c )
-//                         pageManager.emit ( 'hide' )
-//                         pageManager.pause ('*') // stop all
-//                         pageManager.resume ('mouse-click-left-2') // activete onlt this
-//                 })
-
-// } // main func.
 
 
 
