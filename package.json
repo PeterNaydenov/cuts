@@ -1,14 +1,15 @@
 {
   "name": "@peter.naydenov/screen-writer",
   "description": "Visual state manager",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "author": "Peter Naydenov",
   "keywords": [
             "script",
             "visual",
             "state",
-            "manager"
+            "manager",
+            "js-pages"
           ],
   "main" : "src/main.js",
   "type": "module",

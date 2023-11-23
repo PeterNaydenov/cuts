@@ -63,7 +63,7 @@ return function turnTo ({page:requestedPage, options={ssr:false}}, ...args ) {
                 return turnToTask.promise
         }
 
-    function getStep ([name, action]) {
+    function getStep ([name, action]) {   // Returns a page function(hide or show) according to instructions
                 if ( action === 'show' ) {
                         if ( state.currentPage )   state.currentParents.push ( state.currentPage )
                         state.currentPage = name

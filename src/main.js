@@ -1,4 +1,16 @@
 'use strict'
+/**
+ *  Screen Writer
+ *  ===============
+ *  
+ *  A simple JS-pages manager.
+ *  
+ *  History notes:
+ *    - Published on gitHub for the first time on 2023-11-24
+ * 
+ */
+
+
 import shortcuts     from '@peter.naydenov/shortcuts'      // Docs : https://github.com/PeterNaydenov/shortcuts
 import askForPromise from 'ask-for-promise'                // Docs : https://github.com/PeterNaydenov/ask-for-promise
 import createLog     from '@peter.naydenov/log'            // Docs : https://github.com/PeterNaydenov/log

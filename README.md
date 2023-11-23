@@ -4,7 +4,10 @@
 
 Writing a SPA applications as writing a movie script - describe a set of stages (visual states). Each stage describes how the visual part of the application should look like and how the user will interact with it ( mouse, keyboard, etc.). Stages are described by **JS-page** data models. 
 
-Build a relationship between stages and you will have a tree of visual states that can be traversed with a single instruction.
+Build a relationship between stages and you will have a tree of visual states that can be traversed with a single programing instruction.
+
+
+
 
 
 
@@ -26,8 +29,10 @@ const script = screenWriter ();
 script.setPages () // provide list of JS-pages to the app
 script.setDependencies () // add object to the "dependencies" object. This object will be passed to the JS-page "show" method
 // script is ready to use
-script.turnTo ( 'pageName' ) // change the current JS-page
+script.turnTo ({ page : 'pageName'}) // change the current JS-page
 ```
+
+
 
 
 
@@ -60,32 +65,29 @@ JS-page is a data model that describes how to render a specific stage and how th
 ```
 
 
-JS-pages can be `opened` and `closed`, also some pages can be a child of another page. Every JS-page is a can be treated as a visual state of the application. 
+JS-pages can be `opened` and `closed`, also some pages can be a child of another page. Every JS-page is a can be treated as a visual state of the application. All provided to script `JS-pages` are available on demand by calling them with a simple instruction `turnTo({page:pageName})`. What should be opened and what should be closed is managed by the library.
 
 
-
-
-
-
-
-All `JS-pages` are available on demand by calling a simple instruction `turnTo('pageName')`.
-
-
-
-Because we have a structure (connection among JS-pages) all JS-page
-
-Shifting to specific page creates a list of instructions that can move the user across all defined screens by calling a simple instruction `turnTo('pageName')`.
-
-
-
-Library is a tool to manage your JS-page packages according different contexts.
-
-
-Library is a tool to shift across application's JS-pages on demand.
-Library to manage SPA screen-states and coresponding user interactions by using JS-pages.
 
 ## What is JS-Page?
 JS-page contains a set of instructions how the visual html page should interact with the customer. All this instructions are coming in package called `JS-page`. The library `js-pages` is a tool to switch between your jsPage packages according different contexts.
 
 Change context - change JS-page.
 
+
+
+
+
+## Links
+- [History of changes](https://github.com/PeterNaydenov/screen-writer/blob/main/Changelog.md)
+
+
+
+
+## Credits
+'@peter.naydenov/screen-writer' was created and supported by Peter Naydenov.
+
+
+
+## License
+'@peter.naydenov/screen-writer' is released under the [MIT License](http://opensource.org/licenses/MIT).
