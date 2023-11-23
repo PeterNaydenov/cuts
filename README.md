@@ -69,13 +69,6 @@ JS-pages can be `opened` and `closed`, also some pages can be a child of another
 
 
 
-## What is JS-Page?
-JS-page contains a set of instructions how the visual html page should interact with the customer. All this instructions are coming in package called `JS-page`. The library `js-pages` is a tool to switch between your jsPage packages according different contexts.
-
-Change context - change JS-page.
-
-
-
 
 
 ## Links
