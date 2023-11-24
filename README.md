@@ -1,4 +1,9 @@
 # Screen Writer (@peter.naydenov/screen-writer)
+*Warning: The library is experimental and is not ready for production use*
+
+![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/peterNaydenov/screen-writer/main)
+![GitHub License](https://img.shields.io/github/license/peterNaydenov/screen-writer)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/%40peter.naydenov%2Fscreen-writer)
 
 
 
@@ -6,7 +11,7 @@ Writing a SPA applications as writing a movie script - describe a set of stages 
 
 Build a relationship between stages and you will have a tree of visual states that can be traversed with a single programing instruction.
 
-
+When all interactions can be described in the JS-page data models, means that the components (react,vue, svelte or any other framework) can be used as simple template engines - to render only html. 
 
 
 
@@ -73,6 +78,7 @@ JS-pages can be `opened` and `closed`, also some pages can be a child of another
 
 ## Links
 - [History of changes](https://github.com/PeterNaydenov/screen-writer/blob/main/Changelog.md)
+- [Learn how shortcuts are implemented](https://github.com/PeterNaydenov/shortcuts)
 
 
 
