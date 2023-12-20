@@ -35,6 +35,7 @@ describe ( 'General', () => {
                     ;
                 const 
                       script = screenWriter ()
+                    , d = document.querySelector ('[data-cy-root]')
                     , testPage = { 
                                       show : ({ task, dependencies }) => {
                                                 const { html } = dependencies;
@@ -52,7 +53,9 @@ describe ( 'General', () => {
                                                 }
                             }
                     ;
-                cy.mount ( Dummy )
+                d.id = 'root'
+                html.publish ( Dummy, {}, 'root' ) 
+
                 cy.wait ( 0 )
                     .then ( () => {
                             script.setDependencies ({ html })
@@ -87,6 +90,7 @@ describe ( 'General', () => {
                 ;
             const 
                   script = screenWriter ()
+                , d = document.querySelector ('[data-cy-root]' )
                 , testPage = { 
                                   show : ({ task, dependencies }) => {
                                             const { html } = dependencies;
@@ -118,7 +122,10 @@ describe ( 'General', () => {
                                     , 'mouse-click-left-1' : ({dependencies,target}) => {}
                         }
                 ;
-            cy.mount ( Dummy )
+
+            d.id = 'root'
+            html.publish ( Dummy, {}, 'root' )
+
             cy.wait ( 0 )
                 .then ( () => {
                         script.setDependencies ({ html })
@@ -154,6 +161,7 @@ describe ( 'General', () => {
                 ;
             const 
                   script = screenWriter ()
+                , d = document.querySelector ('[data-cy-root]' )
                 , testPage = { 
                                   show : ({ task, dependencies }) => {
                                             const { html } = dependencies;
@@ -199,7 +207,10 @@ describe ( 'General', () => {
                                     , 'mouse-click-left-1' : ({dependencies,target}) => {}
                         }
                 ;
-            cy.mount ( Dummy )
+            
+            d.id = 'root'
+            html.publish ( Dummy, {}, 'root' )
+
             cy.wait ( 0 )
                 .then ( () => {
                         script.setDependencies ({ html })
