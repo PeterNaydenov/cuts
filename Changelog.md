@@ -2,6 +2,13 @@
 
 
 
+### 2.0.0 ( 2024-03-06)
+- [x] New method `emit` to emit an custom event;
+- [x] Actually changes in version 1.1.0 require a major version change because of change of shortcut description format. Also shortcuts plugins need to be enabled. Version 2.0.0 is coming to fix this issue;
+
+
+
+
 ### 1.1.0 ( 2024-03-06)
 - [x] Library works with v.3.0.1 of `@peter.naydenov/shortcuts` package
 - [x] New method `enablePlugin` to enable the shortcut plugins;

@@ -7,12 +7,12 @@
  *  
  *  History notes:
  *    - Published on gitHub for the first time on 2023-11-24
- *    - Version 1.1.0. Works with shortcuts@3.0.1. Published on March 6th, 2024
+ *    - Version 2.0.0. Works with shortcuts@3.0.1. Published on March 6th, 2024
  * 
  */
 
 
-import {shortcuts}   from '@peter.naydenov/shortcuts'      // Docs : https://github.com/PeterNaydenov/shortcuts
+import { shortcuts }   from '@peter.naydenov/shortcuts'      // Docs : https://github.com/PeterNaydenov/shortcuts
 import askForPromise from 'ask-for-promise'                // Docs : https://github.com/PeterNaydenov/ask-for-promise
 import createLog     from '@peter.naydenov/log'            // Docs : https://github.com/PeterNaydenov/log
 
@@ -99,6 +99,16 @@ function main ( cfg= {logLevel:0} ) {
          * @returns void
          */
         API.disablePlugin = ( pluginName )  => pgMngr.disablePlugin ( pluginName )
+
+
+        /**
+         * @function emit
+         * @description Emit an event
+         * @param {string} event - event name
+         * @param {*} data - event data
+         * @returns void
+         */
+        API.emit = ( event, ...args ) => pgMngr.emit ( event, ...args )
 
         return API
 } // main func.

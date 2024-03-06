@@ -53,9 +53,12 @@ script.turnTo ({ page : 'pageName'}) // change the current JS-page
 , getDependencies : 'Returns the "dependencies" object'
 , enablePlugin    : 'Enable a shortcut plugin. Available after version 1.1.0'
 , disablePlugin   : 'Disable a shortcut plugin. Available after version 1.1.0'
+, emit            : 'Emit an event. Available after version 2.0.0'
 ```
 
 * Version 1.1.0 - first version of the library based on `@peter.naydenov/shortcuts` version 3.0.0. 
+
+
 
 ## JS-page
 
