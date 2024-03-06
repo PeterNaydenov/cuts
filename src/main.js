@@ -7,11 +7,12 @@
  *  
  *  History notes:
  *    - Published on gitHub for the first time on 2023-11-24
+ *    - Version 1.1.0. Works with shortcuts@3.0.1. Published on March 6th, 2024
  * 
  */
 
 
-import shortcuts     from '@peter.naydenov/shortcuts'      // Docs : https://github.com/PeterNaydenov/shortcuts
+import {shortcuts}   from '@peter.naydenov/shortcuts'      // Docs : https://github.com/PeterNaydenov/shortcuts
 import askForPromise from 'ask-for-promise'                // Docs : https://github.com/PeterNaydenov/ask-for-promise
 import createLog     from '@peter.naydenov/log'            // Docs : https://github.com/PeterNaydenov/log
 
@@ -75,13 +76,29 @@ function main ( cfg= {logLevel:0} ) {
          */
         API.setNote         = note => shortcuts.setNote ( note )
 
-
         /**
          * @function listPages
          * @description List all loaded JS-pages names
          * @returns {Array.<string>} - list of JS-pages names
          */
         API.listPages = () => [ ...state.pageNames ]
+
+        /**
+         * @function enablePlugin
+         * @description Enable a shortcut plugin
+         * @param {function} plugin - plugin library
+         * @param {*} options - plugin options
+         * @returns void
+         */
+        API.enablePlugin = (plugin,options) => pgMngr.enablePlugin ( plugin, options )
+
+        /**
+         * @function disablePlugin
+         * @description Disable a shortcut plugin
+         * @param {string} pluginName - plugin name
+         * @returns void
+         */
+        API.disablePlugin = ( pluginName )  => pgMngr.disablePlugin ( pluginName )
 
         return API
 } // main func.

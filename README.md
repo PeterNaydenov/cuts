@@ -51,7 +51,8 @@ script.turnTo ({ page : 'pageName'}) // change the current JS-page
 , listShortcuts   : 'List shortcuts per JS-page. Provide the name of the JS-page'
 , setDependencies : 'Add object to the "dependencies" object. This object will be passed to the JS-page "show" method'
 , getDependencies : 'Returns the "dependencies" object'
-
+, enablePlugin    : 'Enable a shortcut plugin'
+, disablePlugin   : 'Disable a shortcut plugin'
 ```
 
 

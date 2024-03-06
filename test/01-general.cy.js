@@ -3,6 +3,7 @@
 import VisualController from '@peter.naydenov/visual-controller-for-vue3' // Docs : https://github.com/PeterNaydenov/visual-controller-for-vue3
 import { expect } from 'chai'
 import screenWriter from '../src/main.js'
+import { pluginClick } from '@peter.naydenov/shortcuts'
 
 import Dummy from './dummy.vue'
 import Red from './red.vue'
@@ -48,11 +49,12 @@ describe ( 'General', () => {
                                                 html.destroy ( 'container' )
                                                 task.done ()
                                             }
-                                    , 'mouse-click-left-1' : ({dependencies,target}) => {
+                                    , 'click: left-1' : ({dependencies,target}) => {
                                                     click = true
                                                 }
                             }
                     ;
+                script.enablePlugin ( pluginClick )
                 d.id = 'root'
                 html.publish ( Dummy, {}, 'root' ) 
 
@@ -104,7 +106,7 @@ describe ( 'General', () => {
                                             task.done ()
                                         }
                                 , parents : [ 'blue' ]
-                                , 'mouse-click-left-1' : ({dependencies,target}) => {
+                                , 'click: 1-left' : ({dependencies,target}) => { // Order in the event name after the prefix is not important
                                                 click = true
                                             }
                         }
@@ -119,10 +121,10 @@ describe ( 'General', () => {
                                                 html.destroy ( 'blue' )
                                                 task.done ()
                                             }
-                                    , 'mouse-click-left-1' : ({dependencies,target}) => {}
+                                    , 'click: left-1' : ({dependencies,target}) => {}
                         }
                 ;
-
+            script.enablePlugin ( pluginClick )
             d.id = 'root'
             html.publish ( Dummy, {}, 'root' )
 
@@ -175,7 +177,7 @@ describe ( 'General', () => {
                                             task.done ()
                                         }
                                 , parents : [ 'blue' ]
-                                , 'mouse-click-left-1' : ({dependencies,target}) => {
+                                , 'click: left-1' : ({dependencies,target}) => {
                                                 click = true
                                             }
                         }
@@ -190,7 +192,7 @@ describe ( 'General', () => {
                                                 html.destroy ( 'blue' )
                                                 task.done ()
                                             }
-                                    , 'mouse-click-left-1' : ({dependencies,target}) => {}
+                                    , 'click: left-1' : ({dependencies,target}) => {}
                         }
                 , grayPage = {
                                       show : ({ task, dependencies }) => {
@@ -204,10 +206,10 @@ describe ( 'General', () => {
                                                 task.done ()
                                             }
                                     , parents : [ 'blue' ]
-                                    , 'mouse-click-left-1' : ({dependencies,target}) => {}
+                                    , 'click: left-1' : ({dependencies,target}) => {}
                         }
                 ;
-            
+            script.enablePlugin ( pluginClick )
             d.id = 'root'
             html.publish ( Dummy, {}, 'root' )
 
