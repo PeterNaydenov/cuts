@@ -1,20 +1,20 @@
 {
   "name": "@peter.naydenov/screen-writer",
   "description": "Visual state manager",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "license": "MIT",
   "author": "Peter Naydenov",
   "main": "./dist/screen-writer.umd.js",
   "type": "module",
   "exports": {
     ".": {
-          "import": "./dist/screen-writer.esm.mjs",
-          "require": "./dist/screen-writer.cjs",
-          "default": "./dist/screen-writer.umd.js"
-        },
-      "./package.json": "./package.json",
-      "./dist/*": "./dist/*",
-      "./src/*": "./src/*"
+      "import": "./dist/screen-writer.esm.mjs",
+      "require": "./dist/screen-writer.cjs",
+      "default": "./dist/screen-writer.umd.js"
+    },
+    "./package.json": "./package.json",
+    "./dist/*": "./dist/*",
+    "./src/*": "./src/*"
   },
   "scripts": {
     "dev": "vite",
