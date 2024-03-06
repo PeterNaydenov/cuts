@@ -1,5 +1,4 @@
 # Screen Writer (@peter.naydenov/screen-writer)
-*Warning: The library is experimental and is not ready for production use*
 
 ![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/peterNaydenov/screen-writer/main)
 ![GitHub License](https://img.shields.io/github/license/peterNaydenov/screen-writer)
