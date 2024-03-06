@@ -51,10 +51,11 @@ script.turnTo ({ page : 'pageName'}) // change the current JS-page
 , listShortcuts   : 'List shortcuts per JS-page. Provide the name of the JS-page'
 , setDependencies : 'Add object to the "dependencies" object. This object will be passed to the JS-page "show" method'
 , getDependencies : 'Returns the "dependencies" object'
-, enablePlugin    : 'Enable a shortcut plugin'
-, disablePlugin   : 'Disable a shortcut plugin'
+, enablePlugin    : 'Enable a shortcut plugin. Available after version 1.1.0'
+, disablePlugin   : 'Disable a shortcut plugin. Available after version 1.1.0'
 ```
 
+* Version 1.1.0 - first version of the library based on `@peter.naydenov/shortcuts` version 3.0.0. 
 
 ## JS-page
 
