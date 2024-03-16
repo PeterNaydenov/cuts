@@ -28,23 +28,23 @@
     "url": "git+https://github.com/PeterNaydenov/screen-writer.git"
   },
   "devDependencies": {
-    "@peter.naydenov/visual-controller-for-vue3": "^2.0.4",
+    "@peter.naydenov/visual-controller-for-vue3": "^2.1.0",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@vitejs/plugin-vue": "^5.0.4",
     "c8": "^9.1.0",
     "chai": "^5.1.0",
-    "cypress": "^13.6.6",
+    "cypress": "^13.7.0",
     "mocha": "^10.3.0",
-    "rollup": "^4.12.1",
-    "vite": "^5.1.5",
+    "rollup": "^4.13.0",
+    "vite": "^5.1.6",
     "vue": "^3.4.21"
   },
   "dependencies": {
     "@peter.naydenov/dynamic-import": "^0.1.0",
     "@peter.naydenov/log": "^1.1.0",
-    "@peter.naydenov/shortcuts": "^3.0.1",
+    "@peter.naydenov/shortcuts": "^3.1.1",
     "ask-for-promise": "^2.0.3"
   },
   "keywords": [

@@ -1,6 +1,12 @@
 # Release History
 
 
+### 2.1.0 ( 2024-03-16)
+- [x] Updated `@peter.naydenov/shortcuts` to version 3.1.1;
+- [x] If action function returns a string 'stop', the execution of the action chain will be stopped. Wildcard '*' events also will be stopped;
+
+
+
 
 ### 2.0.0 ( 2024-03-06)
 - [x] New method `emit` to emit an custom event;
