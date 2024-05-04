@@ -2,7 +2,7 @@
 
 ![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/peterNaydenov/screen-writer/main)
 ![GitHub License](https://img.shields.io/github/license/peterNaydenov/screen-writer)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/%40peter.naydenov%2Fscreen-writer)
+![npm package minimized gzipped size](https://img.shields.io/bundlejs/size/%40peter.naydenov%2Fscreen-writer)
 
 
 
