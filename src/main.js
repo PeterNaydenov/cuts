@@ -1,24 +1,28 @@
 'use strict'
 /**
- *  Screen Writer
+ *  Cuts
  *  ===============
  *  
- *  A simple JS-pages manager.
+ *  SPA Scene manager.
  *  
  *  History notes:
- *    - Published on gitHub for the first time on 2023-11-24
- *    - Version 2.0.0. Works with shortcuts@3.0.1. Published on March 6th, 2024
+ *    - Started as @peter.naydenov/screen-writer on gitHub for the first time on 2023-11-24;
+ *    - Version 2.0.0 of screen-writer. Works with shortcuts@3.0.1. Published on March 6th, 2024;
+ *    - Rename to @peter.naydenov/cuts 
+ *      Changes in documentation and some methods were renamed accordingly. 
+ *      Version 1.0.0. 
+ *      Published on May 8th, 2024;
  * 
  */
 
 
 import { shortcuts }   from '@peter.naydenov/shortcuts'      // Docs : https://github.com/PeterNaydenov/shortcuts
-import askForPromise from 'ask-for-promise'                // Docs : https://github.com/PeterNaydenov/ask-for-promise
-import createLog     from '@peter.naydenov/log'            // Docs : https://github.com/PeterNaydenov/log
+import askForPromise   from 'ask-for-promise'                // Docs : https://github.com/PeterNaydenov/ask-for-promise
+import createLog       from '@peter.naydenov/log'            // Docs : https://github.com/PeterNaydenov/log
 
 import findInstructions from './findInstructions.js'
-import setInstruction  from './setInstruction.js'
-import methods         from './methods/index.js'
+import setInstruction   from './setInstruction.js'
+import methods          from './methods/index.js'
 
 
 
@@ -26,25 +30,25 @@ import methods         from './methods/index.js'
 
 function main ( cfg= {logLevel:0} ) {
      const 
-          pgMngr = shortcuts ()
+          shortcutMngr = shortcuts ()
         , logLevel = cfg.logLevel || 0
         , log = createLog ({ level:logLevel })
         , state = {     
-                     currentPage   : null       // Current page name;
-                   , currentParents: null       // Current page parents if any;
-                   , pageNames     : new Set () // Set with all loaded JS-pages;
-                   , pages         : {}         // Collection of all pages
-                   , opened        : false      // Flag to indicate if the page manager is opened
+                     currentScene   : null       // Current scene name;
+                   , currentParents : null       // Current scene parents if any;
+                   , sceneNames     : new Set () // Set with all loaded scenes;
+                   , scenes         : {}         // Collection of all scenes;
+                   , opened         : false      // Flag to indicate if the scene manager is opened
                 }
         , API = {}
         , inAPI = {}
         , dependencies = { 
-                             pgMngr
+                             shortcutMngr
                            , API
                            , inAPI
                            , findInstructions
                            , askForPromise
-                           , setInstruction : setInstruction ({ askForPromise, deps: pgMngr.getDependencies })
+                           , setInstruction : setInstruction ({ askForPromise, deps: shortcutMngr.getDependencies })
                            , log
                         }
         ;
@@ -56,18 +60,18 @@ function main ( cfg= {logLevel:0} ) {
         
         /**
          * @function setDependencies
-         * @description Set dependencies for the JS-pages
+         * @description Set dependencies for the Scenes
          * @param {*} deps - dependencies objects
          * @returns void
          */
-        API.setDependencies = deps  => pgMngr.setDependencies ( deps )
+        API.setDependencies = deps  => shortcutMngr.setDependencies ( deps )
 
         /**
          * @function getDependencies
-         * @description Get dependencies for the JS-pages
+         * @description Get dependencies for the Scenes
          * @returns {*} - dependencies objects
          */
-        API.getDependencies = () => pgMngr.getDependencies ()
+        API.getDependencies = () => shortcutMngr.getDependencies ()
 
         /**
          * @function setNote
@@ -77,11 +81,11 @@ function main ( cfg= {logLevel:0} ) {
         API.setNote         = note => shortcuts.setNote ( note )
 
         /**
-         * @function listPages
-         * @description List all loaded JS-pages names
-         * @returns {Array.<string>} - list of JS-pages names
+         * @function listScenes
+         * @description List all loaded Scene names
+         * @returns {Array.<string>} - list of scene names
          */
-        API.listPages = () => [ ...state.pageNames ]
+        API.listScenes = () => [ ...state.sceneNames ]
 
         /**
          * @function enablePlugin
@@ -90,7 +94,7 @@ function main ( cfg= {logLevel:0} ) {
          * @param {*} options - plugin options
          * @returns void
          */
-        API.enablePlugin = (plugin,options) => pgMngr.enablePlugin ( plugin, options )
+        API.enablePlugin = (plugin,options) => shortcutMngr.enablePlugin ( plugin, options )
 
         /**
          * @function disablePlugin
@@ -98,7 +102,7 @@ function main ( cfg= {logLevel:0} ) {
          * @param {string} pluginName - plugin name
          * @returns void
          */
-        API.disablePlugin = ( pluginName )  => pgMngr.disablePlugin ( pluginName )
+        API.disablePlugin = ( pluginName )  => shortcutMngr.disablePlugin ( pluginName )
 
 
         /**
@@ -108,7 +112,7 @@ function main ( cfg= {logLevel:0} ) {
          * @param {*} data - event data
          * @returns void
          */
-        API.emit = ( event, ...args ) => pgMngr.emit ( event, ...args )
+        API.emit = ( event, ...args ) => shortcutMngr.emit ( event, ...args )
 
         return API
 } // main func.

@@ -4,7 +4,7 @@
 function* findInstructions ( currentName, currentParents, targetName, targetParents ) {
     let backToName, backIndex=null;
     
-    if ( currentName === null ) {   // When the page manager is just started
+    if ( currentName === null ) {   // When the scene manager is just started
             yield* targetParents.map ( name => [ name, 'show' ])
             yield [ targetName, 'show' ]
             return

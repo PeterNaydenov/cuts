@@ -2,7 +2,7 @@
 
 import VisualController from '@peter.naydenov/visual-controller-for-vue3' // Docs : https://github.com/PeterNaydenov/visual-controller-for-vue3
 import { expect } from 'chai'
-import screenWriter from '../src/main.js'
+import cuts from '../src/main.js'
 import { pluginClick } from '@peter.naydenov/shortcuts'
 
 import Dummy from './dummy.vue'
@@ -15,12 +15,12 @@ import Gray from './gray.vue'
 describe ( 'General', () => {
     
     it ( 'Start a sreenWriter. ScreenWriter API', () => {
-                const script = screenWriter ();
-                expect ( script ).to.have.property ( 'turnTo' )
-                expect ( script ).to.have.property ( 'close' )
-                expect ( script ).to.have.property ( 'setPages' )
+                const script = cuts ();
+                expect ( script ).to.have.property ( 'show' )
+                expect ( script ).to.have.property ( 'hide' )
+                expect ( script ).to.have.property ( 'setScenes' )
                 expect ( script ).to.have.property ( 'setNote' )
-                expect ( script ).to.have.property ( 'listPages' )
+                expect ( script ).to.have.property ( 'listScenes' )
                 expect ( script ).to.have.property ( 'listShortcuts' )
                 expect ( script ).to.have.property ( 'setDependencies' )
                 expect ( script ).to.have.property ( 'getDependencies' )
@@ -35,9 +35,9 @@ describe ( 'General', () => {
                     , html = new VisualController ()
                     ;
                 const 
-                      script = screenWriter ()
+                      script = cuts ()
                     , d = document.querySelector ('[data-cy-root]')
-                    , testPage = { 
+                    , testScene = { 
                                       show : ({ task, dependencies }) => {
                                                 const { html } = dependencies;
                                                 html.publish ( Red, {}, 'container' )
@@ -61,10 +61,10 @@ describe ( 'General', () => {
                 cy.wait ( 0 )
                     .then ( () => {
                             script.setDependencies ({ html })
-                            script.setPages ([ 
-                                                  { name:'test', page:testPage } 
+                            script.setScenes ([ 
+                                                  { name:'test', scene:testScene } 
                                             ])
-                            script.turnTo ({ page : 'test' })
+                            script.show ({ scene : 'test' })
                             // cy.get ( '#target' ).click ()
                         })
                     .then ( () => {
@@ -73,7 +73,7 @@ describe ( 'General', () => {
                             return cy.wait ( 0 )
                         })
                     .then ( () => {
-                            return script.close ()
+                            return script.hide ()
                         })
                     .then ( () => {
                             const pageContent = document.getElementById('container').innerHTML
@@ -91,9 +91,9 @@ describe ( 'General', () => {
                 , html = new VisualController ()
                 ;
             const 
-                  script = screenWriter ()
+                  script = cuts ()
                 , d = document.querySelector ('[data-cy-root]' )
-                , testPage = { 
+                , testScene = { 
                                   show : ({ task, dependencies }) => {
                                             const { html } = dependencies;
                                             html.publish ( Red, {}, 'container' )
@@ -131,11 +131,11 @@ describe ( 'General', () => {
             cy.wait ( 0 )
                 .then ( () => {
                         script.setDependencies ({ html })
-                        script.setPages ([ 
-                                              { name:'test', page:testPage } 
-                                            , { name: 'blue', page:bluePage }
+                        script.setScenes ([ 
+                                              { name:'test' , scene : testScene } 
+                                            , { name: 'blue', scene : bluePage  }
                                         ])
-                        script.turnTo ({ page: 'test' })
+                        script.show ({ scene: 'test' })
                         cy.get ( '#target' ).click ()
                     })
                 .then ( () => {
@@ -144,7 +144,7 @@ describe ( 'General', () => {
                         return cy.wait ( 0 )
                     })
                 .then ( () => {
-                        return script.close ( '*' )
+                        return script.hide ( '*' )
                     })
                 .then ( () => {
                         const pageContent = document.getElementById('container').innerHTML
@@ -162,9 +162,9 @@ describe ( 'General', () => {
                 , html = new VisualController ()
                 ;
             const 
-                  script = screenWriter ()
+                  script = cuts ()
                 , d = document.querySelector ('[data-cy-root]' )
-                , testPage = { 
+                , testScene = { 
                                   show : ({ task, dependencies }) => {
                                             const { html } = dependencies;
                                             html.publish ( Red, {}, 'subgray' )   // subgray is inside 'blue' component
@@ -216,12 +216,12 @@ describe ( 'General', () => {
             cy.wait ( 0 )
                 .then ( () => {
                         script.setDependencies ({ html })
-                        script.setPages ([ 
-                                              { name:'test', page:testPage } 
-                                            , { name: 'blue', page:bluePage }
-                                            , { name: 'gray', page:grayPage }
+                        script.setScenes ([ 
+                                              { name:'test', scene  : testScene } 
+                                            , { name: 'blue', scene : bluePage  }
+                                            , { name: 'gray', scene : grayPage  }
                                         ])
-                        script.turnTo ({ page : 'test' })
+                        script.show ({ scene : 'test' })
                         cy.get ( '#target' ).click ()
                     })
                 .then ( () => {
@@ -229,7 +229,7 @@ describe ( 'General', () => {
                         expect ( click ).to.be.true
                         return cy.wait ( 0 )
                     })
-                .then ( () => script.turnTo ({ page : 'gray' }  ))
+                .then ( () => script.show ({ scene : 'gray' }  ))
                 .then ( () => {
                         const 
                               red = document.querySelectorAll ( '.red' )

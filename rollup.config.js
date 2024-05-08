@@ -8,8 +8,8 @@ export default [
 	{
 		input: 'src/main.js',
 		output: {
-			name: 'screenWriter',
-			file: 'dist/screen-writer.umd.js',
+			name: 'cuts',
+			file: 'dist/cuts.umd.js',
 			format: 'umd'
 		},
 		plugins: [
@@ -28,14 +28,13 @@ export default [
 	{
 		input: 'src/main.js',
 		external: [
-                'ask-for-promise', 
-                '@peter.naydenov/dynamic-import', 
+                'ask-for-promise',
                 '@peter.naydenov/log', 
-                '@peter.naydenov/shortcuts' 
+                '@peter.naydenov/shortcuts'
             ],
 		output: [
-			{ file: 'dist/screen-writer.cjs'    , format: 'cjs' },
-			{ file: 'dist/screen-writer.esm.mjs', format: 'es' }
+			{ file: 'dist/cuts.cjs'    , format: 'cjs' },
+			{ file: 'dist/cuts.esm.mjs', format: 'es' }
 		],
 		plugins: [ terser() ]
 	}

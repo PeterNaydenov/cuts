@@ -1,13 +1,13 @@
 
-import close         from './close.js'
+import hide          from './hide.js'
 import listShortcuts from './listShortcuts.js'
-import setPages      from './setPages.js'
-import turnTo        from './turnTo.js'
+import setScenes     from './setScenes.js'
+import show          from './show.js'
 
 
 export default {
-              close
+              hide
             , listShortcuts
-            , setPages
-            , turnTo
+            , setScenes
+            , show
         }
