@@ -35,11 +35,11 @@
     "@vitejs/plugin-vue": "^5.0.5",
     "c8": "^10.1.2",
     "chai": "^5.1.1",
-    "cypress": "^13.13.0",
-    "mocha": "^10.6.0",
-    "rollup": "^4.18.1",
-    "vite": "^5.3.3",
-    "vue": "^3.4.31"
+    "cypress": "^13.13.1",
+    "mocha": "^10.7.0",
+    "rollup": "^4.19.0",
+    "vite": "^5.3.4",
+    "vue": "^3.4.33"
   },
   "dependencies": {
     "@peter.naydenov/log": "^1.1.0",
