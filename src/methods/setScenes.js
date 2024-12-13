@@ -1,18 +1,22 @@
 'use strict'
 
 /** 
- * @type sceneDescription
+ * @typedef {Object} sceneDescription
  * @param {string} name - name of the scene
  * @param {object} scene - object should contain 'show' and 'hide' + shortcuts and action functions
  */
 
+
+
+
 function setScenes ( dependencies, state ) {
-/**
- * @function setScenes
- * @param {Array} sceneDescription - list of objects with name and scene. Scene should be a Scene model.
- * @returns { void }
- */
-return function setScenes ( list ) {
+    /**
+     * @function setScenes
+     * @param {ScreenDescription[]} list - list of objects with name and scene. Scene should be a Scene model.
+     * @returns void
+     * @description Screen Description is an object with fields 'name' and 'scene'
+     */
+    return function setScenes ( list ) {
     const { shortcutMngr } = dependencies;
     list.forEach ( ({name, scene }) => {
                     if ( !scene.parents ) scene.parents = []
@@ -27,6 +31,7 @@ return function setScenes ( list ) {
                     context[name] = shortcuts
                     shortcutMngr.load ( context )
             })
+      
 }} // setScenes func.
 
 

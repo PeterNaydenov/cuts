@@ -2,6 +2,13 @@
 
 
 
+### 1.1.0 (2024-12-13)
+- [x] Type improvements;
+- [x] Refactoring related to types;
+- [x] New method `loadPlugins` to load shortcut plugins: `Key`, `Click` or both;
+
+
+
 ### 1.0.2 (2024-12-12)
 - [x] Create d.ts files in folder 'types';
 

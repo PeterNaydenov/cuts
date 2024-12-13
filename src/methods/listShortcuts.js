@@ -5,7 +5,7 @@ function listShortcuts ( dependencies, state ) {
  * @function listShortcuts
  * @description List all shortcuts for Scene
  * @param {string} sceneName - name of the scene to list shortcuts for.
- * @returns {(Array.<string>|null)} - list of shortcuts for the scene or null if page not found
+ * @returns {(Array.<string>|null)} - list of shortcuts for the scene or null if scene is not found
  */
 return function listShortcuts ( sceneName ) {
     const { scenes, sceneNames } = state;

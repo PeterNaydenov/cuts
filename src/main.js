@@ -22,9 +22,12 @@ import createLog       from '@peter.naydenov/log'            // Docs : https://g
 
 import findInstructions from './findInstructions.js'
 import setInstruction   from './setInstruction.js'
-import methods          from './methods/index.js'
 
 
+import hide          from './methods/hide.js'
+import listShortcuts from './methods/listShortcuts.js'
+import setScenes     from './methods/setScenes.js'
+import show          from './methods/show.js'
 
 
 
@@ -53,10 +56,32 @@ function main ( cfg= {logLevel:0} ) {
                         }
         ;
 
-        Object.entries ( methods ).forEach ( ([name, fn]) => {
-                        if ( name.startsWith ( '_' ) )   inAPI[name] = fn ( dependencies, state )
-                        else                             API[name]   = fn ( dependencies, state )
-                })
+        API.hide          = hide ( dependencies, state )
+        API.listShortcuts = listShortcuts ( dependencies, state )
+        API.listShortcuts = listShortcuts ( dependencies, state )
+        API.setScenes     = setScenes ( dependencies, state )
+        API.show          = show ( dependencies, state )
+
+        /**
+         * @typedef {'Key'|'Click' } pluginNames
+         * @description List of possible plugin names: 'Key', 'Click'
+         * 
+         * Load a needed shortcut plugins - 'Key', 'Click' or both.
+         * It's a async function. Don't forget to 'await' it.
+         * @function loadPlugins
+         * @param {Array.<pluginNames>} plugins - list of plugins to load
+         * @returns {Promise.<function[]>} - loaded plugins in a sequence
+         * 
+         * @example
+         * // script is instance of cuts
+         * await script.loadPlugins ( ['Key', 'Click'] )
+         *             .then ( plugins => plugins.forEach ( plugin => script.enablePlugin ( plugin ) ) )
+         */
+        API.loadPlugins = async function loadPlugins ( plugins ) {
+                                        const pl = plugins.map ( name => `plugin${name}`);
+                                        const module = await import ( '@peter.naydenov/shortcuts')
+                                        return pl.map ( name => module[name] )
+                                } // loadPlugins func.
         
         /**
          * @function setDependencies
@@ -91,14 +116,14 @@ function main ( cfg= {logLevel:0} ) {
          * @function enablePlugin
          * @description Enable a shortcut plugin
          * @param {function} plugin - plugin library
-         * @param {*} options - plugin options
+         * @param {*} [options] - plugin options
          * @returns void
          */
         API.enablePlugin = (plugin,options) => shortcutMngr.enablePlugin ( plugin, options )
 
         /**
+         * Disable a shortcut plugin
          * @function disablePlugin
-         * @description Disable a shortcut plugin
          * @param {string} pluginName - plugin name
          * @returns void
          */
@@ -109,11 +134,11 @@ function main ( cfg= {logLevel:0} ) {
          * @function emit
          * @description Emit an event
          * @param {string} event - event name
+         * @param {...*} args - Extra data to pass to the listeners
          * @param {*} data - event data
          * @returns void
          */
         API.emit = ( event, ...args ) => shortcutMngr.emit ( event, ...args )
-
         return API
 } // main func.
 

@@ -4,16 +4,16 @@
 
 function show ( dependencies, state ) {
 /**
+ * Switch to the scene with the requested name
  * @function show
- * @description Switch to the requested scene
  * @param {Object} request - request object
  * @param {string} request.scene - requested scene name
- * @param {Object} request.options - options object. Optional
+ * @param {Object} [request.options] - options object. (Optional)
  * @param {boolean} request.options.ssr - flag to indicate if the scene is already rendered(ssr: server side rendering). Optional
- * @param {Array} args - arguments to pass to the scene method. Optional
+ * @param {Array} [args] - arguments to pass to the scene method. (Optional)
  * @returns {Promise} - promise that resolves when the process to 'show' is completed
  */
-return function show ({scene:requestedScene, options={ssr:false}}, ...args ) {
+ function show ({scene:requestedScene, options={ssr:false}}, ...args ) {
     const 
           { shortcutMngr, askForPromise, log, findInstructions, setInstruction } = dependencies
         , showTask = askForPromise ()
@@ -96,7 +96,9 @@ return function show ({scene:requestedScene, options={ssr:false}}, ...args ) {
                         showTask.done () 
                 })
     return showTask.promise
-}} // show func.
+    } // show func.
+    return show
+} // show func.
 
 
 
