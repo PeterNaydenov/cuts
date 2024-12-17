@@ -38,7 +38,7 @@
     "@vitejs/plugin-vue": "^5.2.1",
     "c8": "^10.1.3",
     "chai": "^5.1.2",
-    "cypress": "^13.16.1",
+    "cypress": "^13.17.0",
     "mocha": "^11.0.1",
     "rollup": "^4.28.1",
     "typescript": "^5.7.2",
@@ -48,7 +48,7 @@
   "dependencies": {
     "@peter.naydenov/log": "^1.1.0",
     "@peter.naydenov/shortcuts": "^3.1.1",
-    "ask-for-promise": "^2.0.4"
+    "ask-for-promise": "^3.0.1"
   },
   "keywords": [
     "script",
