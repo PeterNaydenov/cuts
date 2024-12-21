@@ -1,11 +1,13 @@
 # Release History
 
 
-
+### 1.2.1 ( 2024-12-21 )
+- [x] Fix: Wrong settings if missing 'beforeHide' method;
 
 
 ### 1.2.0 (2024-12-21)
 - [x] Extend 'scene' with optional 'afterShow' and 'beforeHide' methods;
+- [x] Bug: Wrong settings if missing 'beforeHide' method;
 
 
 
