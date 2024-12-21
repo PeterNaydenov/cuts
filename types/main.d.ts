@@ -4,7 +4,7 @@ declare function main(cfg?: {
 }): {
     hide: (endSteps?: number | string) => Promise<any>;
     listShortcuts: (sceneName: string) => (Array<string> | null);
-    setScenes: (list: ScreenDescription[]) => void;
+    setScenes: (list: SceneDescription[]) => void;
     show: ({ scene: requestedScene, options }: {
         scene: string;
         options?: {

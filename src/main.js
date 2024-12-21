@@ -11,8 +11,8 @@
  *    - Rename to @peter.naydenov/cuts 
  *      Changes in documentation and some methods were renamed accordingly. 
  *      Version 1.0.0. 
- *      Published on May 8th, 2024;
- * 
+ *      Published for first time as package '@peter.naydenov/cuts' on May 8th, 2024;
+ *      Extend 'scene' with optional 'afterShow' and 'beforeHide' methods. December 21st, 2024;
  */
 
 

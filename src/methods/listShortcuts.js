@@ -10,7 +10,7 @@ function listShortcuts ( dependencies, state ) {
 return function listShortcuts ( sceneName ) {
     const { scenes, sceneNames } = state;
     if ( ! sceneNames.has ( sceneName ) )   return null
-    const { show, hide, parents, ...shortcuts } = scenes[sceneName];
+    const { show, hide, parents, beforeUnload, afterLoad,  ...shortcuts } = scenes[sceneName];
     return Object.keys ( shortcuts )
 }} // listShortcuts func.
 

@@ -2,6 +2,13 @@
 
 
 
+
+
+### 1.2.0 (2024-12-21)
+- [x] Extend 'scene' with optional 'afterShow' and 'beforeHide' methods;
+
+
+
 ### 1.1.0 (2024-12-13)
 - [x] Type improvements;
 - [x] Refactoring related to types;
