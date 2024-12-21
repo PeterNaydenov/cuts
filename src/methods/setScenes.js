@@ -4,9 +4,9 @@
 /**
  * @typedef {Object} SceneObject
  * @param {function} show - load interface and prerequisites for the scene;
- * @param {function} [afterShow] - run after scene is loaded. Optional;
- * @param {function} hide - Reverse the settings from 'show';
- * @param {function} [beforeHide] - Run before scene is hidden. Optional;
+ * @param {function():boolean} [afterShow] - run after scene is loaded. Optional. Returns true to continue loading, false to cancel;
+ * @param {function():void} hide - Reverse the settings from 'show';
+ * @param {function():void} [beforeHide] - Run before scene is hidden. Optional;
  * @param {Array.<string>} [parents] - list of parent scene names.
  * @param {*} ... - shortcut descriptions
  */
