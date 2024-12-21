@@ -9,5 +9,20 @@
   </head>
   <body>
     <div id="app"></div>
+    <script type="module">
+          import cuts from './src/main.js'
+          let app = cuts ()
+
+          let testScene =  {
+                    name: 'testScene'
+                    , scene : {
+                                show: () => { console.log('show') }
+                              , hide: () => { console.log ('hide') }
+                          }
+                    }
+          console.log ( app )
+          app.setScenes ( [ testScene] )
+          app.show ( 'testScene' )
+    </script>
   </body>
 </html>

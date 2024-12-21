@@ -27,18 +27,18 @@ function show ( dependencies, state ) {
                             closingFn ({ done:unloadTask.done, dependencies })
                     }
         } // if currentPage
-    else  unloadTask.done ()
+    else  unloadTask.done ( true )
 
 
     unloadTask.onComplete ( continueLoading => {
-                    
+        
                     if ( !continueLoading ) { 
                                 // if the 'beforeUnload' function returns false
                                 // Cancel loading the new scene
                                 showTask.done ()
                                 return showTask.promise
                         }
-                    
+                        
                     if ( !sceneNames.has ( requestedScene ) ) {
                             if ( log ) {
                                             log ({
@@ -50,7 +50,7 @@ function show ( dependencies, state ) {
                                             return showTask.promise
                                 }
                         }
-
+                        
                     if ( !opened && options.ssr ) {  // Check for Server side rendering on first scene load only
                                 // Executes only once when the scene manager is started
                                 state.opened = true
@@ -109,6 +109,7 @@ function show ( dependencies, state ) {
                         }
                                     
                     const goingTask = askForPromise.sequence ( instructions );  // Execute open steps(show and hide) in sequence
+                    
                     goingTask.onComplete ( () => {
                                         state.opened = true
                                         shortcutMngr.changeContext ( requestedScene )
