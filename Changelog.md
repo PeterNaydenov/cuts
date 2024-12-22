@@ -1,13 +1,20 @@
 # Release History
 
 
+### 1.2.2 ( 2024-12-22 )
+- [x] Fix: Wrong argument 'dependencies' for 'beforeHide' and 'afterShow' methods;
+
+
+
 ### 1.2.1 ( 2024-12-21 )
 - [x] Fix: Wrong settings if missing 'beforeHide' method;
+- [ ] Bug: Wrong argument 'dependencies' for 'beforeHide' and 'afterShow' methods;
 
 
 ### 1.2.0 (2024-12-21)
 - [x] Extend 'scene' with optional 'afterShow' and 'beforeHide' methods;
-- [x] Bug: Wrong settings if missing 'beforeHide' method;
+- [ ] Bug: Wrong settings if missing 'beforeHide' method;
+- [ ] Bug: Wrong argument 'dependencies' for 'beforeHide' and 'afterShow' methods;
 
 
 

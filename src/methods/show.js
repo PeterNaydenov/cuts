@@ -24,7 +24,7 @@ function show ( dependencies, state ) {
     if ( currentPage ) { // Execute 'beforeUnload' function if exists
                 const closingFn = scenes[currentPage].beforeHide;
                 if ( typeof closingFn === 'function' ) {  
-                            closingFn ({ done:unloadTask.done, dependencies })
+                            closingFn ({ done:unloadTask.done, dependencies: shortcutMngr.getDependencies() })
                     }
         } // if currentPage
     else  unloadTask.done ( true )
@@ -112,8 +112,8 @@ function show ( dependencies, state ) {
                     
                     goingTask.onComplete ( () => {
                                         state.opened = true
-                                        shortcutMngr.changeContext ( requestedScene )
-                                        if ( typeof scenes[requestedScene].afterShow === 'function' )   scenes[requestedScene].afterShow ({ dependencies, done: () => {} })
+                                        shortcutMngr.changeContext ( requestedScene )                                        
+                                        if ( typeof scenes[requestedScene].afterShow === 'function' )   scenes[requestedScene].afterShow ({ dependencies: shortcutMngr.getDependencies(), done: () => {} })
                                         showTask.done () 
                                 })
         }) // unloadTask onComplete
