@@ -63,9 +63,11 @@ Scene is a data model that describes how to render the scene and how the user wi
 
 ```js
 {
-    show    // method. Returns a promise
-  , hide    // method. Returns a promise
-  , parents // list of parent Scene names.
+    show       // method. Returns a promise
+  , afterShow  // method. Starts after the scene is shown (optional)
+  , hide       // method. Returns a promise
+  , beforeHide // method. Starts before the scene is hidden (optional)
+  , parents    // list of parent Scene names.
   // ... shortcuts for all user interactions with the screen ( mouse, keyboard, etc.)
   // Shortcuts are implemented with @peter.naydenov/shortcuts
 }
@@ -76,6 +78,16 @@ Scenes can be `visible`(show) and `unvisible`(hide), also some scenes can be a c
 
 
 
+## AfterShow and BeforeHide
+
+AfterShow and BeforeHide are optional methods that coming after version 1.2.x. `Aftershow` is created to run a javascript, that we normally want to 'deffer'. They are not related to showing the scene, could need more time to execute and don't have user interaction triggers. Something like 'document.onload' but here in a context of SPA.
+
+`BeforeHide` is function that will run before navigation away from the scene. It's inspired by the `beforeunload` event. Here we can write code that will prevent navigation away from the scene.
+
+```js
+
+
+```
 
 
 ## Links
