@@ -1,6 +1,13 @@
 # Release History
 
 
+
+
+### 1.2.3 ( 2024-12-23)
+- [x] Dependency update. @peter.naydenov/shortcuts@3.1.2;
+
+
+
 ### 1.2.2 ( 2024-12-22 )
 - [x] Fix: Wrong argument 'dependencies' for 'beforeHide' and 'afterShow' methods;
 
