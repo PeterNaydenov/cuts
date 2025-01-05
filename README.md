@@ -84,10 +84,6 @@ AfterShow and BeforeHide are optional methods that coming after version 1.2.x. `
 
 `BeforeHide` is function that will run before navigation away from the scene. It's inspired by the `beforeunload` event. Here we can write code that will prevent navigation away from the scene.
 
-```js
-
-
-```
 
 
 ## Links
