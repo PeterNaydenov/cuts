@@ -82,7 +82,7 @@ Scenes can be `visible`(show) and `unvisible`(hide), also some scenes can be a c
 
 AfterShow and BeforeHide are optional methods that coming after version 1.2.x. `Aftershow` is created to run a javascript, that we normally want to 'deffer'. They are not related to showing the scene, could need more time to execute and don't have user interaction triggers. Something like 'document.onload' but here in a context of SPA.
 
-`BeforeHide` is function that will run before navigation away from the scene. It's inspired by the `beforeunload` event. Here we can write code that will prevent navigation away from the scene.
+`BeforeHide` is function that will run before navigation away from the scene. It's inspired by the `beforeunload` event. Here we can write code that will prevent navigation away from the scene. Should return a boolean. If true, navigation will be allowed, if false, navigation will be prevented.
 
 
 
