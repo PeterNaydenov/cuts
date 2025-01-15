@@ -3,6 +3,11 @@
 
 
 
+### 1.2.4 ( 2025-01-15)
+- [x] Dependency update. @peter.naydenov/shortcuts@3.1.3;
+
+
+
 ### 1.2.3 ( 2024-12-23)
 - [x] Dependency update. @peter.naydenov/shortcuts@3.1.2;
 
