@@ -32,6 +32,10 @@ function setScenes ( dependencies, state ) {
     return function setScenes ( list ) {
     const { shortcutMngr } = dependencies;
     list.forEach ( ({name, scene }) => {
+                    if ( scene == null ) {
+                            console.warn ( `Scene ${name} is not defined` )
+                            return
+                      }
                     if ( !scene.parents ) scene.parents = []
                     state.scenes[name] = scene
                     state.sceneNames.add ( name )

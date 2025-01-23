@@ -3,6 +3,11 @@
 
 
 
+### 1.2.5 ( 2025-01-23)
+- [x] Improve: Warn that the scene is not defined if scene is set to null;
+
+
+
 ### 1.2.4 ( 2025-01-15)
 - [x] Dependency update. @peter.naydenov/shortcuts@3.1.3;
 
