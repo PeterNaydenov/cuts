@@ -3,6 +3,11 @@
 
 
 
+### 1.2.7 ( 2025-02-04)
+- [x] Dependency update. @peter.naydenov/log@1.1.1;
+
+
+
 ### 1.2.6 ( 2025-01-23)
 - [x] Improve: Warn that the scene is not defined if scene is set to null;
 
