@@ -2,6 +2,9 @@
 
 
 
+## 1.2.8 ( 2025-05-03)
+- [x] Dependency update. @peter.naydenov/shortcuts@3.1.4;
+
 
 ### 1.2.7 ( 2025-02-04)
 - [x] Dependency update. @peter.naydenov/log@1.1.1;
