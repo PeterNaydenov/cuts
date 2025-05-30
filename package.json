@@ -44,7 +44,7 @@
     "rollup": "^4.41.1",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
-    "vue": "^3.5.14"
+    "vue": "^3.5.16"
   },
   "dependencies": {
     "@peter.naydenov/log": "^1.1.1",
