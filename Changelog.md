@@ -1,11 +1,13 @@
 # Release History
 
 
-
+## 1.3.1 ( 2025-08-15)
+- [ ] Fix: Missing typedef for plugin 'form'
 
 
 ## 1.3.0 ( 2025-08-15)
 - [x] Dependency update. @peter.naydenov/shortcuts@3.1.5. Plugin 'form' is available;
+- [ ] Miss: Missing typedef for plugin 'form'
 
 
 
