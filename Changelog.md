@@ -2,6 +2,13 @@
 
 
 
+
+
+## 1.3.0 ( 2025-08-15)
+- [x] Dependency update. @peter.naydenov/shortcuts@3.1.5. Plugin 'form' is available;
+
+
+
 ## 1.2.8 ( 2025-05-03)
 - [x] Dependency update. @peter.naydenov/shortcuts@3.1.4;
 
