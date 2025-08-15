@@ -64,7 +64,7 @@ function main ( cfg= {logLevel:0} ) {
         API.show          = show ( dependencies, state )
 
         /**
-         * @typedef {'Key'|'Click' } pluginNames
+         * @typedef {'Key'|'Click'|'Form' } pluginNames
          * @description List of possible plugin names: 'Key', 'Click'
          * 
          * Load a needed shortcut plugins - 'Key', 'Click' or both.
