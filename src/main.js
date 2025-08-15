@@ -13,6 +13,7 @@
  *      Version 1.0.0. 
  *      Published for first time as package '@peter.naydenov/cuts' on May 8th, 2024;
  *      Extend 'scene' with optional 'afterShow' and 'beforeHide' methods. December 21st, 2024;
+ *    - Shortcuts@3.2.x. Plugin 'form' is available. August 15th, 2025;
  */
 
 
