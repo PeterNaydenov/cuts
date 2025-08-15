@@ -11,7 +11,7 @@ declare function main(cfg?: {
             ssr: boolean;
         };
     }, ...args?: any[]) => Promise<any>;
-    loadPlugins(plugins: Array<"Key" | "Click">): Promise<Function[]>;
+    loadPlugins(plugins: Array<"Key" | "Click" | "Form">): Promise<Function[]>;
     setDependencies(deps: any): any;
     getDependencies(): any;
     setNote(note: string): any;
