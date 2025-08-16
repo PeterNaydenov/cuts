@@ -52,7 +52,7 @@ script.show ({ scene : 'sceneName'}) // change the current Scene
 , getDependencies : 'Returns the "dependencies" object'
 , enablePlugin    : 'Enable a shortcut plugin. Available after version 1.1.0'
 , disablePlugin   : 'Disable a shortcut plugin. Available after version 1.1.0'
-, emit            : 'Emit an event. Available after version 2.0.0'
+, emit            : 'Emit an event'
 ```
 
 
