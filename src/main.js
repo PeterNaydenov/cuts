@@ -65,7 +65,7 @@ function main ( cfg= {logLevel:0} ) {
 
         /**
          * @typedef {'Key'|'Click'|'Form' } pluginNames
-         * @description List of possible plugin names: 'Key', 'Click'
+         * @description List of possible plugin names: 'Key', 'Click', 'Form'
          * 
          * Load a needed shortcut plugins - 'Key', 'Click', 'Form' and so on.
          * It's a async function. Don't forget to 'await' it.
