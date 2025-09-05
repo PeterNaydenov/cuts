@@ -67,7 +67,7 @@ function main ( cfg= {logLevel:0} ) {
          * @typedef {'Key'|'Click'|'Form' } pluginNames
          * @description List of possible plugin names: 'Key', 'Click'
          * 
-         * Load a needed shortcut plugins - 'Key', 'Click' or both.
+         * Load a needed shortcut plugins - 'Key', 'Click', 'Form' and so on.
          * It's a async function. Don't forget to 'await' it.
          * @function loadPlugins
          * @param {Array.<pluginNames>} plugins - list of plugins to load
