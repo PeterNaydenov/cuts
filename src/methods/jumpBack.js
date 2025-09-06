@@ -1,7 +1,5 @@
 function jumpBack ( state, show ) {
     function jumpBack ({hops}={hops:1}, ...args ) {
-            // console.log ( hops )
-
             for ( let i = 0; i < hops-1; i++ ) {
                     state.jumpStack.pop ()
                 }
