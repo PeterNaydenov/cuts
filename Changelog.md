@@ -1,6 +1,12 @@
 # Release History
 
 
+
+## 1.4.0 ( 2025-09-06)
+- [x] New methods: jump, jumpBack, jumpsReset
+
+
+
 ## 1.3.1 ( 2025-08-15)
 - [ ] Fix: Missing typedef for plugin 'form'
 
