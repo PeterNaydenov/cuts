@@ -46,6 +46,9 @@ script.show ({ scene : 'sceneName'}) // change the current Scene
   setScenes       : 'Provide list of scenes to the app'
 , show            : 'Change the current scene'
 , hide            : 'Hide the current scene'
+, jump            : 'Go to the requested scene but remember the current scene'
+, jumpBack        : 'Jump back to the scene before the jump'
+, jumpsReset      : 'Reset the jump stack'
 , listScenes      : 'List of loaded Scene names'
 , listShortcuts   : 'List shortcuts per Scene. Provide the name of the Scene'
 , setDependencies : 'Add object to the "dependencies" object. This object will be passed to the Scene "show" method'
@@ -83,6 +86,26 @@ Scenes can be `visible`(show) and `unvisible`(hide), also some scenes can be a c
 AfterShow and BeforeHide are optional methods that coming after version 1.2.x. `Aftershow` is created to run a javascript, that we normally want to 'deffer'. They are not related to showing the scene, could need more time to execute and don't have user interaction triggers. Something like 'document.onload' but here in a context of SPA.
 
 `BeforeHide` is function that will run before navigation away from the scene. It's inspired by the `beforeunload` event. Here we can write code that will prevent navigation away from the scene. Should return a boolean. If true, navigation will be allowed, if false, navigation will be prevented.
+
+
+## Jump, JumpBack and JumpsReset methods
+
+Jump and JumpBack are created to simplify scene navigation flow. `Jump` will change the current scene as show method, but will remember the current scene as a point to return. `JumpBack` will go back to the scene before the jump. You can have multiple jumps. All scene names are recorded in the jump stack and you can getback to any scene in the stack. `JumpsReset` will reset the memory of the jump stack.
+
+```js
+script.show ({ scene : 'test' }) // Will load the 'test' scene. No memory
+script.jump ({ scene : 'blue' }) // Will load the 'blue' scene. Will remember 'test' scene in the jump stack
+script.jump ({ scene : 'green' }) // Will load the 'green' scene. Will remember 'blue' scene in the jump stack
+
+script.jumpBack () // Will load scene from the jump stack. Will load 'blue' scene
+script.jumpBack () // Will load scene from the jump stack. Will load 'test' scene
+script.jumpBack () // Will do nothing. No more scenes in the jump stack
+
+// Let's imagine that we made some jumps already. Our jumpStack is ['test', 'blue']
+// If we want to go back few steps back, we can use the 'hops' parameter
+script.jumpBack ({hops:2}) // Will load scene from the jump stack. Will load 'test' scene
+// Default value for the 'hops' parameter is 1
+```
 
 
 
