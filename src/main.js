@@ -43,6 +43,7 @@ function main ( cfg= {logLevel:0} ) {
                    , sceneNames     : new Set () // Set with all loaded scenes;
                    , scenes         : {}         // Collection of all scenes;
                    , opened         : false      // Flag to indicate if the scene manager is opened
+                   , jumpStack      : []         // Stack of jump instructions
                 }
         , API = {}
         , inAPI = {}
@@ -62,6 +63,9 @@ function main ( cfg= {logLevel:0} ) {
         API.listShortcuts = listShortcuts ( dependencies, state )
         API.setScenes     = setScenes ( dependencies, state )
         API.show          = show ( dependencies, state )
+        API.jump          = jump ( state, API.show )
+        API.jumpBack      = jumpBack ( state, API.show )
+        API.jumpsReset    = jumpsReset ( state )
 
         /**
          * @typedef {'Key'|'Click'|'Form' } pluginNames

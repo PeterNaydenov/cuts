@@ -42,7 +42,7 @@ function show ( dependencies, state ) {
                     if ( !sceneNames.has ( requestedScene ) ) {
                             if ( log ) {
                                             log ({
-                                                    message: `Scene ${requestedScene} is not available.`
+                                                      message: `Scene ${requestedScene} is not available.`
                                                     , level : 1
                                                     , type  : 'error'
                                                 })
