@@ -1,5 +1,7 @@
 function jumpsReset ( state ) {
-    state.jumpStack = []
+    return function jumpReset () {
+                    state.jumpStack = []
+            }
 } // jumpsReset func.
 
 

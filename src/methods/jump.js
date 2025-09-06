@@ -1,7 +1,7 @@
 function jump ( state, show ) {
-    function jump ( name, ...args ) {
+    function jump ( { scene }, ...args ) {
             state.jumpStack.push ( state.currentScene )
-            return show ( { scene : name }, ...args )
+            return show ( { scene }, ...args )
         }
     return jump
 } // jump func.

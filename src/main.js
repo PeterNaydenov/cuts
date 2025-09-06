@@ -29,7 +29,9 @@ import hide          from './methods/hide.js'
 import listShortcuts from './methods/listShortcuts.js'
 import setScenes     from './methods/setScenes.js'
 import show          from './methods/show.js'
-
+import jump          from './methods/jump.js'
+import jumpBack      from './methods/jumpBack.js'
+import jumpsReset    from './methods/jumpsReset.js'
 
 
 function main ( cfg= {logLevel:0} ) {

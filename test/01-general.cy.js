@@ -240,4 +240,109 @@ describe ( 'General', () => {
                         done ()
                     })
     }) // it turn to other branch
+
+
+
+    it ( 'Jump and jumpBack', done => {
+            const 
+                  script = cuts ()
+                , myLocations = []
+                , testScene = { 
+                                  show : ({ task, dependencies }) => {
+                                            myLocations.push ( 'test scene' )
+                                            task.done ()
+                                        }
+                                , hide : ({task, dependencies}) =>  task.done ()
+                        }
+                , bluePage = {
+                                      show : ({ task, dependencies }) => {
+                                                myLocations.push ( 'blue scene' )
+                                                task.done ()
+                                            }
+                                    , hide : ({task, dependencies}) =>  task.done ()
+                                    , 'click: left-1' : ({dependencies,target}) => {}
+                        }
+                , grayPage = {
+                                      show : ({ task, dependencies }) => {
+                                                myLocations.push ( 'gray scene' )
+                                                task.done ()
+                                            }
+                                    , hide : ({task, dependencies}) =>  task.done ()
+                        }
+                ;
+
+            script.setScenes ([ 
+                                  { name:'test',  scene : testScene } 
+                                , { name: 'blue', scene : bluePage  }
+                                , { name: 'gray', scene : grayPage  }
+                            ])
+
+            script.show ({ scene : 'test' })
+                  .then ( () =>  script.jump ({ scene : 'blue' })) // Go from test to blue. Remember 'test'
+                  .then ( () =>  script.jump ({ scene : 'gray' })) // Go from blue to gray. Remember 'blue'
+                  .then ( () =>  script.jumpBack ()) // Go back to blue. Taken from the stack
+                  .then ( () =>  script.jumpBack ()) // Go back to test. Taken from the stack
+                  .then ( () =>  script.jumpBack ()) // this should do nothing - no more back hops in stack
+                  .then ( () =>  {
+                        expect ( myLocations ).to.be.deep.equal ([ 
+                                                'test scene', 
+                                                'blue scene', 
+                                                'gray scene', 
+                                                'blue scene', 
+                                                'test scene' 
+                                            ])
+                        done ()   
+                    })
+        }) // it jump
+
+
+
+    it ( 'Jump and jumpsReset', done => {
+            const 
+                  script = cuts ()
+                , myLocations = []
+                , testScene = { 
+                                  show : ({ task, dependencies }) => {
+                                            myLocations.push ( 'test scene' )
+                                            task.done ()
+                                        }
+                                , hide : ({task, dependencies}) =>  task.done ()
+                        }
+                , bluePage = {
+                                      show : ({ task, dependencies }) => {
+                                                myLocations.push ( 'blue scene' )
+                                                task.done ()
+                                            }
+                                    , hide : ({task, dependencies}) =>  task.done ()
+                                    , 'click: left-1' : ({dependencies,target}) => {}
+                        }
+                , grayPage = {
+                                      show : ({ task, dependencies }) => {
+                                                myLocations.push ( 'gray scene' )
+                                                task.done ()
+                                            }
+                                    , hide : ({task, dependencies}) =>  task.done ()
+                        }
+                ;
+
+            script.setScenes ([ 
+                                  { name:'test',  scene : testScene } 
+                                , { name: 'blue', scene : bluePage  }
+                                , { name: 'gray', scene : grayPage  }
+                            ])
+
+            script.show ({ scene : 'test' })
+                  .then ( () =>  script.jump ({ scene : 'blue' })) // Go from test to blue. Remember 'test'
+                  .then ( () =>  script.jump ({ scene : 'gray' })) // Go from blue to gray. Remember 'blue'
+                  .then ( () =>  script.jumpsReset () ) // Clear the jump stack
+                  .then ( () =>  script.jumpBack ()) // This should do nothing - no back hops
+                  .then ( () =>  {
+                        expect ( myLocations ).to.be.deep.equal ([ 
+                                                'test scene', 
+                                                'blue scene', 
+                                                'gray scene', 
+                                            ])
+                        done ()   
+                    })
+        }) // it jump
 }) // describe
