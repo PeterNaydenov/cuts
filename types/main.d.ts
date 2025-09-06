@@ -11,6 +11,13 @@ declare function main(cfg?: {
             ssr: boolean;
         };
     }, ...args?: any[]) => Promise<any>;
+    jump: ({ scene }: {
+        scene: any;
+    }, ...args: any[]) => any;
+    jumpBack: ({ hops }?: {
+        hops: number;
+    }, ...args: any[]) => any;
+    jumpsReset: () => void;
     loadPlugins(plugins: Array<"Key" | "Click" | "Form">): Promise<Function[]>;
     setDependencies(deps: any): any;
     getDependencies(): any;
