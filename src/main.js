@@ -62,7 +62,6 @@ function main ( cfg= {logLevel:0} ) {
 
         API.hide          = hide ( dependencies, state )
         API.listShortcuts = listShortcuts ( dependencies, state )
-        API.listShortcuts = listShortcuts ( dependencies, state )
         API.setScenes     = setScenes ( dependencies, state )
         API.show          = show ( dependencies, state )
         API.jump          = jump ( state, API.show )
