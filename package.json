@@ -1,7 +1,7 @@
 {
   "name": "@peter.naydenov/cuts",
   "description": "SPA scene manager",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "license": "MIT",
   "author": "Peter Naydenov",
   "main": "./src/main.js",
