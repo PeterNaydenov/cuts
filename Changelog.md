@@ -1,10 +1,14 @@
 # Release History
 
 
+## 1.4.1. ( 2025-09-24)
+- [x] Fix: Cleaning a duplicated line of code in main.js;
+
+
 
 ## 1.4.0 ( 2025-09-06)
-- [x] New methods: jump, jumpBack, jumpsReset
-
+- [x] New methods: jump, jumpBack, jumpsReset;
+- [ ] Bug: Duplicated line of code in main.js;
 
 
 ## 1.3.1 ( 2025-08-15)
