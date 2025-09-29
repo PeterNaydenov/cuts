@@ -1,6 +1,9 @@
 # Release History
 
 
+## 1.4.2 ( 2025-09-29)
+- [x] Dependency update. @peter.naydenov/shortcuts@3.3.0;
+
 ## 1.4.1. ( 2025-09-24)
 - [x] Fix: Cleaning a duplicated line of code in main.js;
 
