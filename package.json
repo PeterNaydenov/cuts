@@ -49,7 +49,7 @@
   "dependencies": {
     "@peter.naydenov/log": "^1.1.1",
     "@peter.naydenov/shortcuts": "^3.3.0",
-    "ask-for-promise": "^3.0.1"
+    "ask-for-promise": "^3.0.2"
   },
   "c8": {
     "include": [
