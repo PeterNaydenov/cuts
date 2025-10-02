@@ -1,6 +1,12 @@
 # Release History
 
 
+
+## 1.4.3 ( 2025-09-30)
+- [x] Dependency update. ask-for-promise@3.0.2;
+
+
+
 ## 1.4.2 ( 2025-09-29)
 - [x] Dependency update. @peter.naydenov/shortcuts@3.3.0;
 
