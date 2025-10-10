@@ -2,6 +2,12 @@
 
 
 
+
+## 1.4.4 ( 2025-10-10)
+- [x] Dependency update. @peter.naydenov/shortcuts - v.3.3.1 ( fixing problem with 'key:specialCharacters' events);
+
+
+
 ## 1.4.3 ( 2025-09-30)
 - [x] Dependency update. ask-for-promise@3.0.2;
 
