@@ -1,6 +1,9 @@
 # Release History
 
 
+## 1.4.5 ( 2025-10-20 )
+- [x] Dependency update. @peter.naydenov/shortcuts - v.3.5.0
+
 
 
 ## 1.4.4 ( 2025-10-10)
