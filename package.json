@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "@peter.naydenov/log": "^1.1.1",
-    "@peter.naydenov/shortcuts": "^3.5.0",
+    "@peter.naydenov/shortcuts": "^3.5.1",
     "ask-for-promise": "^3.0.2"
   },
   "keywords": [
