@@ -136,14 +136,13 @@ function main ( cfg= {logLevel:0} ) {
         API.disablePlugin = ( pluginName )  => shortcutMngr.disablePlugin ( pluginName )
 
 
-        /**
-         * @function emit
-         * @description Emit an event
-         * @param {string} event - event name
-         * @param {...*} args - Extra data to pass to the listeners
-         * @param {*} data - event data
-         * @returns void
-         */
+         /**
+          * @function emit
+          * @description Emit an event
+          * @param {string} event - event name
+          * @param {...*} args - Extra data to pass to the listeners
+          * @returns void
+          */
         API.emit = ( event, ...args ) => shortcutMngr.emit ( event, ...args )
         return API
 } // main func.

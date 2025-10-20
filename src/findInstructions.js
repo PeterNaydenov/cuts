@@ -1,6 +1,15 @@
 'use strict'
 
 
+/**
+ * @function findInstructions
+ * @description Generator that yields instructions for transitioning between scenes
+ * @param {string|null} currentName - current scene name
+ * @param {Array.<string>|null} currentParents - current scene parents
+ * @param {string} targetName - target scene name
+ * @param {Array.<string>} targetParents - target scene parents
+ * @yields {Array.<string, 'show'|'hide'>} - instruction array with scene name and action
+ */
 function* findInstructions ( currentName, currentParents, targetName, targetParents ) {
     let backToName, backIndex=null;
     

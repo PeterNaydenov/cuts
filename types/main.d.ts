@@ -4,7 +4,7 @@ declare function main(cfg?: {
 }): {
     hide: (endSteps?: number | string) => Promise<any>;
     listShortcuts: (sceneName: string) => (Array<string> | null);
-    setScenes: (list: SceneDescription[]) => void;
+    setScenes: (list: import("./methods/setScenes.js").sceneDescription[]) => void;
     show: ({ scene: requestedScene, options }: {
         scene: string;
         options?: {
@@ -12,11 +12,11 @@ declare function main(cfg?: {
         };
     }, ...args?: any[]) => Promise<any>;
     jump: ({ scene }: {
-        scene: any;
-    }, ...args: any[]) => any;
+        scene: string;
+    }, ...args?: any[]) => Promise<any>;
     jumpBack: ({ hops }?: {
-        hops: number;
-    }, ...args: any[]) => any;
+        hops?: number;
+    }, ...args?: any[]) => Promise<any> | undefined;
     jumpsReset: () => void;
     loadPlugins(plugins: Array<"Key" | "Click" | "Form">): Promise<Function[]>;
     setDependencies(deps: any): any;

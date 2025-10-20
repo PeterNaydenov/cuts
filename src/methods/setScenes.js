@@ -3,32 +3,32 @@
 
 /**
  * @typedef {Object} SceneObject
- * @param {function} show - load interface and prerequisites for the scene;
- * @param {function():boolean} [afterShow] - run after scene is loaded. Optional. Returns true to continue loading, false to cancel;
- * @param {function():void} hide - Reverse the settings from 'show';
- * @param {function():void} [beforeHide] - Run before scene is hidden. Optional;
- * @param {Array.<string>} [parents] - list of parent scene names.
- * @param {*} ... - shortcut descriptions
+ * @property {function} show - load interface and prerequisites for the scene;
+ * @property {function():boolean} [afterShow] - run after scene is loaded. Optional. Returns true to continue loading, false to cancel;
+ * @property {function():void} hide - Reverse the settings from 'show';
+ * @property {function():void} [beforeHide] - Run before scene is hidden. Optional;
+ * @property {Array.<string>} [parents] - list of parent scene names.
+ * @property {*} ... - shortcut descriptions
  */
 
 
 
-/** 
+/**
  * @typedef {Object} sceneDescription
- * @param {string} name - name of the scene
- * @param {SceneObject} scene - object should contain 'show' and 'hide' + shortcuts and action functions
+ * @property {string} name - name of the scene
+ * @property {SceneObject} scene - object should contain 'show' and 'hide' + shortcuts and action functions
  */
 
 
 
 
 function setScenes ( dependencies, state ) {
-    /**
-     * @function setScenes
-     * @param {SceneDescription[]} list - list of objects with name and scene. Scene should be a Scene model.
-     * @returns void
-     * @description Screen Description is an object with fields 'name' and 'scene'
-     */
+     /**
+      * @function setScenes
+      * @param {sceneDescription[]} list - list of objects with name and scene. Scene should be a Scene model.
+      * @returns void
+      * @description Screen Description is an object with fields 'name' and 'scene'
+      */
     return function setScenes ( list ) {
     const { shortcutMngr } = dependencies;
     list.forEach ( item => {

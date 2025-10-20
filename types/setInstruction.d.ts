@@ -1,3 +1,3 @@
 export default setInstruction;
-declare function setInstruction(dependencies: any): (fn: any, ...args: any[]) => () => any;
+declare function setInstruction(dependencies: any): (fn: Function, ...args: any[]) => Function;
 //# sourceMappingURL=setInstruction.d.ts.map
