@@ -3,6 +3,7 @@
 
 ## 1.4.5 ( 2025-10-20 )
 - [x] Dependency update. @peter.naydenov/shortcuts - v.3.5.0
+- [x] Cuts has event '@app-error'. Shortcut errors will trigger this event;
 
 
 
