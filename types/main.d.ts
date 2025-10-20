@@ -19,12 +19,12 @@ declare function main(cfg?: {
     }, ...args?: any[]) => Promise<any> | undefined;
     jumpsReset: () => void;
     loadPlugins(plugins: Array<"Key" | "Click" | "Form">): Promise<Function[]>;
-    setDependencies(deps: any): any;
+    setDependencies(deps: any): void;
     getDependencies(): any;
     setNote(note: string): any;
     listScenes(): Array<string>;
-    enablePlugin(plugin: Function, options?: any): any;
-    disablePlugin(pluginName: string): any;
-    emit(event: string, ...args: any[]): any;
+    enablePlugin(plugin: Function, options?: any): void;
+    disablePlugin(pluginName: string): void;
+    emit(event: string, ...args: any[]): void;
 };
 //# sourceMappingURL=main.d.ts.map

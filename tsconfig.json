@@ -5,6 +5,9 @@
       "declaration": true,
       "emitDeclarationOnly": true,
       "outDir": "types",
-      "declarationMap": true
+      "declarationMap": true,
+      "moduleResolution": "bundler",
+      "target": "ES2022",
+      "module": "ES2022"
     }
   }
