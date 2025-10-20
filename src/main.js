@@ -36,7 +36,7 @@ import jumpsReset    from './methods/jumpsReset.js'
 
 function main ( cfg= {logLevel:0} ) {
      const 
-          shortcutMngr = shortcuts ()
+          shortcutMngr = shortcuts ({ errorEventName: '@app-error' })
         , logLevel = cfg.logLevel || 0
         , log = createLog ({ level:logLevel })
         , state = {     
