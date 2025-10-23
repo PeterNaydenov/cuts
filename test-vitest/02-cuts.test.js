@@ -285,10 +285,128 @@ describe ( 'Cuts integration', () => {
                      await script.jumpBack ();
                      expect ( calls ).toEqual (['show home', 'hide home', 'show settings', 'hide settings', 'show home']);
                      expect ( script.getState().scene ).toEqual ( 'home' );
-         }) // it Jump functionality
+          }) // it Jump functionality
 
 
 
-    
+     it ( 'Jump with hops', async () => {
+                     const script = cuts();
+                     const calls = [];
+                     const scenes = [
+                                     {
+                                           name: 'scene1'
+                                         , scene: {
+                                                     show: ({task}) => { calls.push('show scene1'); task.done() },
+                                                     hide: ({task}) => { calls.push('hide scene1'); task.done() }
+                                             }
+                                         },
+                                         {
+                                           name: 'scene2'
+                                         , scene: {
+                                                     show: ({task}) => { calls.push('show scene2'); task.done() },
+                                                     hide: ({task}) => { calls.push('hide scene2'); task.done() }
+                                             }
+                                         },
+                                         {
+                                           name: 'scene3'
+                                         , scene: {
+                                                     show: ({task}) => { calls.push('show scene3'); task.done() },
+                                                     hide: ({task}) => { calls.push('hide scene3'); task.done() }
+                                             }
+                                         }
+                                 ];
 
-}) // describe
+                     script.setScenes ( scenes );
+
+                     await script.show ({ scene: 'scene1' });
+                     expect ( script.getState().scene ).toEqual ( 'scene1' );
+
+                     await script.jump ({ scene: 'scene2' });
+                     expect ( script.getState().scene ).toEqual ( 'scene2' );
+
+                     await script.jump ({ scene: 'scene3' });
+                     expect ( script.getState().scene ).toEqual ( 'scene3' );
+
+                     await script.jumpBack ({ hops: 2 });
+                     expect ( script.getState().scene ).toEqual ( 'scene1' );
+         }) // it Jump with hops
+
+
+
+     it ( 'Jumps reset and jump back on empty stack', async () => {
+                     const script = cuts();
+                     const scenes = [
+                                     {
+                                           name: 'scene1'
+                                         , scene: {
+                                                     show: ({task}) => task.done(),
+                                                     hide: ({task}) => task.done()
+                                             }
+                                         },
+                                         {
+                                           name: 'scene2'
+                                         , scene: {
+                                                     show: ({task}) => task.done(),
+                                                     hide: ({task}) => task.done()
+                                             }
+                                         }
+                                 ];
+
+                     script.setScenes ( scenes );
+
+                     await script.show ({ scene: 'scene1' });
+                     await script.jump ({ scene: 'scene2' });
+                     expect ( script.getState().scene ).toEqual ( 'scene2' );
+
+                     script.jumpsReset();
+
+                     const result = await script.jumpBack();
+                     expect ( result ).toBeUndefined();
+                     expect ( script.getState().scene ).toEqual ( 'scene2' ); // scene should not change
+         }) // it Jumps reset and jump back on empty stack
+
+
+
+     it ( 'Show scene with wildcard parent', async () => {
+                     // Test for scenes with parents: ['*']
+                     // The '*' wildcard allows the scene to be shown as an overlay over any current scene
+                     // without hiding the underlying scene. The previous scene is preserved in currentParents.
+                     const script = cuts();
+                     const calls = [];
+                     const scenes = [
+                                     {
+                                           name: 'base'
+                                         , scene: {
+                                                     show: ({task}) => { calls.push('show base'); task.done() },
+                                                     hide: ({task}) => { calls.push('hide base'); task.done() }
+                                             }
+                                         },
+                                         {
+                                           name: 'overlay' // This scene uses '*' to indicate it can overlay any scene
+                                         , scene: {
+                                                     show: ({task}) => {
+                                                                    calls.push ( 'show overlay' )
+                                                                    task.done ()
+                                                        },
+                                                     hide: ({task}) => { calls.push('hide overlay'); task.done() },
+                                                     parents: ['*'] // '*' means this scene can be shown over any current scene
+                                             }
+                                         }
+                                 ];
+
+                     script.setScenes ( scenes );
+
+                     await script.show ({ scene: 'base' });
+                     expect ( calls ).toEqual (['show base']);
+                     expect ( script.getState().scene ).toEqual ( 'base' );
+                     expect ( script.getState().parents ).toEqual ( [] );
+
+                     await script.show ({ scene: 'overlay' });
+                     expect ( calls ).toEqual (['show base', 'show overlay']); // Note: 'hide base' is not called
+                     expect ( script.getState().scene ).toEqual ( 'overlay' );
+                     expect ( script.getState().parents ).toEqual ( ['base'] ); // Previous scene is saved
+         }) // it Show scene with wildcard parent
+
+
+
+ }) // describe
