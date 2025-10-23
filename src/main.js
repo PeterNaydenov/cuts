@@ -134,6 +134,20 @@ function main ( cfg= {logLevel:0} ) {
          * @returns void
          */
         API.disablePlugin = ( pluginName )  => shortcutMngr.disablePlugin ( pluginName )
+        
+        /**
+         * Get the current state of the application
+         * @function getState
+         * @returns {Object} with properties:
+         *  - scene: current scene name
+         *  - parents: current parent scene names
+         *  - opened: boolean indicating if the application is opened
+         */
+        API.getState = () =>  ({
+                                 scene   : state.currentScene
+                               , parents : state.currentParents
+                               , opened  : state.opened
+                            })
 
 
          /**
