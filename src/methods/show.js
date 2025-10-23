@@ -24,6 +24,8 @@ function show ( dependencies, state ) {
 
     if ( hasBeforeHide ) { // Execute 'beforeUnload' function if exists
                 const closingFn = scenes[currentScene].beforeHide;
+                // TODO: If async elements in beforeUnload, we will 
+                // need full unloadTask and function should return a promise
                 closingFn ({ done:unloadTask.done, dependencies: shortcutMngr.getDependencies() })
         } // if currentPage
     else  unloadTask.done ( true )
@@ -38,15 +40,13 @@ function show ( dependencies, state ) {
                         }
                         
                     if ( !sceneNames.has ( requestedScene ) ) {
-                            if ( log ) {
-                                            log ({
-                                                      message: `Scene ${requestedScene} is not available.`
-                                                    , level : 1
-                                                    , type  : 'error'
-                                                })
-                                            showTask.done ()
-                                            return showTask.promise
-                                }
+                                log ({
+                                          message: `Scene "${requestedScene}" is not available.`
+                                        , level : 1
+                                        , type  : 'error'
+                                    })
+                                showTask.done ()
+                                return showTask.promise
                         }
                         
                     if ( !opened && options.ssr ) {  // Check for Server side rendering on first scene load only
@@ -70,13 +70,11 @@ function show ( dependencies, state ) {
                     let checkParents = parents.forEach ( name => sceneNames.has ( name )   ) || true ;
                     
                     if ( !checkParents ) {
-                                if ( log ) {
-                                                log ({
-                                                          message: `Some of '${requestedScene}' parent scenes are not set.`
-                                                        , level : 1
-                                                        , type  : 'error'
-                                                    })
-                                    }
+                                log ({
+                                          message: `Some of '${requestedScene}' parent scenes are not set.`
+                                        , level : 1
+                                        , type  : 'error'
+                                    })
                                 showTask.done ()
                                 return showTask.promise
                         }
