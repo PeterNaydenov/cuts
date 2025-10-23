@@ -152,5 +152,34 @@ describe ( 'Cuts integration', () => {
 
 
 
+     it ( 'Server side rendering (SSR)', async () => {
+                     const script = cuts ();
+                     const calls = [];
+                     const scenes = [
+                         {
+                             name: 'home',
+                             scene: {
+                                 show: ({task}) => { calls.push('show home'); task.done() },
+                                 hide: ({task}) => { calls.push('hide home'); task.done() }
+                             }
+                         }
+                     ];
+
+                     script.setScenes(scenes);
+
+                     // SSR mode: show without executing the scene's show function
+                     await script.show({ scene: 'home', options: { ssr: true } });
+
+                     expect(calls).toEqual([]); // show function should not be called
+                     expect(script.getState().scene).toBe('home');
+                     expect(script.getState().opened).toBe(true);
+
+                     // Subsequent show should execute normally
+                     await script.show({ scene: 'home' });
+                     expect(calls).toEqual(['hide home', 'show home']);
+         }) // it Server side rendering (SSR)
+
+
+
 
 }) // describe
