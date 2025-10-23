@@ -16,7 +16,7 @@ describe ( 'Cuts integration', () => {
                         { name: 'deep', scene: { show: ({task}) => { calls.push('show deep'); task.done() }, hide: ({task}) => { calls.push('hide deep'); task.done() }, parents: ['top', 'mid'] } }
                     ]
 
-                    const script = cuts()
+                    const script = cuts();
                     script.setScenes ( scenes )
 
                     await script.show ({ scene: 'top' })
@@ -49,6 +49,14 @@ describe ( 'Cuts integration', () => {
                                             'show deep'
                             ])
        }) // it Open a scene, and 2 levels deep child
+
+
+
+    it ( 'Load plugins', async () => {
+                    const script = cuts()
+                    const plugins = await script.loadPlugins ( ['Key', 'Click'] )
+                    expect ( plugins ).toHaveLength ( 2 )
+        }) // it Load plugins
 
 
 
