@@ -55,6 +55,7 @@ script.show ({ scene : 'sceneName'}) // change the current Scene
 , getDependencies : 'Returns the "dependencies" object'
 , enablePlugin    : 'Enable a shortcut plugin. Available after version 1.1.0'
 , disablePlugin   : 'Disable a shortcut plugin. Available after version 1.1.0'
+, getState        : 'Get the current state of the application'
 , emit            : 'Emit an event'
 ```
 
