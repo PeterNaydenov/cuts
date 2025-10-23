@@ -27,7 +27,7 @@ function show ( dependencies, state ) {
                 // TODO: If async elements in beforeUnload, we will 
                 // need full unloadTask and function should return a promise
                 closingFn ({ done:unloadTask.done, dependencies: shortcutMngr.getDependencies() })
-        } // if currentPage
+        } // if currentScene
     else  unloadTask.done ( true )
 
 
@@ -52,7 +52,7 @@ function show ( dependencies, state ) {
                     if ( !opened && options.ssr ) {  // Check for Server side rendering on first scene load only
                                 // Executes only once when the scene manager is started
                                 state.opened = true
-                                state.currentPage = requestedScene
+                                state.currentScene = requestedScene
                                 shortcutMngr.changeContext ( requestedScene )
                                 showTask.done ()
                                 return showTask.promise
@@ -62,8 +62,8 @@ function show ( dependencies, state ) {
                     
                     if ( parents[0] === '*' ) {
                                 show ().then ( () => showTask.done ()   )
-                                state.currentParents.push ( state.currentPage )
-                                state.currentPage = requestedScene
+                                state.currentParents.push ( state.currentScene )
+                                state.currentScene = requestedScene
                                 return showTask.promise
                         }
                     
@@ -107,7 +107,7 @@ function show ( dependencies, state ) {
                     
                     goingTask.onComplete ( () => {
                                         state.opened = true
-                                        state.currentPage = requestedScene
+                                        state.currentScene = requestedScene
                                         state.currentParents = scenes[requestedScene].parents || null 
                                         shortcutMngr.changeContext ( requestedScene )                                        
                                         if ( typeof scenes[requestedScene].afterShow === 'function' )   scenes[requestedScene].afterShow ({ dependencies: shortcutMngr.getDependencies(), done: () => {} })
