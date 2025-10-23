@@ -1,10 +1,14 @@
 # Release History
 
 
-## 1.4.5 ( 2025-10-20 )
+## 1.5.0 ( 2025-10-?? )
 - [x] Dependency update. @peter.naydenov/shortcuts - v.3.5.1
+- [x] Dev dependency update. Vitest - v.4.0.1
 - [x] Cuts has event '@app-error'. Shortcut errors will trigger this event;
 - [x] Type improvements;
+- [x] New method `getState` returns an object with the current state;
+- [x] Fix: Closing a long list of scenes breaks the state;
+
 
 
 
