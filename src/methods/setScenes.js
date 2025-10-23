@@ -2,10 +2,14 @@
 
 
 /**
+ * @typedef {Object} AskObject
+ * @property {function} done - Mark the task as done
+ */
+/**
  * @typedef {Object} SceneObject
- * @property {function} show - load interface and prerequisites for the scene;
+ * @property {function({task: AskObject, dependencies: *}): void} show - load interface and prerequisites for the scene;
  * @property {function():boolean} [afterShow] - run after scene is loaded. Optional. Returns true to continue loading, false to cancel;
- * @property {function():void} hide - Reverse the settings from 'show';
+ * @property {function({task: AskObject, dependencies: *}): void} hide - Reverse the settings from 'show';
  * @property {function():void} [beforeHide] - Run before scene is hidden. Optional;
  * @property {Array.<string>} [parents] - list of parent scene names.
  * @property {*} ... - shortcut descriptions
