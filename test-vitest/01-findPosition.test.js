@@ -7,9 +7,9 @@ describe ( 'Find a Position', () => {
 
 
 
-  it ( 'Switch top level pages', () => {
+   it ( 'Switch top level scenes', () => {
                     let result = []
-                    let g = findInstructions ( 'old', undefined, 'new', undefined )
+                    let g = findInstructions ( 'old', [], 'new', [] )
 
                     for (const n of g) { result.push(n) }
 
@@ -19,13 +19,13 @@ describe ( 'Find a Position', () => {
 
                     expect(result[1][0]).toBe ( 'new' )
                     expect(result[1][1]).toBe ( 'show' )
-      }) // it switch top level pages
+      }) // it switch top level scenes
 
 
 
-  it ( 'Switch from child page to top level page', () => {
+   it ( 'Switch from child scene to top level scene', () => {
               let result = []
-              let g = findInstructions ( 'old', ['one', 'two'], 'new', undefined )
+              let g = findInstructions ( 'old', ['one', 'two'], 'new', [] )
 
               for (const n of g) { result.push(n) }
 
@@ -33,11 +33,11 @@ describe ( 'Find a Position', () => {
               expect(result[1]).toEqual(['two', 'hide'])
               expect(result[2]).toEqual(['one', 'hide'])
               expect(result[3]).toEqual(['new', 'show'])
-      }) // it switch from child page to top level page
+      }) // it switch from child scene to top level scene
 
 
 
-  it ( 'Switch to child page', () => {
+   it ( 'Switch to child scene', () => {
             let result = []
             let g = findInstructions ( 'old', ['bla'], 'new', ['old', 'two', 'three'])
             for (const n of g) { result.push(n) }
@@ -46,23 +46,23 @@ describe ( 'Find a Position', () => {
             expect(result[0]).toEqual(['two', 'show'])
             expect(result[1]).toEqual(['three', 'show'])
             expect(result[2]).toEqual(['new', 'show'])
-      }) // it switch to child page
+      }) // it switch to child scene
 
 
 
-  it ( 'From child page to other siblings page', () => {
+   it ( 'From child scene to other siblings scene', () => {
             let result = []
             let g = findInstructions('old', ['two', 'three'], 'new', ['two', 'three'])
             for (const n of g) { result.push(n) }
 
             expect(result).toHaveLength ( 2 )
             expect(result[0]).toEqual(['old', 'hide'])
-            expect(result[1]).toEqual(['new', 'show'])
-      }) // it from top level page to not own child page
+             expect(result[1]).toEqual(['new', 'show'])
+      }) // it from top level scene to not own child scene
 
 
 
-  it ( 'From top level page to not own child page', () => {
+   it ( 'From top level scene to not own child scene', () => {
             let result = []
             let g = findInstructions('old', undefined, 'new', ['two', 'three'])
             for (const n of g) { result.push(n) }
@@ -70,8 +70,8 @@ describe ( 'Find a Position', () => {
             expect(result).toHaveLength(3)
             expect(result[0]).toEqual(['old', 'hide'])
             expect(result[1]).toEqual(['two', 'show'])
-            expect(result[2]).toEqual(['three', 'show'])
-      }) // it from top level page to not own child page
+             expect(result[2]).toEqual(['three', 'show'])
+      }) // it from top level scene to not own child scene
 
 
 
@@ -104,5 +104,16 @@ describe ( 'Find a Position', () => {
             expect(result[5]).toEqual(['three', 'show'])
             expect(result[6]).toEqual(['new', 'show'])
       }) // it long chain of parents
+
+
+      
+   it ( 'Target scene is in the list of parents of the current scene', () => {
+            let result = []
+            let g = findInstructions ( 'token-get-role', ['tokens', 'token-pop'], 'tokens', [] )
+            for (const n of g) { result.push(n) }
+            expect ( result ).toHaveLength ( 2 )
+            expect ( result[0] ).toEqual ( [ 'token-get-role', 'hide' ])
+            expect ( result[1] ).toEqual ( [ 'token-pop', 'hide' ])
+       }) // it Target scene is in the list of parents of the current scene
 
 }) // describe
