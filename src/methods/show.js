@@ -18,20 +18,18 @@ function show ( dependencies, state ) {
           { shortcutMngr, askForPromise, log, findInstructions, setInstruction } = dependencies
         , showTask = askForPromise ()
         , unloadTask = askForPromise ()
-        , { opened, scenes, sceneNames, currentPage } = state
+        , { opened, scenes, sceneNames, currentScene } = state
+        , hasBeforeHide = currentScene && (typeof scenes[currentScene].beforeHide === 'function')
         ;
 
-    if ( currentPage ) { // Execute 'beforeUnload' function if exists
-                const closingFn = scenes[currentPage].beforeHide;
-                if ( typeof closingFn === 'function' ) {  
-                            closingFn ({ done:unloadTask.done, dependencies: shortcutMngr.getDependencies() })
-                    }
+    if ( hasBeforeHide ) { // Execute 'beforeUnload' function if exists
+                const closingFn = scenes[currentScene].beforeHide;
+                closingFn ({ done:unloadTask.done, dependencies: shortcutMngr.getDependencies() })
         } // if currentPage
     else  unloadTask.done ( true )
 
 
     unloadTask.onComplete ( continueLoading => {
-        
                     if ( !continueLoading ) { 
                                 // if the 'beforeUnload' function returns false
                                 // Cancel loading the new scene
@@ -70,10 +68,11 @@ function show ( dependencies, state ) {
                         }
                     
                     let checkParents = parents.forEach ( name => sceneNames.has ( name )   ) || true ;
+                    
                     if ( !checkParents ) {
                                 if ( log ) {
                                                 log ({
-                                                        message: `Some of '${requestedScene}' parent scenes are not set.`
+                                                          message: `Some of '${requestedScene}' parent scenes are not set.`
                                                         , level : 1
                                                         , type  : 'error'
                                                     })
@@ -82,13 +81,13 @@ function show ( dependencies, state ) {
                                 return showTask.promise
                         }
 
-                    function getStep ([name, action]) {   // Returns a scene function(hide or show) according to instructions
+                     function getStep ([name, action]) {   // Returns a scene function(hide or show) according to instructions
                                 if ( action === 'show' ) {
-                                        if ( state.currentScene )   state.currentParents.push ( state.currentScene )
+                                        if ( state.currentScene )   state.currentParents = [...scenes[state.currentScene].parents]
                                         state.currentScene = name
                                     }
                                 else {
-                                        let el = state.currentParents.pop ();
+                                        let el = scenes[name].parents.at ( -1 )
                                         state.currentScene = el
                                     }
                                 return scenes[name][action]
@@ -96,22 +95,22 @@ function show ( dependencies, state ) {
 
                     if ( !state.currentParents )   state.currentParents = []  
                     const 
-                            g = findInstructions ( state.currentScene, state.currentParents, requestedScene, parents )
+                          g = findInstructions ( state.currentScene, state.currentParents, requestedScene, parents )
                         , instructions = []
                         ;
-                        
-                    for ( let inst of g ) {
-                                [inst]
-                                    .map ( getStep )
-                                    .map ( step => instructions.push ( setInstruction(step),...args ))
-                                    // Note:  Methods 'show' and 'hide' are async, but we need to provide them a data, 
-                                    //        so we need to wrap them in a another function that returns a promise
-                        }
-                                    
+
+                     for ( let inst of g ) {
+                                 const step = getStep ( inst )
+                                 instructions.push ( setInstruction(step, ...args) )
+                                     // Note:  Methods 'show' and 'hide' are async, but we need to provide them a data,
+                                     //        so we need to wrap them in a another function that returns a promise
+                         }
                     const goingTask = askForPromise.sequence ( instructions );  // Execute open steps(show and hide) in sequence
                     
                     goingTask.onComplete ( () => {
                                         state.opened = true
+                                        state.currentPage = requestedScene
+                                        state.currentParents = scenes[requestedScene].parents || null 
                                         shortcutMngr.changeContext ( requestedScene )                                        
                                         if ( typeof scenes[requestedScene].afterShow === 'function' )   scenes[requestedScene].afterShow ({ dependencies: shortcutMngr.getDependencies(), done: () => {} })
                                         showTask.done () 
