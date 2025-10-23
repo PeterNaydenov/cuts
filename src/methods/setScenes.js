@@ -31,17 +31,25 @@ function setScenes ( dependencies, state ) {
       */
     return function setScenes ( list ) {
     const { shortcutMngr, log } = dependencies;
-    list.forEach ( item => {
-                    if ( item == null ) return
-                    const {name, scene } = item;
-                    if ( scene == null ) {
-                             log ({
-                                          message: `Scene ${name} is not defined`
-                                        , level : 1
-                                        , type  : 'error'
-                                    })
-                            return
-                      }
+     list.forEach ( item => {
+                     if ( item == null ) return
+                     const {name, scene } = item;
+                     if ( !name ) {
+                              log ({
+                                           message: `Scene name is not defined`
+                                         , level : 1
+                                         , type  : 'error'
+                                     })
+                             return
+                       }
+                     if ( scene == null ) {
+                              log ({
+                                           message: `Scene ${name} is not defined`
+                                         , level : 1
+                                         , type  : 'error'
+                                     })
+                             return
+                       }
                     if ( ! scene.parents )   scene.parents = []
                     state.scenes[name] = scene
                     state.sceneNames.add ( name )
