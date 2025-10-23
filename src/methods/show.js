@@ -66,8 +66,8 @@ function show ( dependencies, state ) {
                                 state.currentScene = requestedScene
                                 return showTask.promise
                         }
-                    
-                    let checkParents = parents.forEach ( name => sceneNames.has ( name )   ) || true ;
+
+                    let checkParents = ( parents.length === 0 ) ? true : parents.every ( name => sceneNames.has ( name )   )
                     
                     if ( !checkParents ) {
                                 log ({
