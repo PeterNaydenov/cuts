@@ -31,12 +31,12 @@ describe ( 'Cuts integration', () => {
 
                     await script.show ({ scene: 'top' })
                     expect ( calls ).toEqual ([
-                                            'show top', 
-                                            'show mid', 
-                                            'show deep', 
-                                            'hide deep', 
-                                            'hide mid'
-                            ])
+                                             'show top',
+                                             'show mid',
+                                             'show deep',
+                                             'hide deep',
+                                             'hide mid'
+                             ])
 
                     await script.show ({ scene: 'deep' })
                     expect ( calls ).toEqual ([
@@ -60,24 +60,7 @@ describe ( 'Cuts integration', () => {
 
 
 
-    it ( 'List shortcuts', async () => {
-                    const script = cuts ()
-                    const calls = [];
-
-                     const scenes = [
-                                    { 
-                                            name: 'top'
-                                        , scene: { 
-                                                    show: ({task}) => { calls.push('show top'); task.done() }, 
-                                                    hide: ({task}) => { calls.push('hide top'); task.done() } ,
-                                                    'click: left-1': () => calls.push('click left-1') 
-                                            }
-                                        }
-                                ];
-
-                    script.setScenes ( scenes )
-                    expect ( script.listScenes() ).toEqual ( ['top'] )                    
-        }) // it List shortcuts
+    
 
 
 
@@ -159,27 +142,153 @@ describe ( 'Cuts integration', () => {
                          {
                              name: 'home',
                              scene: {
-                                 show: ({task}) => { calls.push('show home'); task.done() },
-                                 hide: ({task}) => { calls.push('hide home'); task.done() }
-                             }
-                         }
-                     ];
+                                        show: ({task}) => { calls.push('show home'); task.done() },
+                                        hide: ({task}) => { calls.push('hide home'); task.done() }
+                                    }
+                            }
+                        ];
 
-                     script.setScenes(scenes);
+                    script.setScenes ( scenes )
 
-                     // SSR mode: show without executing the scene's show function
-                     await script.show({ scene: 'home', options: { ssr: true } });
+                    // SSR mode: show without executing the scene's show function
+                    await script.show({ scene: 'home', options: { ssr: true } })
 
-                     expect(calls).toEqual([]); // show function should not be called
-                     expect(script.getState().scene).toBe('home');
-                     expect(script.getState().opened).toBe(true);
+                    expect(calls).toEqual([]); // show function should not be called
+                    expect(script.getState().scene ).toBe ( 'home' )
+                    expect(script.getState().opened ).toBe ( true )
 
                      // Subsequent show should execute normally
-                     await script.show({ scene: 'home' });
-                     expect(calls).toEqual(['hide home', 'show home']);
+                    await script.show ({ scene: 'home' })
+                    expect( calls ).toEqual(['hide home', 'show home'])
          }) // it Server side rendering (SSR)
 
 
 
+     it ( 'Non existing parents error', async () => {
+                    const script = cuts ();
+                    const calls = [];
+                    const scenes = [
+                                    {
+                                          name: 'child'
+                                        , scene: {
+                                                    show: ({task}) => { calls.push('show child'); task.done() },
+                                                    hide: ({task}) => { calls.push('hide child'); task.done() },
+                                                    parents: [ 'nonexistent' ]
+                                            }
+                                        }
+                                ];
+                    script.setScenes ( scenes )
+                    await script.show ({ scene: 'child' })
+                    expect ( calls ).toEqual ([])
+                    expect ( script.getState().scene ).toBe ( null )
+         }) // it Non existing parents error
+
+
+
+    it ( 'No name scene', async () => {
+                    const script = cuts({ logLevel : 0 });
+                    const scenes = [
+                                    {
+                                      scene: {
+                                                  show: ({task}) => task.done(),
+                                                  hide: ({task}) => task.done()
+                                              }
+                                    }
+                                ];
+                    script.setScenes ( scenes );
+                    expect ( script.listScenes() ).toEqual ( [] );
+        }) // it No name scene
+
+
+
+    it ( 'No scene in definition', async () => {
+                    const script = cuts({ logLevel : 0 });
+                    const scenes = [ {name: 'top'} ];
+                    script.setScenes ( scenes );
+                    expect ( script.listScenes() ).toEqual ( [] );
+        }) // it No scene in definition
+
+
+
+    it ( 'List shortcuts', async () => {
+                    const script = cuts ()
+                    const calls = [];
+
+                     const scenes = [
+                                    { 
+                                          name: 'top'
+                                        , scene: { 
+                                                    show: ({task}) => { calls.push('show top'); task.done() }, 
+                                                    hide: ({task}) => { calls.push('hide top'); task.done() } ,
+                                                    'click: left-1': () => calls.push('click left-1') 
+                                            }
+                                        }
+                                ];
+
+                     script.setScenes ( scenes )
+                     expect ( script.listShortcuts( 'top' ) ).toEqual ( ['click: left-1'] )
+        }) // it List shortcuts
+
+
+
+     it ( 'List shortcuts', async () => {
+                     const script = cuts ()
+                     const calls = [];
+
+                      const scenes = [
+                                     {
+                                           name: 'top'
+                                         , scene: {
+                                                     show: ({task}) => { calls.push('show top'); task.done() },
+                                                     hide: ({task}) => { calls.push('hide top'); task.done() } ,
+                                                     'click: left-1': () => calls.push('click left-1')
+                                             }
+                                         }
+                                 ];
+
+                      script.setScenes ( scenes )
+                      expect ( script.listShortcuts( 'none' ) ).toEqual ( null )
+         }) // it List shortcuts
+
+
+
+     it ( 'Jump functionality', async () => {
+                     const script = cuts({ logLevel : 0 });
+                     const calls = [];
+                     const scenes = [
+                                     {
+                                           name: 'home'
+                                         , scene: {
+                                                     show: ({task}) => { calls.push('show home'); task.done() },
+                                                     hide: ({task}) => { calls.push('hide home'); task.done() }
+                                             }
+                                         },
+                                         {
+                                           name: 'settings'
+                                         , scene: {
+                                                     show: ({task}) => { calls.push('show settings'); task.done() },
+                                                     hide: ({task}) => { calls.push('hide settings'); task.done() }
+                                             }
+                                         }
+                                 ];
+
+                     script.setScenes ( scenes );
+
+                     await script.show ({ scene: 'home' });
+                     expect ( calls ).toEqual (['show home']);
+                     expect ( script.getState().scene ).toEqual ( 'home' );
+
+                     await script.jump ({ scene: 'settings' });
+                     expect ( calls ).toEqual (['show home', 'hide home', 'show settings']);
+                     expect ( script.getState().scene ).toEqual ( 'settings' );
+
+                     await script.jumpBack ();
+                     expect ( calls ).toEqual (['show home', 'hide home', 'show settings', 'hide settings', 'show home']);
+                     expect ( script.getState().scene ).toEqual ( 'home' );
+         }) // it Jump functionality
+
+
+
+    
 
 }) // describe
