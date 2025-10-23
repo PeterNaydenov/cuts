@@ -25,6 +25,7 @@ declare function main(cfg?: {
     listScenes(): Array<string>;
     enablePlugin(plugin: Function, options?: any): void;
     disablePlugin(pluginName: string): void;
+    getState(): any;
     emit(event: string, ...args: any[]): void;
 };
 //# sourceMappingURL=main.d.ts.map
