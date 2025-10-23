@@ -40,7 +40,10 @@ function main ( cfg= {logLevel:0} ) {
         , logLevel = cfg.logLevel || 1
         , log = createLog ({ level:logLevel }, (arg) => {
                                             const { type } = arg;
-                                            if ( type === 'error' )   shortcutMngr.emit ( '@app-error', arg )
+                                            if ( type === 'error' ) {  
+                                                      shortcutMngr.emit ( '@app-error', arg )
+                                                      console.error ( arg.message )
+                                                  }
                                       })
         , state = {     
                      currentScene   : null       // Current scene name;
