@@ -37,8 +37,11 @@ import jumpsReset    from './methods/jumpsReset.js'
 function main ( cfg= {logLevel:0} ) {
      const 
           shortcutMngr = shortcuts ({ errorEventName: '@app-error' })
-        , logLevel = cfg.logLevel || 0
-        , log = createLog ({ level:logLevel })
+        , logLevel = cfg.logLevel || 1
+        , log = createLog ({ level:logLevel }, (arg) => {
+                                            const { type } = arg;
+                                            if ( type === 'error' )   shortcutMngr.emit ( '@app-error', arg )
+                                      })
         , state = {     
                      currentScene   : null       // Current scene name;
                    , currentParents : null       // Current scene parents if any;
