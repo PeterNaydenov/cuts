@@ -20,13 +20,7 @@ function* findInstructions ( currentName, currentParents, targetName, targetPare
         } 
 
     if ( targetParents.length === 0 ) {  // Need to close all current parents, then open the target
-            if ( !currentParents ) {
-                    yield [ currentName, 'hide' ]
-                    yield [ targetName, 'show'   ]
-                    return
-                }
             yield [ currentName, 'hide' ]
-
             if ( currentParents.includes ( targetName ) ) {
                     let index = currentParents.indexOf ( targetName );
                     let filtered = currentParents.filter ( (x,i) => i > index )
