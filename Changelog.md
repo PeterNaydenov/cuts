@@ -5,6 +5,7 @@
 - [x] All 'cuts' errors goes to '@app-error' event;
 - [x] Configuration 'logLevel' default value is 1. If you want to dissable errors logging, set 'logLevel' to 0;
 - [x] Code cleaning. Removing unused code;
+- [x] Test code coverage on 85%;
 - [x] Fix: SSR option for first scene loading;
 
 
@@ -127,6 +128,7 @@
 - [x] Type improvements;
 - [x] Refactoring related to types;
 - [x] New method `loadPlugins` to load shortcut plugins: `Key`, `Click` or both;
+- [x] Method 'setScene' errors goes to '@app-error'
 - [ ] Bug: Closing a long list of scenes breaks the state;
 - [ ] Bug: SSR option for first scene loading;
 
