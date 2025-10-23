@@ -26,14 +26,14 @@ return function hide ( endSteps=1 ) {
     
     if ( hasParents && endSteps === '*' ) {
                 [...currentParents].reverse().forEach ( name => {
-                                                        el = state.currentParents.pop ();
+                                                        el = state.currentParents.at ( -1 )
                                                         state.currentScene = el
                                                         instructions.push ( setInstruction ( scenes[name].hide)) 
                                                 })
         }
     if ( hasParents && ![ '*', 1].includes(endSteps) ) {
                 currentParents.slice ( `-${endSteps-1}` ).reverse().map ( name => {
-                                                        el = state.currentParents.pop ();
+                                                        el = state.currentParents.at ( -1 )
                                                         state.currentScene = el
                                                         instructions.push ( setInstruction (scenes[name].hide))
                                                 })
