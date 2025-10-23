@@ -42,7 +42,6 @@ function main ( cfg= {logLevel:0} ) {
                                             const { type } = arg;
                                             if ( type === 'error' ) {  
                                                       shortcutMngr.emit ( '@app-error', arg )
-                                                      console.error ( arg.message )
                                                   }
                                       })
         , state = {     
