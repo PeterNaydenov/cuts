@@ -1,7 +1,15 @@
 # Release History
 
 
-## 1.5.0 ( 2025-10-?? )
+## 1.6.0 ( 2025-10-?? )
+- [x] All 'cuts' errors goes to '@app-error' event;
+- [x] Configuration 'logLevel' default value is 1. If you want to dissable errors logging, set 'logLevel' to 0;
+- [x] Code cleaning. Removing unused code;
+
+
+
+
+## 1.5.0 ( 2025-10-23 )
 - [x] Dependency update. @peter.naydenov/shortcuts - v.3.5.1
 - [x] Dev dependency update. Vitest - v.4.0.1
 - [x] Cuts has event '@app-error'. Shortcut errors will trigger this event;
