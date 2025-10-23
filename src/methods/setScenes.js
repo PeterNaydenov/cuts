@@ -30,15 +30,19 @@ function setScenes ( dependencies, state ) {
       * @description Screen Description is an object with fields 'name' and 'scene'
       */
     return function setScenes ( list ) {
-    const { shortcutMngr } = dependencies;
+    const { shortcutMngr, log } = dependencies;
     list.forEach ( item => {
                     if ( item == null ) return
                     const {name, scene } = item;
                     if ( scene == null ) {
-                            console.warn ( `Scene ${name} is not defined` )
+                             log ({
+                                          message: `Scene ${name} is not defined`
+                                        , level : 1
+                                        , type  : 'error'
+                                    })
                             return
                       }
-                    if ( !scene.parents ) scene.parents = []
+                    if ( ! scene.parents )   scene.parents = []
                     state.scenes[name] = scene
                     state.sceneNames.add ( name )
                     
