@@ -60,12 +60,13 @@ function show ( dependencies, state ) {
                     
                     const { show, parents=[] } = scenes[requestedScene];
                     
-                    if ( parents[0] === '*' ) {
-                                show ().then ( () => showTask.done ()   )
-                                state.currentParents.push ( state.currentScene )
-                                state.currentScene = requestedScene
-                                return showTask.promise
-                        }
+                     if ( parents[0] === '*' ) {
+                                 const overlayTask = setInstruction(show, ...args)()
+                                 overlayTask.then ( () => showTask.done ()   )
+                                 state.currentParents.push ( state.currentScene )
+                                 state.currentScene = requestedScene
+                                 return showTask.promise
+                         }
 
                     let checkParents = ( parents.length === 0 ) ? true : parents.every ( name => sceneNames.has ( name )   )
                     
