@@ -41,14 +41,14 @@
     "cypress": "^15.5.0",
     "rollup": "^4.52.5",
     "typescript": "^5.9.3",
-    "vite": "^7.1.11",
+    "vite": "^7.1.12",
     "vitest": "^4.0.1",
     "vue": "^3.5.22"
   },
   "dependencies": {
     "@peter.naydenov/log": "^1.1.1",
     "@peter.naydenov/shortcuts": "^3.5.1",
-    "ask-for-promise": "^3.0.2"
+    "ask-for-promise": "^3.1.0"
   },
   "keywords": [
     "script",
