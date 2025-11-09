@@ -1,12 +1,13 @@
 # Release History
 
 
-## 1.6.0 ( 2025-10-?? )
+## 2.0.0 ( 2025-11-09 )
 - [x] All 'cuts' errors goes to '@app-error' event;
 - [x] Configuration 'logLevel' default value is 1. If you want to dissable errors logging, set 'logLevel' to 0;
 - [x] Code cleaning. Removing unused code;
 - [x] Test code coverage on 85%;
 - [x] Fix: SSR option for first scene loading;
+- [x] Shortcuts version 4.0.0. New shortcut plugins - 'scroll' and 'hover';
 
 
 
