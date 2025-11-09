@@ -139,7 +139,7 @@ script.enablePlugin ( pluginHover, {
 - **Scroll**: Scroll events (new in v4.0.0)
 
 ## Links
-- [Shortcuts documentation](https://github.com/PeterNaydenov/shortcuts)
+- [Shortcuts documentation - @peter.naydenov/shortcuts](https://github.com/PeterNaydenov/shortcuts)
 - [History of changes](https://github.com/PeterNaydenov/cuts/blob/main/Changelog.md)
 - [Migration Guide](https://github.com/PeterNaydenov/cuts/blob/main/Migration.guide.md)
 - [Learn how shortcuts are implemented](https://github.com/PeterNaydenov/shortcuts)
