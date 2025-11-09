@@ -18,10 +18,10 @@ declare function main(cfg?: {
         hops?: number;
     }, ...args?: any[]) => Promise<any> | undefined;
     jumpsReset: () => void;
-    loadPlugins(plugins: Array<"Key" | "Click" | "Form">): Promise<Function[]>;
+    loadPlugins(plugins: Array<"Key" | "Click" | "Form" | "Hover" | "Scroll">): Promise<Function[]>;
     setDependencies(deps: any): void;
     getDependencies(): any;
-    setNote(note: string): any;
+    setNote(note: string): void;
     listScenes(): Array<string>;
     enablePlugin(plugin: Function, options?: any): void;
     disablePlugin(pluginName: string): void;

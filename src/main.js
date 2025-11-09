@@ -8,12 +8,14 @@
  *  History notes:
  *    - Started as @peter.naydenov/screen-writer on gitHub for the first time on 2023-11-24;
  *    - Version 2.0.0 of screen-writer. Works with shortcuts@3.0.1. Published on March 6th, 2024;
+ *    - Version 2.0.0 of cuts. Works with shortcuts@4.0.0. Published on November 9th, 2025;
  *    - Rename to @peter.naydenov/cuts 
  *      Changes in documentation and some methods were renamed accordingly. 
  *      Version 1.0.0. 
  *      Published for first time as package '@peter.naydenov/cuts' on May 8th, 2024;
  *      Extend 'scene' with optional 'afterShow' and 'beforeHide' methods. December 21st, 2024;
  *    - Shortcuts@3.2.x. Plugin 'form' is available. August 15th, 2025;
+ *    - Shortcuts@4.0.0. New plugins 'scroll' and 'hover' are available. November 9th, 2025;
  */
 
 
@@ -74,10 +76,10 @@ function main ( cfg= {logLevel:0} ) {
         API.jumpsReset    = jumpsReset ( state )
 
         /**
-         * @typedef {'Key'|'Click'|'Form' } pluginNames
-         * @description List of possible plugin names: 'Key', 'Click', 'Form'
+         * @typedef {'Key'|'Click'|'Form'|'Hover'|'Scroll' } pluginNames
+         * @description List of possible plugin names: 'Key', 'Click', 'Form', 'Hover', 'Scroll'
          * 
-         * Load a needed shortcut plugins - 'Key', 'Click', 'Form' and so on.
+         * Load a needed shortcut plugins - 'Key', 'Click', 'Form', 'Hover', 'Scroll' and so on.
          * It's a async function. Don't forget to 'await' it.
          * @function loadPlugins
          * @param {Array.<pluginNames>} plugins - list of plugins to load
@@ -114,7 +116,7 @@ function main ( cfg= {logLevel:0} ) {
          * @param {string} note - note, provided to action functions
          * @returns void
          */
-        API.setNote         = note => shortcuts.setNote ( note )
+         API.setNote         = note => shortcutMngr.setNote ( note )
 
         /**
          * @function listScenes

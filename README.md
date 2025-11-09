@@ -110,8 +110,38 @@ script.jumpBack ({hops:2}) // Will load scene from the jump stack. Will load 'te
 
 
 
+## Plugin Configuration
+
+When using shortcut plugins with shortcuts v4.0.0, `clickTarget` and `hoverTarget` parameters now accept arrays of attribute names:
+
+```js
+import cuts from '@peter.naydenov/cuts'
+
+const script = cuts()
+const [ pluginClick, pluginHover] = await script.loadPlugins(['Click', 'Hover'])
+
+// Enable click plugin with multiple target attributes
+script.enablePlugin ( pluginClick, { 
+    clickTarget: ['data-action', 'data-button', 'href'] 
+})
+
+// Enable hover plugin with multiple target attributes  
+script.enablePlugin ( pluginHover, { 
+    hoverTarget: ['data-interactive', 'data-hover'] 
+})
+```
+
+**Available Plugins in v4.0.0:**
+- **Key**: Keyboard shortcuts
+- **Click**: Mouse click events  
+- **Form**: Form input events
+- **Hover**: Mouse hover events (new in v4.0.0)
+- **Scroll**: Scroll events (new in v4.0.0)
+
 ## Links
+- [Shortcuts documentation](https://github.com/PeterNaydenov/shortcuts)
 - [History of changes](https://github.com/PeterNaydenov/cuts/blob/main/Changelog.md)
+- [Migration Guide](https://github.com/PeterNaydenov/cuts/blob/main/Migration.guide.md)
 - [Learn how shortcuts are implemented](https://github.com/PeterNaydenov/shortcuts)
 
 
