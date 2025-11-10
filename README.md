@@ -8,9 +8,20 @@
 `An abstract idea of a cut`: In filmmaking, a change of scene is typically referred to as a "**cut**". Cuts are an essential part of film editing and are used to create a cohesive narrative by connecting different scenes together.
 
 ## Description
-Let's define SPA application as a set of scenes (pages/visual states) and each scene discribes a visual elements on the page and possible user interaction ( mouse, keyboard, scroll, hover, etc.). **Cuts** controls the flow among scenes in SPA application.
+Let's define SPA application as a set of scenes (context/visual states) and each scene discribes a visual elements on the page and possible user interaction ( mouse, keyboard, scroll, hover, etc.). **Cuts** controls the flow among scenes in SPA application.
 
-When all interactions can be described in the **Scene** data models, means that the components (react,vue, svelte, morph, mustache, handlebars or any other framework or template engine) can be used as simple template engines - to render only html. Behaviour description is based on '[@peter.naydenov/shortcuts](https://github.com/PeterNaydenov/shortcuts)' and every scene is a different shortcuts context.
+Behaviour description is based on '[@peter.naydenov/shortcuts](https://github.com/PeterNaydenov/shortcuts)' and every scene is a different shortcuts context.
+
+
+
+## Why Cuts?
+ - SPA as a set of many scenes: Every scene can be developed and tested separately;
+ - Easy for reshape the flow of the application;
+ - Many developers can work toghether on the same project without conflicts;
+ - User interaction is easy to read and solve some problems of native DOM events;
+ - As user interaction is defined separately from the html markup, you have large choice of frameworks and template engines (react, vue, svelte, morph, mustache, handlebars, etc.) to build your application visually;
+ - As user interaction is defined separately, visual components can be reused many times with different user interaction on each reuse;
+
 
 
 
@@ -51,10 +62,10 @@ script.show ({ scene : 'sceneName'}) // change the current Scene
 , jumpsReset      : 'Reset the jump stack'
 , listScenes      : 'List of loaded Scene names'
 , listShortcuts   : 'List shortcuts per Scene. Provide the name of the Scene'
-, setDependencies : 'Add object to the "dependencies" object. This object will be passed to the Scene "show" method'
+, setDependencies : 'Add object to the "dependencies" object. This object will be passed to the Scene "show" and "hide" methods and events descriptors'
 , getDependencies : 'Returns the "dependencies" object'
-, enablePlugin    : 'Enable a shortcut plugin. Available after version 1.1.0'
-, disablePlugin   : 'Disable a shortcut plugin. Available after version 1.1.0'
+, enablePlugin    : 'Enable a shortcut plugin.' 
+, disablePlugin   : 'Disable a shortcut plugin.'
 , getState        : 'Get the current state of the application'
 , emit            : 'Emit an event'
 ```
@@ -112,31 +123,32 @@ script.jumpBack ({hops:2}) // Will load scene from the jump stack. Will load 'te
 
 ## Plugin Configuration
 
-When using shortcut plugins with shortcuts v4.0.0, `clickTarget` and `hoverTarget` parameters now accept arrays of attribute names:
+Shortcuts has a plugin system. To load them, use the `loadPlugins` method.
 
 ```js
 import cuts from '@peter.naydenov/cuts'
 
-const script = cuts()
-const [ pluginClick, pluginHover] = await script.loadPlugins(['Click', 'Hover'])
+const 
+     script = cuts ()
+   , [ pluginClick, pluginHover] = await script.loadPlugins(['Click', 'Hover'])
+   ;
 
-// Enable click plugin with multiple target attributes
-script.enablePlugin ( pluginClick, { 
-    clickTarget: ['data-action', 'data-button', 'href'] 
-})
+// Enable click plugin
+script.enablePlugin ( pluginClick )
 
-// Enable hover plugin with multiple target attributes  
-script.enablePlugin ( pluginHover, { 
-    hoverTarget: ['data-interactive', 'data-hover'] 
-})
+// Enable hover plugin 
+script.enablePlugin ( pluginHover )
 ```
 
-**Available Plugins in v4.0.0:**
+
+**Available Plugins in v4.x.x:**
 - **Key**: Keyboard shortcuts
 - **Click**: Mouse click events  
 - **Form**: Form input events
 - **Hover**: Mouse hover events (new in v4.0.0)
 - **Scroll**: Scroll events (new in v4.0.0)
+
+
 
 ## Links
 - [Shortcuts documentation - @peter.naydenov/shortcuts](https://github.com/PeterNaydenov/shortcuts)
