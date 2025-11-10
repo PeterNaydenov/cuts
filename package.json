@@ -39,7 +39,7 @@
     "@vitejs/plugin-vue": "^6.0.1",
     "@vitest/coverage-v8": "^4.0.8",
     "cypress": "^15.6.0",
-    "rollup": "^4.53.1",
+    "rollup": "^4.53.2",
     "typescript": "^5.9.3",
     "vite": "^7.2.2",
     "vitest": "^4.0.8",
