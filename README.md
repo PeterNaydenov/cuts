@@ -1,3 +1,7 @@
+<img src="cuts.png" width="100%" alt="Cuts" align="center" />
+
+
+
 # Cuts (@peter.naydenov/cuts)
 
 ![GitHub package.json version (branch)](https://img.shields.io/github/package-json/v/peterNaydenov/cuts/main)
