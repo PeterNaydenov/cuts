@@ -5,12 +5,12 @@
 ![npm package minimized gzipped size](https://img.shields.io/bundlejs/size/%40peter.naydenov%2Fcuts)
 
 
-In filmmaking, a change of scene is typically referred to as a "**cut**". Cuts are an essential part of film editing and are used to create a cohesive narrative by connecting different scenes together.
+`An abstract idea of a cut`: In filmmaking, a change of scene is typically referred to as a "**cut**". Cuts are an essential part of film editing and are used to create a cohesive narrative by connecting different scenes together.
 
-Let's define SPA application as a set of scenes (pages/visual states) and each scene discribes a visual elements on the page and possible user interaction ( mouse, keyboard, etc.). **Cuts** controls the flow among scenes in SPA application.
+## Description
+Let's define SPA application as a set of scenes (pages/visual states) and each scene discribes a visual elements on the page and possible user interaction ( mouse, keyboard, scroll, hover, etc.). **Cuts** controls the flow among scenes in SPA application.
 
-When all interactions can be described in the **Scene** data models, means that the components (react,vue, svelte or any other framework) can be used as simple template engines - to render only html.
-
+When all interactions can be described in the **Scene** data models, means that the components (react,vue, svelte, morph, mustache, handlebars or any other framework or template engine) can be used as simple template engines - to render only html. Behaviour description is based on '[@peter.naydenov/shortcuts](https://github.com/PeterNaydenov/shortcuts)' and every scene is a different shortcuts context.
 
 
 
