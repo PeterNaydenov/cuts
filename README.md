@@ -23,7 +23,7 @@ Behaviour description is based on '[@peter.naydenov/shortcuts](https://github.co
  - Easy for reshape the flow of the application;
  - Many developers can work toghether on the same project without conflicts;
  - User interaction is easy to read and solve some problems of native DOM events;
- - As user interaction is defined separately from the html markup, you have large choice of frameworks and template engines (react, vue, svelte, morph, mustache, handlebars, etc.) to build your application visually;
+ - As user interaction is defined separately from the html markup, you have large choice of frameworks and template engines (react, vue, svelte, [morph](https://github.com/PeterNaydenov/morph), mustache, handlebars, etc.) to build your application visually;
  - As user interaction is defined separately, visual components can be reused many times with different user interaction on each reuse;
 
 
