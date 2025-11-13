@@ -35,7 +35,7 @@
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^0.4.4",
-    "@types/node": "^24.10.0",
+    "@types/node": "^24.10.1",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vitest/coverage-v8": "^4.0.8",
     "cypress": "^15.6.0",
