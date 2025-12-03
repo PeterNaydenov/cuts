@@ -37,12 +37,12 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@types/node": "^24.10.1",
     "@vitejs/plugin-vue": "^6.0.2",
-    "@vitest/coverage-v8": "^4.0.14",
+    "@vitest/coverage-v8": "^4.0.15",
     "cypress": "^15.7.1",
     "rollup": "^4.53.3",
     "typescript": "^5.9.3",
     "vite": "^7.2.6",
-    "vitest": "^4.0.14",
+    "vitest": "^4.0.15",
     "vue": "^3.5.25"
   },
   "dependencies": {
