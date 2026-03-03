@@ -34,7 +34,7 @@
     "@peter.naydenov/visual-controller-for-vue3": "^2.1.7",
     "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-terser": "^0.1.0",
     "@types/node": "^25.3.0",
     "@vitejs/plugin-vue": "^6.0.4",
     "@vitest/coverage-v8": "^4.0.18",
