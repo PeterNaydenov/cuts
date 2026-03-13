@@ -37,7 +37,7 @@
     "@rollup/plugin-terser": "^1.0.0",
     "@types/node": "^25.4.0",
     "@vitejs/plugin-vue": "^6.0.4",
-    "@vitest/coverage-v8": "^4.0.18",
+    "@vitest/coverage-v8": "^4.1.0",
     "cypress": "^15.11.0",
     "rollup": "^4.59.0",
     "typescript": "^5.9.3",
