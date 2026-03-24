@@ -1,6 +1,13 @@
 # Release History
 
 
+
+## 2.0.1 ( 2026-03-24 )
+- [x] Dev dependency update. Typescript - v.6.0.2;
+- [x] Rebuild types according the new version of typescript;
+
+
+
 ## 2.0.0 ( 2025-11-09 )
 - [x] All 'cuts' errors goes to '@app-error' event;
 - [x] Configuration 'logLevel' default value is 1. If you want to dissable errors logging, set 'logLevel' to 0;
