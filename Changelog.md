@@ -2,6 +2,11 @@
 
 
 
+## 2.0.2 ( 2026-04-02 )
+- [x] Dependency update. @peter.naydenov/shortcuts - v.4.0.2;
+
+
+
 ## 2.0.1 ( 2026-03-24 )
 - [x] Dev dependency update. Typescript - v.6.0.2;
 - [x] Rebuild types according the new version of typescript;
