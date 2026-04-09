@@ -4,14 +4,14 @@ import { resolve } from 'path'
 
 export default defineConfig({
   plugins: [vue()],
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, './src')
-    }
-  },
+  root: '.',
   server: {
+    port: 4174,
     fs: {
       allow: ['..']
     }
+  },
+  build: {
+    outDir: resolve(__dirname, 'dist-test')
   }
 })
