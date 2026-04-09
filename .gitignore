@@ -8,11 +8,10 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-test
 test-mocha
 coverage
 *.local
-cypress
+test-e2e/node_modules
 public
 
 # Editor directories and files

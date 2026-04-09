@@ -17,7 +17,7 @@
     "./dist/*": "./dist/*",
     "./src/*": "./src/*"
   },
-"scripts": {
+  "scripts": {
     "dev": "vite",
     "build": "rollup -c",
     "postbuild": "tsc -p tsconfig.json",
@@ -35,25 +35,6 @@
     "@types/node": "^25.5.2",
     "@vitejs/plugin-vue": "^6.0.5",
     "@vitest/coverage-v8": "^4.1.4",
-    "rollup": "^4.60.1",
-    "typescript": "^6.0.2",
-    "vite": "^8.0.8",
-    "vitest": "^4.1.4",
-    "vue": "^3.5.32"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PeterNaydenov/cuts.git"
-  },
-  "devDependencies": {
-    "@peter.naydenov/visual-controller-for-vue3": "^2.1.7",
-    "@rollup/plugin-commonjs": "^29.0.2",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-terser": "^1.0.0",
-    "@types/node": "^25.5.2",
-    "@vitejs/plugin-vue": "^6.0.5",
-    "@vitest/coverage-v8": "^4.1.4",
-    "cypress": "^15.13.0",
     "rollup": "^4.60.1",
     "typescript": "^6.0.2",
     "vite": "^8.0.8",
