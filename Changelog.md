@@ -2,6 +2,11 @@
 
 
 
+## 2.0.3 ( 2026-04-23 )
+- [x] Dependency update. ask-for-promise - v.3.1.1;
+
+
+
 ## 2.0.2 ( 2026-04-02 )
 - [x] Dependency update. @peter.naydenov/shortcuts - v.4.0.2;
 
