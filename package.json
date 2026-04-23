@@ -44,7 +44,7 @@
   "dependencies": {
     "@peter.naydenov/log": "^1.1.1",
     "@peter.naydenov/shortcuts": "^4.0.2",
-    "ask-for-promise": "^3.1.0"
+    "ask-for-promise": "^3.1.1"
   },
   "keywords": [
     "script",
