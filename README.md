@@ -1,4 +1,4 @@
-<img src="cuts.png" width="100%" alt="Cuts" align="center" />
+<img src="https://github.com/PeterNaydenov/cuts/cuts.png" width="100%" alt="Cuts" align="center" />
 
 
 
