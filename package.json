@@ -34,11 +34,11 @@
     "@rollup/plugin-terser": "^1.0.0",
     "@types/node": "^25.9.1",
     "@vitejs/plugin-vue": "^6.0.7",
-    "@vitest/coverage-v8": "^4.1.7",
+    "@vitest/coverage-v8": "^4.1.8",
     "rollup": "^4.60.4",
     "typescript": "^6.0.3",
     "vite": "^8.0.14",
-    "vitest": "^4.1.7",
+    "vitest": "^4.1.8",
     "vue": "^3.5.35"
   },
   "dependencies": {
@@ -51,5 +51,9 @@
     "visual",
     "state",
     "manager"
-  ]
+  ],
+  "allowScripts": {
+    "fsevents@2.3.3": true,
+    "fsevents@2.3.2": true
+  }
 }
