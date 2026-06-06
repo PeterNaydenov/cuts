@@ -4,38 +4,6 @@
   "graph": {
     "hyperedges": [
       {
-        "id": "scene_navigation_flow",
-        "label": "Scene Navigation Flow",
-        "nodes": [
-          "readme_show_method",
-          "readme_hide_method",
-          "readme_jump_method",
-          "readme_jumpback_method",
-          "readme_jumpsreset_method",
-          "readme_jump_stack"
-        ],
-        "relation": "participate_in",
-        "confidence": "EXTRACTED",
-        "confidence_score": 0.95,
-        "source_file": "README.md"
-      },
-      {
-        "id": "shortcut_plugin_system",
-        "label": "Shortcut Plugin System",
-        "nodes": [
-          "readme_plugin_click",
-          "readme_plugin_key",
-          "readme_plugin_form",
-          "readme_plugin_hover",
-          "readme_plugin_scroll",
-          "readme_loadplugins"
-        ],
-        "relation": "participate_in",
-        "confidence": "EXTRACTED",
-        "confidence_score": 0.95,
-        "source_file": "README.md"
-      },
-      {
         "id": "v1_to_v2_migration_concerns",
         "label": "v1.x to v2.x Migration Concerns",
         "nodes": [
@@ -49,6 +17,55 @@
         "confidence": "EXTRACTED",
         "confidence_score": 0.9,
         "source_file": "Migration.guide.md"
+      },
+      {
+        "id": "scene_lifecycle",
+        "label": "Scene lifecycle methods",
+        "nodes": [
+          "readme_scene",
+          "readme_show",
+          "readme_hide",
+          "readme_aftershow",
+          "readme_beforehide"
+        ],
+        "relation": "form",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": "README.md"
+      },
+      {
+        "id": "jump_navigation",
+        "label": "Jump-based scene navigation flow",
+        "nodes": [
+          "readme_jump",
+          "readme_jumpback",
+          "readme_jumpsreset",
+          "readme_jumpstack",
+          "readme_scene"
+        ],
+        "relation": "participate_in",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": "README.md"
+      },
+      {
+        "id": "plugin_system",
+        "label": "Shortcut plugin system",
+        "nodes": [
+          "readme_loadplugins",
+          "readme_enableplugin",
+          "readme_disableplugin",
+          "readme_plugin_key",
+          "readme_plugin_click",
+          "readme_plugin_form",
+          "readme_plugin_hover",
+          "readme_plugin_scroll",
+          "readme_shortcuts"
+        ],
+        "relation": "implement",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": "README.md"
       },
       {
         "id": "cuts_logo_composition",
@@ -73,7 +90,7 @@
       "source_file": "playwright.config.js",
       "source_location": "L1",
       "id": "playwright_config",
-      "community": 18
+      "community": 19
     },
     {
       "label": "vite.config.js",
@@ -81,7 +98,7 @@
       "source_file": "test-e2e/vite.config.js",
       "source_location": "L1",
       "id": "vite_config",
-      "community": 19
+      "community": 20
     },
     {
       "label": "vitest.config.js",
@@ -89,7 +106,7 @@
       "source_file": "vitest.config.js",
       "source_location": "L1",
       "id": "vitest_config",
-      "community": 20
+      "community": 21
     },
     {
       "label": "main.js",
@@ -97,7 +114,7 @@
       "source_file": "src/main.js",
       "source_location": "L1",
       "id": "main",
-      "community": 9
+      "community": 10
     },
     {
       "label": "rollup.config.js",
@@ -105,7 +122,7 @@
       "source_file": "rollup.config.js",
       "source_location": "L1",
       "id": "rollup_config",
-      "community": 21
+      "community": 22
     },
     {
       "label": "findInstructions.d.ts",
@@ -113,7 +130,7 @@
       "source_file": "types/src/findInstructions.d.ts",
       "source_location": "L1",
       "id": "findinstructions_d",
-      "community": 22
+      "community": 23
     },
     {
       "label": "main.d.ts",
@@ -121,7 +138,7 @@
       "source_file": "types/src/main.d.ts",
       "source_location": "L1",
       "id": "main_d",
-      "community": 23
+      "community": 24
     },
     {
       "label": "setInstruction.d.ts",
@@ -129,7 +146,7 @@
       "source_file": "types/src/setInstruction.d.ts",
       "source_location": "L1",
       "id": "setinstruction_d",
-      "community": 24
+      "community": 25
     },
     {
       "label": "hide.d.ts",
@@ -137,7 +154,7 @@
       "source_file": "types/src/methods/hide.d.ts",
       "source_location": "L1",
       "id": "hide_d",
-      "community": 25
+      "community": 26
     },
     {
       "label": "jumpsReset.d.ts",
@@ -145,7 +162,7 @@
       "source_file": "types/src/methods/jumpsReset.d.ts",
       "source_location": "L1",
       "id": "jumpsreset_d",
-      "community": 26
+      "community": 27
     },
     {
       "label": "jump.d.ts",
@@ -153,7 +170,7 @@
       "source_file": "types/src/methods/jump.d.ts",
       "source_location": "L1",
       "id": "jump_d",
-      "community": 27
+      "community": 28
     },
     {
       "label": "listShortcuts.d.ts",
@@ -161,7 +178,7 @@
       "source_file": "types/src/methods/listShortcuts.d.ts",
       "source_location": "L1",
       "id": "listshortcuts_d",
-      "community": 28
+      "community": 29
     },
     {
       "label": "jumpBack.d.ts",
@@ -169,7 +186,7 @@
       "source_file": "types/src/methods/jumpBack.d.ts",
       "source_location": "L1",
       "id": "jumpback_d",
-      "community": 29
+      "community": 30
     },
     {
       "label": "index.d.ts",
@@ -177,7 +194,7 @@
       "source_file": "types/methods/index.d.ts",
       "source_location": "L1",
       "id": "index_d",
-      "community": 30
+      "community": 31
     },
     {
       "label": "show.d.ts",
@@ -185,7 +202,7 @@
       "source_file": "types/src/methods/show.d.ts",
       "source_location": "L1",
       "id": "show_d",
-      "community": 31
+      "community": 32
     },
     {
       "label": "setScenes.d.ts",
@@ -193,7 +210,7 @@
       "source_file": "types/src/methods/setScenes.d.ts",
       "source_location": "L1",
       "id": "setscenes_d",
-      "community": 32
+      "community": 33
     },
     {
       "label": "01-findPosition.test.js",
@@ -201,7 +218,7 @@
       "source_file": "test/01-findPosition.test.js",
       "source_location": "L1",
       "id": "01_findposition_test",
-      "community": 33
+      "community": 34
     },
     {
       "label": "02-cuts.test.js",
@@ -209,7 +226,7 @@
       "source_file": "test/02-cuts.test.js",
       "source_location": "L1",
       "id": "02_cuts_test",
-      "community": 34
+      "community": 35
     },
     {
       "label": "01-general.test.js",
@@ -217,7 +234,7 @@
       "source_file": "test-e2e/01-general.test.js",
       "source_location": "L1",
       "id": "01_general_test",
-      "community": 35
+      "community": 36
     },
     {
       "label": "block-navigation.js",
@@ -225,7 +242,7 @@
       "source_file": "coverage/lcov-report/block-navigation.js",
       "source_location": "L1",
       "id": "block_navigation",
-      "community": 5
+      "community": 6
     },
     {
       "label": "toggleClass()",
@@ -233,7 +250,7 @@
       "source_file": "coverage/lcov-report/block-navigation.js",
       "source_location": "L24",
       "id": "block_navigation_toggleclass",
-      "community": 5
+      "community": 6
     },
     {
       "label": "makeCurrent()",
@@ -241,7 +258,7 @@
       "source_file": "coverage/lcov-report/block-navigation.js",
       "source_location": "L31",
       "id": "block_navigation_makecurrent",
-      "community": 5
+      "community": 6
     },
     {
       "label": "goToPrevious()",
@@ -249,7 +266,7 @@
       "source_file": "coverage/lcov-report/block-navigation.js",
       "source_location": "L41",
       "id": "block_navigation_gotoprevious",
-      "community": 5
+      "community": 6
     },
     {
       "label": "goToNext()",
@@ -257,7 +274,7 @@
       "source_file": "coverage/lcov-report/block-navigation.js",
       "source_location": "L52",
       "id": "block_navigation_gotonext",
-      "community": 5
+      "community": 6
     },
     {
       "label": "prettify.js",
@@ -265,7 +282,7 @@
       "source_file": "coverage/lcov-report/prettify.js",
       "source_location": "L1",
       "id": "prettify",
-      "community": 2
+      "community": 3
     },
     {
       "label": "k()",
@@ -273,7 +290,7 @@
       "source_file": "coverage/lcov-report/prettify.js",
       "source_location": "L2",
       "id": "prettify_k",
-      "community": 2
+      "community": 3
     },
     {
       "label": "a()",
@@ -281,7 +298,7 @@
       "source_file": "coverage/lcov-report/prettify.js",
       "source_location": "L2",
       "id": "prettify_a",
-      "community": 2
+      "community": 3
     },
     {
       "label": "B()",
@@ -289,7 +306,7 @@
       "source_file": "coverage/lcov-report/prettify.js",
       "source_location": "L2",
       "id": "prettify_b",
-      "community": 2
+      "community": 3
     },
     {
       "label": "o()",
@@ -297,7 +314,7 @@
       "source_file": "coverage/lcov-report/prettify.js",
       "source_location": "L2",
       "id": "prettify_o",
-      "community": 2
+      "community": 3
     },
     {
       "label": "g()",
@@ -305,7 +322,7 @@
       "source_file": "coverage/lcov-report/prettify.js",
       "source_location": "L2",
       "id": "prettify_g",
-      "community": 2
+      "community": 3
     },
     {
       "label": "i()",
@@ -313,7 +330,7 @@
       "source_file": "coverage/lcov-report/prettify.js",
       "source_location": "L2",
       "id": "prettify_i",
-      "community": 2
+      "community": 3
     },
     {
       "label": "Q()",
@@ -321,7 +338,7 @@
       "source_file": "coverage/lcov-report/prettify.js",
       "source_location": "L2",
       "id": "prettify_q",
-      "community": 2
+      "community": 3
     },
     {
       "label": "D()",
@@ -329,7 +346,7 @@
       "source_file": "coverage/lcov-report/prettify.js",
       "source_location": "L2",
       "id": "prettify_d",
-      "community": 2
+      "community": 3
     },
     {
       "label": "c()",
@@ -337,7 +354,7 @@
       "source_file": "coverage/lcov-report/prettify.js",
       "source_location": "L2",
       "id": "prettify_c",
-      "community": 2
+      "community": 3
     },
     {
       "label": "y()",
@@ -345,7 +362,7 @@
       "source_file": "coverage/lcov-report/prettify.js",
       "source_location": "L2",
       "id": "prettify_y",
-      "community": 2
+      "community": 3
     },
     {
       "label": "sorter.js",
@@ -353,7 +370,7 @@
       "source_file": "coverage/lcov-report/sorter.js",
       "source_location": "L1",
       "id": "sorter",
-      "community": 1
+      "community": 2
     },
     {
       "label": "getTable()",
@@ -361,7 +378,7 @@
       "source_file": "coverage/lcov-report/sorter.js",
       "source_location": "L11",
       "id": "sorter_gettable",
-      "community": 1
+      "community": 2
     },
     {
       "label": "getTableHeader()",
@@ -369,7 +386,7 @@
       "source_file": "coverage/lcov-report/sorter.js",
       "source_location": "L15",
       "id": "sorter_gettableheader",
-      "community": 1
+      "community": 2
     },
     {
       "label": "getTableBody()",
@@ -377,7 +394,7 @@
       "source_file": "coverage/lcov-report/sorter.js",
       "source_location": "L19",
       "id": "sorter_gettablebody",
-      "community": 1
+      "community": 2
     },
     {
       "label": "getNthColumn()",
@@ -385,7 +402,7 @@
       "source_file": "coverage/lcov-report/sorter.js",
       "source_location": "L23",
       "id": "sorter_getnthcolumn",
-      "community": 1
+      "community": 2
     },
     {
       "label": "onFilterInput()",
@@ -393,7 +410,7 @@
       "source_file": "coverage/lcov-report/sorter.js",
       "source_location": "L27",
       "id": "sorter_onfilterinput",
-      "community": 1
+      "community": 2
     },
     {
       "label": "addSearchBox()",
@@ -401,7 +418,7 @@
       "source_file": "coverage/lcov-report/sorter.js",
       "source_location": "L59",
       "id": "sorter_addsearchbox",
-      "community": 1
+      "community": 2
     },
     {
       "label": "loadColumns()",
@@ -409,7 +426,7 @@
       "source_file": "coverage/lcov-report/sorter.js",
       "source_location": "L67",
       "id": "sorter_loadcolumns",
-      "community": 1
+      "community": 2
     },
     {
       "label": "loadRowData()",
@@ -417,7 +434,7 @@
       "source_file": "coverage/lcov-report/sorter.js",
       "source_location": "L92",
       "id": "sorter_loadrowdata",
-      "community": 1
+      "community": 2
     },
     {
       "label": "loadData()",
@@ -425,7 +442,7 @@
       "source_file": "coverage/lcov-report/sorter.js",
       "source_location": "L111",
       "id": "sorter_loaddata",
-      "community": 1
+      "community": 2
     },
     {
       "label": "sortByIndex()",
@@ -433,7 +450,7 @@
       "source_file": "coverage/lcov-report/sorter.js",
       "source_location": "L120",
       "id": "sorter_sortbyindex",
-      "community": 1
+      "community": 2
     },
     {
       "label": "removeSortIndicators()",
@@ -441,7 +458,7 @@
       "source_file": "coverage/lcov-report/sorter.js",
       "source_location": "L151",
       "id": "sorter_removesortindicators",
-      "community": 1
+      "community": 2
     },
     {
       "label": "addSortIndicators()",
@@ -449,7 +466,7 @@
       "source_file": "coverage/lcov-report/sorter.js",
       "source_location": "L159",
       "id": "sorter_addsortindicators",
-      "community": 1
+      "community": 2
     },
     {
       "label": "enableUI()",
@@ -457,7 +474,7 @@
       "source_file": "coverage/lcov-report/sorter.js",
       "source_location": "L165",
       "id": "sorter_enableui",
-      "community": 1
+      "community": 2
     },
     {
       "label": "main()",
@@ -465,7 +482,7 @@
       "source_file": "src/main.js",
       "source_location": "L39",
       "id": "main_main",
-      "community": 9
+      "community": 10
     },
     {
       "label": "findInstructions.js",
@@ -473,7 +490,7 @@
       "source_file": "src/findInstructions.js",
       "source_location": "L1",
       "id": "findinstructions",
-      "community": 36
+      "community": 37
     },
     {
       "label": "setInstruction.js",
@@ -481,7 +498,7 @@
       "source_file": "src/setInstruction.js",
       "source_location": "L1",
       "id": "setinstruction",
-      "community": 10
+      "community": 11
     },
     {
       "label": "setInstruction()",
@@ -489,7 +506,7 @@
       "source_file": "src/setInstruction.js",
       "source_location": "L3",
       "id": "setinstruction_setinstruction",
-      "community": 10
+      "community": 11
     },
     {
       "label": "listShortcuts.js",
@@ -497,7 +514,7 @@
       "source_file": "src/methods/listShortcuts.js",
       "source_location": "L1",
       "id": "listshortcuts",
-      "community": 11
+      "community": 12
     },
     {
       "label": "listShortcuts()",
@@ -505,7 +522,7 @@
       "source_file": "src/methods/listShortcuts.js",
       "source_location": "L3",
       "id": "listshortcuts_listshortcuts",
-      "community": 11
+      "community": 12
     },
     {
       "label": "jumpsReset.js",
@@ -513,7 +530,7 @@
       "source_file": "src/methods/jumpsReset.js",
       "source_location": "L1",
       "id": "jumpsreset",
-      "community": 12
+      "community": 13
     },
     {
       "label": "jumpsReset()",
@@ -521,7 +538,7 @@
       "source_file": "src/methods/jumpsReset.js",
       "source_location": "L1",
       "id": "jumpsreset_jumpsreset",
-      "community": 12
+      "community": 13
     },
     {
       "label": "jump.js",
@@ -529,7 +546,7 @@
       "source_file": "src/methods/jump.js",
       "source_location": "L1",
       "id": "jump",
-      "community": 13
+      "community": 14
     },
     {
       "label": "jump()",
@@ -537,7 +554,7 @@
       "source_file": "src/methods/jump.js",
       "source_location": "L1",
       "id": "jump_jump",
-      "community": 13
+      "community": 14
     },
     {
       "label": "show.js",
@@ -545,7 +562,7 @@
       "source_file": "src/methods/show.js",
       "source_location": "L1",
       "id": "show",
-      "community": 14
+      "community": 15
     },
     {
       "label": "show()",
@@ -553,7 +570,7 @@
       "source_file": "src/methods/show.js",
       "source_location": "L5",
       "id": "show_show",
-      "community": 14
+      "community": 15
     },
     {
       "label": "jumpBack.js",
@@ -561,7 +578,7 @@
       "source_file": "src/methods/jumpBack.js",
       "source_location": "L1",
       "id": "jumpback",
-      "community": 15
+      "community": 16
     },
     {
       "label": "jumpBack()",
@@ -569,7 +586,7 @@
       "source_file": "src/methods/jumpBack.js",
       "source_location": "L1",
       "id": "jumpback_jumpback",
-      "community": 15
+      "community": 16
     },
     {
       "label": "setScenes.js",
@@ -577,7 +594,7 @@
       "source_file": "src/methods/setScenes.js",
       "source_location": "L1",
       "id": "setscenes",
-      "community": 16
+      "community": 17
     },
     {
       "label": "setScenes()",
@@ -585,7 +602,7 @@
       "source_file": "src/methods/setScenes.js",
       "source_location": "L29",
       "id": "setscenes_setscenes",
-      "community": 16
+      "community": 17
     },
     {
       "label": "hide.js",
@@ -593,7 +610,7 @@
       "source_file": "src/methods/hide.js",
       "source_location": "L1",
       "id": "hide",
-      "community": 17
+      "community": 18
     },
     {
       "label": "hide()",
@@ -601,318 +618,90 @@
       "source_file": "src/methods/hide.js",
       "source_location": "L5",
       "id": "hide_hide",
-      "community": 17
+      "community": 18
     },
     {
-      "label": "Cuts Library",
+      "label": "@app-error Event",
       "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "5",
+      "source_file": "Changelog.md",
+      "source_location": "22",
       "source_url": null,
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_cuts",
-      "community": 0
+      "id": "changelog_app_error_event",
+      "community": 1
     },
     {
-      "label": "SPA Scene Model",
+      "label": "logLevel Configuration",
       "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "15",
+      "source_file": "Changelog.md",
+      "source_location": "23",
       "source_url": null,
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_spa_scenes",
-      "community": 0
+      "id": "changelog_loglevel",
+      "community": 1
     },
     {
-      "label": "Scene Data Model",
+      "label": "Bug: SSR First Scene Loading",
       "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "79",
+      "source_file": "Changelog.md",
+      "source_location": "39",
       "source_url": null,
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_scene",
-      "community": 4
+      "id": "changelog_bug_ssr",
+      "community": 1
     },
     {
-      "label": "Jump Stack",
+      "label": "Bug: Long Scene List State",
       "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "107",
+      "source_file": "Changelog.md",
+      "source_location": "38",
       "source_url": null,
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_jump_stack",
-      "community": 6
-    },
-    {
-      "label": "script.show()",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "61",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_show_method",
-      "community": 0
-    },
-    {
-      "label": "script.hide()",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "62",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_hide_method",
-      "community": 37
-    },
-    {
-      "label": "script.jump()",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "64",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_jump_method",
-      "community": 6
-    },
-    {
-      "label": "script.jumpBack()",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "65",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_jumpback_method",
-      "community": 6
-    },
-    {
-      "label": "script.jumpsReset()",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "66",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_jumpsreset_method",
-      "community": 6
-    },
-    {
-      "label": "script.setScenes()",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "61",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_setscenes",
+      "id": "changelog_bug_long_scenes",
       "community": 38
     },
     {
-      "label": "script.setDependencies()",
+      "label": "Cuts v2.0.0 Release",
       "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "68",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_setdependencies",
-      "community": 39
-    },
-    {
-      "label": "script.getState()",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "73",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_getstate",
-      "community": 40
-    },
-    {
-      "label": "script.loadPlugins()",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "130",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_loadplugins",
-      "community": 0
-    },
-    {
-      "label": "Scene.afterShow()",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "86",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_after_show",
-      "community": 4
-    },
-    {
-      "label": "Scene.beforeHide()",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "88",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_before_hide",
-      "community": 4
-    },
-    {
-      "label": "Plugin: Click",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "150",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_plugin_click",
-      "community": 0
-    },
-    {
-      "label": "Plugin: Key",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "149",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_plugin_key",
-      "community": 0
-    },
-    {
-      "label": "Plugin: Form",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "151",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_plugin_form",
-      "community": 0
-    },
-    {
-      "label": "Plugin: Hover",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "152",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_plugin_hover",
-      "community": 0
-    },
-    {
-      "label": "Plugin: Scroll",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "153",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_plugin_scroll",
-      "community": 0
-    },
-    {
-      "label": "@peter.naydenov/shortcuts Dependency",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "17",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_shortcuts_dep",
-      "community": 0
-    },
-    {
-      "label": "Rationale: Deferred Code in afterShow",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "100",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_aftershow_rationale",
-      "community": 4
-    },
-    {
-      "label": "Rationale: Prevent Navigation in beforeHide",
-      "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "104",
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_beforehide_rationale",
-      "community": 4
-    },
-    {
-      "label": "Rationale: Why Cuts for SPA",
-      "file_type": "document",
-      "source_file": "README.md",
+      "source_file": "Changelog.md",
       "source_location": "21",
       "source_url": null,
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_cuts_rationale",
-      "community": 0
+      "id": "changelog_v2_release",
+      "community": 1
     },
     {
-      "label": "Peter Naydenov",
+      "label": "Jump/JumpBack/JumpsReset Methods",
       "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "165",
+      "source_file": "Changelog.md",
+      "source_location": "71",
       "source_url": null,
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_author",
-      "community": 0
+      "id": "changelog_v1_4_jumps",
+      "community": 39
     },
     {
-      "label": "MIT License",
+      "label": "Scene Hooks: afterShow and beforeHide",
       "file_type": "document",
-      "source_file": "README.md",
-      "source_location": "170",
+      "source_file": "Changelog.md",
+      "source_location": "137",
       "source_url": null,
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_license",
+      "id": "changelog_afterShow_beforeHide_hooks",
       "community": 0
     },
     {
@@ -925,7 +714,7 @@
       "author": null,
       "contributor": null,
       "id": "migration_v1_to_v2",
-      "community": 0
+      "community": 1
     },
     {
       "label": "clickTarget Array Migration",
@@ -937,7 +726,7 @@
       "author": null,
       "contributor": null,
       "id": "migration_click_target",
-      "community": 0
+      "community": 1
     },
     {
       "label": "hoverTarget Array Migration",
@@ -949,7 +738,7 @@
       "author": null,
       "contributor": null,
       "id": "migration_hover_target",
-      "community": 0
+      "community": 1
     },
     {
       "label": "Shortcuts v4.x Upgrade",
@@ -961,7 +750,7 @@
       "author": null,
       "contributor": null,
       "id": "migration_shortcuts_v4",
-      "community": 0
+      "community": 1
     },
     {
       "label": "Rationale: Array Target Flexibility",
@@ -973,91 +762,487 @@
       "author": null,
       "contributor": null,
       "id": "migration_rationale",
+      "community": 1
+    },
+    {
+      "label": "Cuts Library (@peter.naydenov/cuts)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_cuts",
+      "community": 1
+    },
+    {
+      "label": "@peter.naydenov/shortcuts",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": "https://github.com/PeterNaydenov/shortcuts",
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_shortcuts",
+      "community": 4
+    },
+    {
+      "label": "@peter.naydenov/log",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_log",
+      "community": 1
+    },
+    {
+      "label": "Scene (SPA visual state)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_scene",
       "community": 0
     },
     {
-      "label": "@app-error Event",
+      "label": "Jump Stack",
       "file_type": "document",
-      "source_file": "Changelog.md",
-      "source_location": "22",
+      "source_file": "README.md",
+      "source_location": null,
       "source_url": null,
       "captured_at": null,
-      "author": null,
+      "author": "Peter Naydenov",
       "contributor": null,
-      "id": "changelog_app_error_event",
+      "id": "readme_jumpstack",
       "community": 0
     },
     {
-      "label": "logLevel Configuration",
+      "label": "Dependencies Object",
       "file_type": "document",
-      "source_file": "Changelog.md",
-      "source_location": "23",
+      "source_file": "README.md",
+      "source_location": null,
       "source_url": null,
       "captured_at": null,
-      "author": null,
+      "author": "Peter Naydenov",
       "contributor": null,
-      "id": "changelog_loglevel",
+      "id": "readme_dependencies",
+      "community": 9
+    },
+    {
+      "label": "Scene Parents List",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_parents",
       "community": 0
     },
     {
-      "label": "Bug: SSR First Scene Loading",
+      "label": "show() method",
       "file_type": "document",
-      "source_file": "Changelog.md",
-      "source_location": "39",
+      "source_file": "README.md",
+      "source_location": null,
       "source_url": null,
       "captured_at": null,
-      "author": null,
+      "author": "Peter Naydenov",
       "contributor": null,
-      "id": "changelog_bug_ssr",
+      "id": "readme_show",
       "community": 0
     },
     {
-      "label": "Bug: Long Scene List State",
+      "label": "hide() method",
       "file_type": "document",
-      "source_file": "Changelog.md",
-      "source_location": "38",
+      "source_file": "README.md",
+      "source_location": null,
       "source_url": null,
       "captured_at": null,
-      "author": null,
+      "author": "Peter Naydenov",
       "contributor": null,
-      "id": "changelog_bug_long_scenes",
+      "id": "readme_hide",
+      "community": 0
+    },
+    {
+      "label": "afterShow() method",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_aftershow",
+      "community": 0
+    },
+    {
+      "label": "beforeHide() method",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_beforehide",
+      "community": 0
+    },
+    {
+      "label": "jump() method",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_jump",
+      "community": 0
+    },
+    {
+      "label": "jumpBack() method",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_jumpback",
+      "community": 0
+    },
+    {
+      "label": "jumpsReset() method",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_jumpsreset",
+      "community": 0
+    },
+    {
+      "label": "setScenes() method",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_setscenes",
+      "community": 0
+    },
+    {
+      "label": "setDependencies() method",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_setdependencies",
+      "community": 9
+    },
+    {
+      "label": "getDependencies() method",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_getdependencies",
+      "community": 9
+    },
+    {
+      "label": "listScenes() method",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_listscenes",
+      "community": 40
+    },
+    {
+      "label": "listShortcuts() method",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_listshortcuts",
       "community": 41
     },
     {
-      "label": "Cuts v2.0.0 Release",
+      "label": "enablePlugin() method",
       "file_type": "document",
-      "source_file": "Changelog.md",
-      "source_location": "21",
+      "source_file": "README.md",
+      "source_location": null,
       "source_url": null,
       "captured_at": null,
-      "author": null,
+      "author": "Peter Naydenov",
       "contributor": null,
-      "id": "changelog_v2_release",
+      "id": "readme_enableplugin",
+      "community": 4
+    },
+    {
+      "label": "disablePlugin() method",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_disableplugin",
+      "community": 4
+    },
+    {
+      "label": "getState() method",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_getstate",
+      "community": 42
+    },
+    {
+      "label": "emit() method",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_emit",
+      "community": 4
+    },
+    {
+      "label": "loadPlugins() method",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_loadplugins",
+      "community": 4
+    },
+    {
+      "label": "logLevel configuration option",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_loglevel",
+      "community": 1
+    },
+    {
+      "label": "@app-error event",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_app_error",
+      "community": 1
+    },
+    {
+      "label": "Key plugin (keyboard)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_plugin_key",
+      "community": 4
+    },
+    {
+      "label": "Click plugin (mouse)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_plugin_click",
+      "community": 4
+    },
+    {
+      "label": "Form plugin (input)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_plugin_form",
+      "community": 4
+    },
+    {
+      "label": "Hover plugin",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_plugin_hover",
+      "community": 4
+    },
+    {
+      "label": "Scroll plugin",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_plugin_scroll",
+      "community": 4
+    },
+    {
+      "label": "Rationale: afterShow models document.onload for deferred SPA work",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_rationale_aftershow",
       "community": 0
     },
     {
-      "label": "Jump/JumpBack/JumpsReset Methods",
+      "label": "Rationale: beforeHide inspired by beforeunload event",
       "file_type": "document",
-      "source_file": "Changelog.md",
-      "source_location": "71",
+      "source_file": "README.md",
+      "source_location": null,
       "source_url": null,
       "captured_at": null,
-      "author": null,
+      "author": "Peter Naydenov",
       "contributor": null,
-      "id": "changelog_v1_4_jumps",
-      "community": 6
+      "id": "readme_rationale_beforehide",
+      "community": 0
     },
     {
-      "label": "Scene Hooks: afterShow and beforeHide",
+      "label": "Rationale: scenes enable independent dev/test",
       "file_type": "document",
-      "source_file": "Changelog.md",
-      "source_location": "137",
+      "source_file": "README.md",
+      "source_location": null,
       "source_url": null,
       "captured_at": null,
-      "author": null,
+      "author": "Peter Naydenov",
       "contributor": null,
-      "id": "changelog_afterShow_beforeHide_hooks",
+      "id": "readme_rationale_scene_decomposition",
+      "community": 0
+    },
+    {
+      "label": "Rationale: scene-based design makes flow easy to reshape",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_rationale_flow_reshape",
+      "community": 1
+    },
+    {
+      "label": "Rationale: scene isolation enables parallel developer work",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_rationale_parallel_dev",
+      "community": 0
+    },
+    {
+      "label": "Rationale: shortcuts library decouples UI from native DOM events",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_rationale_ui_decoupling",
       "community": 4
+    },
+    {
+      "label": "Rationale: scene separation allows any template engine (react/vue/svelte/morph)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_rationale_framework_agnostic",
+      "community": 1
+    },
+    {
+      "label": "Rationale: separated user-interaction enables visual component reuse",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_rationale_visual_reuse",
+      "community": 0
+    },
+    {
+      "label": "morph (template engine example)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": null,
+      "source_url": "https://github.com/PeterNaydenov/morph",
+      "captured_at": null,
+      "author": "Peter Naydenov",
+      "contributor": null,
+      "id": "readme_morph",
+      "community": 1
     },
     {
       "label": "graphify Knowledge Graph",
@@ -1129,7 +1314,7 @@
       "author": null,
       "contributor": null,
       "id": "cuts_brand_logo",
-      "community": 3
+      "community": 5
     },
     {
       "label": "Cuts Wordmark",
@@ -1141,7 +1326,7 @@
       "author": null,
       "contributor": null,
       "id": "cuts_wordmark",
-      "community": 3
+      "community": 5
     },
     {
       "label": "Film Strip Icon",
@@ -1153,7 +1338,7 @@
       "author": null,
       "contributor": null,
       "id": "cuts_film_strip_icon",
-      "community": 3
+      "community": 5
     },
     {
       "label": "Decorative N-Pattern Background",
@@ -1165,7 +1350,7 @@
       "author": null,
       "contributor": null,
       "id": "cuts_background_pattern",
-      "community": 3
+      "community": 5
     },
     {
       "label": "Film Editing Metaphor",
@@ -1177,7 +1362,7 @@
       "author": null,
       "contributor": null,
       "id": "cuts_film_editing_metaphor",
-      "community": 3
+      "community": 5
     },
     {
       "label": "Git-Cuts Brand Identity",
@@ -1189,7 +1374,7 @@
       "author": null,
       "contributor": null,
       "id": "cuts_brand_identity",
-      "community": 3
+      "community": 5
     },
     {
       "label": "Dark Theme Visual Design",
@@ -1201,7 +1386,7 @@
       "author": null,
       "contributor": null,
       "id": "cuts_dark_theme_design",
-      "community": 3
+      "community": 5
     },
     {
       "label": "lcov-report favicon",
@@ -1261,7 +1446,7 @@
       "author": null,
       "contributor": null,
       "id": "sort-arrow-sprite_sort_indicators",
-      "community": 42
+      "community": 43
     }
   ],
   "links": [
@@ -1989,72 +2174,12 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "17",
-      "weight": 1.0,
-      "_src": "readme_cuts",
-      "_tgt": "readme_shortcuts_dep",
-      "source": "readme_cuts",
-      "target": "readme_shortcuts_dep"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "15",
-      "weight": 1.0,
-      "_src": "readme_cuts",
-      "_tgt": "readme_spa_scenes",
-      "source": "readme_cuts",
-      "target": "readme_spa_scenes"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "21",
-      "weight": 1.0,
-      "_src": "readme_cuts_rationale",
-      "_tgt": "readme_cuts",
-      "source": "readme_cuts",
-      "target": "readme_cuts_rationale"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "165",
-      "weight": 1.0,
-      "_src": "readme_cuts",
-      "_tgt": "readme_author",
-      "source": "readme_cuts",
-      "target": "readme_author"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "170",
-      "weight": 1.0,
-      "_src": "readme_cuts",
-      "_tgt": "readme_license",
-      "source": "readme_cuts",
-      "target": "readme_license"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
       "source_file": "Changelog.md",
-      "source_location": "21",
+      "source_location": "22",
       "weight": 1.0,
       "_src": "changelog_v2_release",
-      "_tgt": "readme_cuts",
-      "source": "readme_cuts",
+      "_tgt": "changelog_app_error_event",
+      "source": "changelog_app_error_event",
       "target": "changelog_v2_release"
     },
     {
@@ -2066,404 +2191,8 @@
       "weight": 0.8,
       "_src": "changelog_app_error_event",
       "_tgt": "readme_cuts",
-      "source": "readme_cuts",
-      "target": "changelog_app_error_event"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "86",
-      "weight": 1.0,
-      "_src": "readme_scene",
-      "_tgt": "readme_after_show",
-      "source": "readme_scene",
-      "target": "readme_after_show"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "88",
-      "weight": 1.0,
-      "_src": "readme_scene",
-      "_tgt": "readme_before_hide",
-      "source": "readme_scene",
-      "target": "readme_before_hide"
-    },
-    {
-      "relation": "references",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "Changelog.md",
-      "source_location": "137",
-      "weight": 0.95,
-      "_src": "changelog_afterShow_beforeHide_hooks",
-      "_tgt": "readme_scene",
-      "source": "readme_scene",
-      "target": "changelog_afterShow_beforeHide_hooks"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.85,
-      "source_file": "README.md",
-      "source_location": "91",
-      "weight": 0.85,
-      "_src": "readme_shortcuts_dep",
-      "_tgt": "readme_scene",
-      "source": "readme_scene",
-      "target": "readme_shortcuts_dep"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "109",
-      "weight": 1.0,
-      "_src": "readme_jump_method",
-      "_tgt": "readme_jump_stack",
-      "source": "readme_jump_stack",
-      "target": "readme_jump_method"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "109",
-      "weight": 1.0,
-      "_src": "readme_jumpback_method",
-      "_tgt": "readme_jump_stack",
-      "source": "readme_jump_stack",
-      "target": "readme_jumpback_method"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "109",
-      "weight": 1.0,
-      "_src": "readme_jumpsreset_method",
-      "_tgt": "readme_jump_stack",
-      "source": "readme_jump_stack",
-      "target": "readme_jumpsreset_method"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.9,
-      "source_file": "Changelog.md",
-      "source_location": "71",
-      "weight": 0.9,
-      "_src": "changelog_v1_4_jumps",
-      "_tgt": "readme_jump_stack",
-      "source": "readme_jump_stack",
-      "target": "changelog_v1_4_jumps"
-    },
-    {
-      "relation": "semantically_similar_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.6,
-      "source_file": "Changelog.md",
-      "source_location": "39",
-      "weight": 0.6,
-      "_src": "changelog_bug_ssr",
-      "_tgt": "readme_show_method",
-      "source": "readme_show_method",
-      "target": "changelog_bug_ssr"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "Changelog.md",
-      "source_location": "71",
-      "weight": 1.0,
-      "_src": "changelog_v1_4_jumps",
-      "_tgt": "readme_jump_method",
-      "source": "readme_jump_method",
-      "target": "changelog_v1_4_jumps"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "Changelog.md",
-      "source_location": "71",
-      "weight": 1.0,
-      "_src": "changelog_v1_4_jumps",
-      "_tgt": "readme_jumpback_method",
-      "source": "readme_jumpback_method",
-      "target": "changelog_v1_4_jumps"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "Changelog.md",
-      "source_location": "71",
-      "weight": 1.0,
-      "_src": "changelog_v1_4_jumps",
-      "_tgt": "readme_jumpsreset_method",
-      "source": "readme_jumpsreset_method",
-      "target": "changelog_v1_4_jumps"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "137",
-      "weight": 1.0,
-      "_src": "readme_loadplugins",
-      "_tgt": "readme_plugin_click",
-      "source": "readme_loadplugins",
-      "target": "readme_plugin_click"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "137",
-      "weight": 1.0,
-      "_src": "readme_loadplugins",
-      "_tgt": "readme_plugin_hover",
-      "source": "readme_loadplugins",
-      "target": "readme_plugin_hover"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "149",
-      "weight": 1.0,
-      "_src": "readme_loadplugins",
-      "_tgt": "readme_plugin_key",
-      "source": "readme_loadplugins",
-      "target": "readme_plugin_key"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "151",
-      "weight": 1.0,
-      "_src": "readme_loadplugins",
-      "_tgt": "readme_plugin_form",
-      "source": "readme_loadplugins",
-      "target": "readme_plugin_form"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "153",
-      "weight": 1.0,
-      "_src": "readme_loadplugins",
-      "_tgt": "readme_plugin_scroll",
-      "source": "readme_loadplugins",
-      "target": "readme_plugin_scroll"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "100",
-      "weight": 1.0,
-      "_src": "readme_aftershow_rationale",
-      "_tgt": "readme_after_show",
-      "source": "readme_after_show",
-      "target": "readme_aftershow_rationale"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "Changelog.md",
-      "source_location": "137",
-      "weight": 1.0,
-      "_src": "changelog_afterShow_beforeHide_hooks",
-      "_tgt": "readme_after_show",
-      "source": "readme_after_show",
-      "target": "changelog_afterShow_beforeHide_hooks"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "104",
-      "weight": 1.0,
-      "_src": "readme_beforehide_rationale",
-      "_tgt": "readme_before_hide",
-      "source": "readme_before_hide",
-      "target": "readme_beforehide_rationale"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "Changelog.md",
-      "source_location": "137",
-      "weight": 1.0,
-      "_src": "changelog_afterShow_beforeHide_hooks",
-      "_tgt": "readme_before_hide",
-      "source": "readme_before_hide",
-      "target": "changelog_afterShow_beforeHide_hooks"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.9,
-      "source_file": "Migration.guide.md",
-      "source_location": "10",
-      "weight": 0.9,
-      "_src": "migration_click_target",
-      "_tgt": "readme_plugin_click",
-      "source": "readme_plugin_click",
-      "target": "migration_click_target"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.9,
-      "source_file": "Migration.guide.md",
-      "source_location": "11",
-      "weight": 0.9,
-      "_src": "migration_hover_target",
-      "_tgt": "readme_plugin_hover",
-      "source": "readme_plugin_hover",
-      "target": "migration_hover_target"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "README.md",
-      "source_location": "152",
-      "weight": 0.8,
-      "_src": "readme_plugin_scroll",
-      "_tgt": "readme_plugin_hover",
-      "source": "readme_plugin_hover",
-      "target": "readme_plugin_scroll"
-    },
-    {
-      "relation": "references",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "Migration.guide.md",
-      "source_location": "5",
-      "weight": 0.95,
-      "_src": "migration_shortcuts_v4",
-      "_tgt": "readme_shortcuts_dep",
-      "source": "readme_shortcuts_dep",
-      "target": "migration_shortcuts_v4"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "Migration.guide.md",
-      "source_location": "5",
-      "weight": 1.0,
-      "_src": "migration_v1_to_v2",
-      "_tgt": "migration_shortcuts_v4",
-      "source": "migration_v1_to_v2",
-      "target": "migration_shortcuts_v4"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "Migration.guide.md",
-      "source_location": "10",
-      "weight": 1.0,
-      "_src": "migration_v1_to_v2",
-      "_tgt": "migration_click_target",
-      "source": "migration_v1_to_v2",
-      "target": "migration_click_target"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "Migration.guide.md",
-      "source_location": "11",
-      "weight": 1.0,
-      "_src": "migration_v1_to_v2",
-      "_tgt": "migration_hover_target",
-      "source": "migration_v1_to_v2",
-      "target": "migration_hover_target"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "Changelog.md",
-      "source_location": "21",
-      "weight": 0.95,
-      "_src": "changelog_v2_release",
-      "_tgt": "migration_v1_to_v2",
-      "source": "migration_v1_to_v2",
-      "target": "changelog_v2_release"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "Migration.guide.md",
-      "source_location": "29",
-      "weight": 1.0,
-      "_src": "migration_rationale",
-      "_tgt": "migration_click_target",
-      "source": "migration_click_target",
-      "target": "migration_rationale"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "Migration.guide.md",
-      "source_location": "29",
-      "weight": 1.0,
-      "_src": "migration_rationale",
-      "_tgt": "migration_hover_target",
-      "source": "migration_hover_target",
-      "target": "migration_rationale"
-    },
-    {
-      "relation": "references",
-      "confidence": "INFERRED",
-      "confidence_score": 0.9,
-      "source_file": "Changelog.md",
-      "source_location": "27",
-      "weight": 0.9,
-      "_src": "changelog_v2_release",
-      "_tgt": "migration_shortcuts_v4",
-      "source": "migration_shortcuts_v4",
-      "target": "changelog_v2_release"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "Changelog.md",
-      "source_location": "22",
-      "weight": 1.0,
-      "_src": "changelog_v2_release",
-      "_tgt": "changelog_app_error_event",
       "source": "changelog_app_error_event",
-      "target": "changelog_v2_release"
+      "target": "readme_cuts"
     },
     {
       "relation": "references",
@@ -2488,6 +2217,702 @@
       "_tgt": "changelog_bug_ssr",
       "source": "changelog_bug_ssr",
       "target": "changelog_v2_release"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Changelog.md",
+      "source_location": "21",
+      "weight": 1.0,
+      "_src": "changelog_v2_release",
+      "_tgt": "readme_cuts",
+      "source": "changelog_v2_release",
+      "target": "readme_cuts"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "Changelog.md",
+      "source_location": "21",
+      "weight": 0.95,
+      "_src": "changelog_v2_release",
+      "_tgt": "migration_v1_to_v2",
+      "source": "changelog_v2_release",
+      "target": "migration_v1_to_v2"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "Changelog.md",
+      "source_location": "27",
+      "weight": 0.9,
+      "_src": "changelog_v2_release",
+      "_tgt": "migration_shortcuts_v4",
+      "source": "changelog_v2_release",
+      "target": "migration_shortcuts_v4"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "Changelog.md",
+      "source_location": "137",
+      "weight": 0.95,
+      "_src": "changelog_afterShow_beforeHide_hooks",
+      "_tgt": "readme_scene",
+      "source": "changelog_afterShow_beforeHide_hooks",
+      "target": "readme_scene"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Migration.guide.md",
+      "source_location": "5",
+      "weight": 1.0,
+      "_src": "migration_v1_to_v2",
+      "_tgt": "migration_shortcuts_v4",
+      "source": "migration_v1_to_v2",
+      "target": "migration_shortcuts_v4"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Migration.guide.md",
+      "source_location": "10",
+      "weight": 1.0,
+      "_src": "migration_v1_to_v2",
+      "_tgt": "migration_click_target",
+      "source": "migration_v1_to_v2",
+      "target": "migration_click_target"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Migration.guide.md",
+      "source_location": "11",
+      "weight": 1.0,
+      "_src": "migration_v1_to_v2",
+      "_tgt": "migration_hover_target",
+      "source": "migration_v1_to_v2",
+      "target": "migration_hover_target"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Migration.guide.md",
+      "source_location": "29",
+      "weight": 1.0,
+      "_src": "migration_rationale",
+      "_tgt": "migration_click_target",
+      "source": "migration_click_target",
+      "target": "migration_rationale"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "Migration.guide.md",
+      "source_location": "10",
+      "weight": 0.9,
+      "_src": "migration_click_target",
+      "_tgt": "readme_plugin_click",
+      "source": "migration_click_target",
+      "target": "readme_plugin_click"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "Migration.guide.md",
+      "source_location": "29",
+      "weight": 1.0,
+      "_src": "migration_rationale",
+      "_tgt": "migration_hover_target",
+      "source": "migration_hover_target",
+      "target": "migration_rationale"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "Migration.guide.md",
+      "source_location": "11",
+      "weight": 0.9,
+      "_src": "migration_hover_target",
+      "_tgt": "readme_plugin_hover",
+      "source": "migration_hover_target",
+      "target": "readme_plugin_hover"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_cuts",
+      "_tgt": "readme_shortcuts",
+      "source": "readme_cuts",
+      "target": "readme_shortcuts"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_cuts",
+      "_tgt": "readme_log",
+      "source": "readme_cuts",
+      "target": "readme_log"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_cuts",
+      "_tgt": "readme_app_error",
+      "source": "readme_cuts",
+      "target": "readme_app_error"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.6,
+      "_src": "readme_cuts",
+      "_tgt": "readme_morph",
+      "source": "readme_cuts",
+      "target": "readme_morph"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_rationale_flow_reshape",
+      "_tgt": "readme_cuts",
+      "source": "readme_cuts",
+      "target": "readme_rationale_flow_reshape"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_rationale_framework_agnostic",
+      "_tgt": "readme_cuts",
+      "source": "readme_cuts",
+      "target": "readme_rationale_framework_agnostic"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_emit",
+      "_tgt": "readme_shortcuts",
+      "source": "readme_shortcuts",
+      "target": "readme_emit"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_scene",
+      "_tgt": "readme_shortcuts",
+      "source": "readme_shortcuts",
+      "target": "readme_scene"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.9,
+      "_src": "readme_plugin_key",
+      "_tgt": "readme_shortcuts",
+      "source": "readme_shortcuts",
+      "target": "readme_plugin_key"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.9,
+      "_src": "readme_plugin_click",
+      "_tgt": "readme_shortcuts",
+      "source": "readme_shortcuts",
+      "target": "readme_plugin_click"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.9,
+      "_src": "readme_plugin_form",
+      "_tgt": "readme_shortcuts",
+      "source": "readme_shortcuts",
+      "target": "readme_plugin_form"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.9,
+      "_src": "readme_plugin_hover",
+      "_tgt": "readme_shortcuts",
+      "source": "readme_shortcuts",
+      "target": "readme_plugin_hover"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.9,
+      "_src": "readme_plugin_scroll",
+      "_tgt": "readme_shortcuts",
+      "source": "readme_shortcuts",
+      "target": "readme_plugin_scroll"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_rationale_ui_decoupling",
+      "_tgt": "readme_shortcuts",
+      "source": "readme_shortcuts",
+      "target": "readme_rationale_ui_decoupling"
+    },
+    {
+      "relation": "cites",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_app_error",
+      "_tgt": "readme_log",
+      "source": "readme_log",
+      "target": "readme_app_error"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_show",
+      "_tgt": "readme_scene",
+      "source": "readme_scene",
+      "target": "readme_show"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_hide",
+      "_tgt": "readme_scene",
+      "source": "readme_scene",
+      "target": "readme_hide"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.8,
+      "_src": "readme_scene",
+      "_tgt": "readme_aftershow",
+      "source": "readme_scene",
+      "target": "readme_aftershow"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.8,
+      "_src": "readme_scene",
+      "_tgt": "readme_beforehide",
+      "source": "readme_scene",
+      "target": "readme_beforehide"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_scene",
+      "_tgt": "readme_parents",
+      "source": "readme_scene",
+      "target": "readme_parents"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_setscenes",
+      "_tgt": "readme_scene",
+      "source": "readme_scene",
+      "target": "readme_setscenes"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_jump",
+      "_tgt": "readme_scene",
+      "source": "readme_scene",
+      "target": "readme_jump"
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_jumpback",
+      "_tgt": "readme_scene",
+      "source": "readme_scene",
+      "target": "readme_jumpback"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_rationale_scene_decomposition",
+      "_tgt": "readme_scene",
+      "source": "readme_scene",
+      "target": "readme_rationale_scene_decomposition"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_rationale_parallel_dev",
+      "_tgt": "readme_scene",
+      "source": "readme_scene",
+      "target": "readme_rationale_parallel_dev"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_rationale_visual_reuse",
+      "_tgt": "readme_scene",
+      "source": "readme_scene",
+      "target": "readme_rationale_visual_reuse"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_jump",
+      "_tgt": "readme_jumpstack",
+      "source": "readme_jumpstack",
+      "target": "readme_jump"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_jumpback",
+      "_tgt": "readme_jumpstack",
+      "source": "readme_jumpstack",
+      "target": "readme_jumpback"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_jumpsreset",
+      "_tgt": "readme_jumpstack",
+      "source": "readme_jumpstack",
+      "target": "readme_jumpsreset"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_setdependencies",
+      "_tgt": "readme_dependencies",
+      "source": "readme_dependencies",
+      "target": "readme_setdependencies"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_getdependencies",
+      "_tgt": "readme_dependencies",
+      "source": "readme_dependencies",
+      "target": "readme_getdependencies"
+    },
+    {
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.7,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.8,
+      "_src": "readme_show",
+      "_tgt": "readme_jump",
+      "source": "readme_show",
+      "target": "readme_jump"
+    },
+    {
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.7,
+      "_src": "readme_aftershow",
+      "_tgt": "readme_beforehide",
+      "source": "readme_aftershow",
+      "target": "readme_beforehide"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_rationale_aftershow",
+      "_tgt": "readme_aftershow",
+      "source": "readme_aftershow",
+      "target": "readme_rationale_aftershow"
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_rationale_beforehide",
+      "_tgt": "readme_beforehide",
+      "source": "readme_beforehide",
+      "target": "readme_rationale_beforehide"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.7,
+      "_src": "readme_enableplugin",
+      "_tgt": "readme_plugin_key",
+      "source": "readme_enableplugin",
+      "target": "readme_plugin_key"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.7,
+      "_src": "readme_enableplugin",
+      "_tgt": "readme_plugin_click",
+      "source": "readme_enableplugin",
+      "target": "readme_plugin_click"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.7,
+      "_src": "readme_enableplugin",
+      "_tgt": "readme_plugin_form",
+      "source": "readme_enableplugin",
+      "target": "readme_plugin_form"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.7,
+      "_src": "readme_enableplugin",
+      "_tgt": "readme_plugin_hover",
+      "source": "readme_enableplugin",
+      "target": "readme_plugin_hover"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.7,
+      "_src": "readme_enableplugin",
+      "_tgt": "readme_plugin_scroll",
+      "source": "readme_enableplugin",
+      "target": "readme_plugin_scroll"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_disableplugin",
+      "_tgt": "readme_enableplugin",
+      "source": "readme_enableplugin",
+      "target": "readme_disableplugin"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.7,
+      "_src": "readme_loadplugins",
+      "_tgt": "readme_plugin_key",
+      "source": "readme_loadplugins",
+      "target": "readme_plugin_key"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.7,
+      "_src": "readme_loadplugins",
+      "_tgt": "readme_plugin_click",
+      "source": "readme_loadplugins",
+      "target": "readme_plugin_click"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.7,
+      "_src": "readme_loadplugins",
+      "_tgt": "readme_plugin_form",
+      "source": "readme_loadplugins",
+      "target": "readme_plugin_form"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.7,
+      "_src": "readme_loadplugins",
+      "_tgt": "readme_plugin_hover",
+      "source": "readme_loadplugins",
+      "target": "readme_plugin_hover"
+    },
+    {
+      "relation": "references",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 0.7,
+      "_src": "readme_loadplugins",
+      "_tgt": "readme_plugin_scroll",
+      "source": "readme_loadplugins",
+      "target": "readme_plugin_scroll"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": null,
+      "weight": 1.0,
+      "_src": "readme_loglevel",
+      "_tgt": "readme_app_error",
+      "source": "readme_loglevel",
+      "target": "readme_app_error"
     },
     {
       "relation": "references",
@@ -2684,38 +3109,6 @@
   ],
   "hyperedges": [
     {
-      "id": "scene_navigation_flow",
-      "label": "Scene Navigation Flow",
-      "nodes": [
-        "readme_show_method",
-        "readme_hide_method",
-        "readme_jump_method",
-        "readme_jumpback_method",
-        "readme_jumpsreset_method",
-        "readme_jump_stack"
-      ],
-      "relation": "participate_in",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.95,
-      "source_file": "README.md"
-    },
-    {
-      "id": "shortcut_plugin_system",
-      "label": "Shortcut Plugin System",
-      "nodes": [
-        "readme_plugin_click",
-        "readme_plugin_key",
-        "readme_plugin_form",
-        "readme_plugin_hover",
-        "readme_plugin_scroll",
-        "readme_loadplugins"
-      ],
-      "relation": "participate_in",
-      "confidence": "EXTRACTED",
-      "confidence_score": 0.95,
-      "source_file": "README.md"
-    },
-    {
       "id": "v1_to_v2_migration_concerns",
       "label": "v1.x to v2.x Migration Concerns",
       "nodes": [
@@ -2729,6 +3122,55 @@
       "confidence": "EXTRACTED",
       "confidence_score": 0.9,
       "source_file": "Migration.guide.md"
+    },
+    {
+      "id": "scene_lifecycle",
+      "label": "Scene lifecycle methods",
+      "nodes": [
+        "readme_scene",
+        "readme_show",
+        "readme_hide",
+        "readme_aftershow",
+        "readme_beforehide"
+      ],
+      "relation": "form",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md"
+    },
+    {
+      "id": "jump_navigation",
+      "label": "Jump-based scene navigation flow",
+      "nodes": [
+        "readme_jump",
+        "readme_jumpback",
+        "readme_jumpsreset",
+        "readme_jumpstack",
+        "readme_scene"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md"
+    },
+    {
+      "id": "plugin_system",
+      "label": "Shortcut plugin system",
+      "nodes": [
+        "readme_loadplugins",
+        "readme_enableplugin",
+        "readme_disableplugin",
+        "readme_plugin_key",
+        "readme_plugin_click",
+        "readme_plugin_form",
+        "readme_plugin_hover",
+        "readme_plugin_scroll",
+        "readme_shortcuts"
+      ],
+      "relation": "implement",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md"
     },
     {
       "id": "cuts_logo_composition",
