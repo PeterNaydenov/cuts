@@ -54,6 +54,13 @@ script.show ({ scene : 'sceneName'}) // change the current Scene
 
 
 
+## Configuration
+
+`cuts()` accepts an options object. Currently one option is supported: [`logLevel`](#loglevel-default--1). See the [`@app-error`](#app-error) section for details on how it affects event emission.
+
+
+
+
 
 ## Screen Cuts Methods Overview
 
@@ -151,6 +158,98 @@ script.enablePlugin ( pluginHover )
 - **Form**: Form input events
 - **Hover**: Mouse hover events (new in v4.0.0)
 - **Scroll**: Scroll events (new in v4.0.0)
+
+
+
+
+
+## Events
+
+Cuts emits a single built-in event and exposes a passthrough for custom events.
+
+### `@app-error`
+
+Triggered whenever an error is logged inside cuts (scene not found, invalid context, shortcut error, etc.). Register a handler in a scene's shortcuts:
+
+```js
+const script = cuts ({ logLevel: 1 });
+
+script.setScenes ([
+  {
+    name: 'home',
+    scene: {
+      show     : ({ task }) => task.done(),
+      hide     : ({ task }) => task.done(),
+      '@app-error' : ( logEntry ) => {
+                          // logEntry: { type: 'error', message: 'Scene "X" is not available.', ... }
+                          console.error ( '[cuts]', logEntry.message )
+                      }
+    }
+  }
+])
+```
+
+The handler receives the raw log entry produced by `@peter.naydenov/log`. It has at least `{ type: 'error', message: <string> }`; the full shape is whatever the log library reports. The event name is fixed and cannot be renamed from the cuts configuration.
+
+#### `logLevel` (default: `1`)
+
+Whether `@app-error` fires depends on the `logLevel` option passed to `cuts()`. Internally cuts uses `@peter.naydenov/log` to emit its log entries (scene not found, invalid context, etc.). A log entry is processed only when its level is less than or equal to the configured `logLevel`. Cuts logs only at level `1`, so the only meaningful values are:
+
+- **`1` (default)** — errors are logged. The log callback fires for every error, which is what re-emits each one as `@app-error`. Use this when you want cuts to surface problems to your code.
+- **`0`** — completely silent. No log output, and **no `@app-error` events are emitted**. Use this in production if you don't want to handle cuts errors at the event level.
+
+```js
+// Default: errors fire @app-error
+const script = cuts ();
+
+// Silent: no @app-error events
+const script = cuts ({ logLevel: 0 });
+```
+
+The option is also exposed in `types/main.d.ts` as `logLevel: number`.
+
+### Custom events via `emit`
+
+Cuts does not define additional events, but it forwards `script.emit(event, ...args)` to the underlying shortcuts manager. Custom event handlers are registered inside a scene's `scene` object - same place as `@app-error`, just under any name you choose.
+
+Full round-trip: define, register, emit, handle.
+
+```js
+import cuts from '@peter.naydenov/cuts'
+
+const script = cuts ()
+
+// 1. Register a handler inside a scene, keyed by your custom event name
+script.setScenes ([
+  {
+    name: 'home',
+    scene: {
+      show         : ({ task }) => task.done(),
+      hide         : ({ task }) => task.done(),
+
+      // Custom event handler. Receives whatever args `script.emit` passed.
+      '@analytics' : ( payload ) => {
+                          // payload === { event: 'scene-entered', scene: 'home', ts: 1700000000000 }
+                          console.log ( '[analytics]', payload )
+                      }
+    }
+  }
+])
+
+// 2. Trigger it from anywhere you have a reference to `script`
+await script.show ({ scene: 'home' })
+
+script.emit ( '@analytics', {
+                  event : 'scene-entered'
+                , scene : 'home'
+                , ts    : Date.now ()
+            })
+```
+
+Event name convention: use a plugin-style prefix to avoid collisions with built-in shortcuts (e.g. `@my-app:foo` or `@analytics`). Any string works; a leading `@` is a common convention but not required.
+
+A handler is only active while its scene is the current context. To make a handler global, register it on every scene, or wire it to a scene that stays mounted (e.g. a root scene).
+
 
 
 
