@@ -9,6 +9,8 @@ lerna-debug.log*
 
 node_modules
 .opencode
+opencode.json
+.graphify_uncached.txt
 coverage
 *.local
 test-e2e/node_modules
