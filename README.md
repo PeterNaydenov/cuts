@@ -250,6 +250,60 @@ Event name convention: use a plugin-style prefix to avoid collisions with built-
 
 A handler is only active while its scene is the current context. To make a handler global, register it on every scene, or wire it to a scene that stays mounted (e.g. a root scene).
 
+#### Emitting from inside a handler
+
+The shortcuts library now exposes its event emitter on `dependencies.emit` in every handler. `dependencies.emit` is always present — no `setDependencies` trick is required to call it from a `click`, `key`, `hover`, `scroll` or `form` action.
+
+A common use is **chaining** one gesture into another. A `key:ctrl+s` keystroke can fire the same handler that a "Save" click would, so the save logic lives in exactly one place:
+
+```js
+import cuts from '@peter.naydenov/cuts'
+
+const script = cuts ()
+
+script.setScenes ([
+  {
+    name: 'editor',
+    scene: {
+      show : ({ task }) => task.done(),
+      hide : ({ task }) => task.done(),
+
+      // Single source of truth for "save the document"
+      'click: left-1' : ({ target }) => {
+                            if ( target?.id !== 'save-btn' )   return
+                            console.log ( 'saving document' )
+                        },
+
+      // Keyboard shortcut forwards to the click handler above
+      'key: ctrl+s'   : ({ dependencies }) => {
+                            dependencies.emit ( 'click: left-1', {
+                                  target : document.getElementById ( 'save-btn' )
+                            })
+                        }
+    }
+  }
+])
+```
+
+Pressing **Ctrl+S** runs the `key: ctrl+s` handler, which calls `dependencies.emit('click: left-1', { target })`. The active scene's `click: left-1` handler then fires with the synthetic target, so the save logic only exists in one place. The emitted name can be a fully-prefixed shortcut (`click: left-1`) or any custom string you register a handler for — same mechanism as `script.emit(...)` from outside.
+
+User-supplied `setDependencies` keys are merged into the same `dependencies` bag, so you can still reach your own services next to `emit`:
+
+```js
+script.setDependencies ({ analytics })  // merged with { emit } under the hood
+
+'click: left-1' : ({ target, dependencies }) => {
+      if ( target?.id === 'save-btn' ) {
+            dependencies.analytics.track ( 'save' )
+            dependencies.emit ( '@refresh-sidebar' )  // chain into another scene-level handler
+      }
+},
+
+'@refresh-sidebar' : ({ dependencies }) => {
+      dependencies.analytics.track ( 'sidebar-refreshed' )
+}
+```
+
 
 
 
