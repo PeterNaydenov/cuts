@@ -15,6 +15,7 @@ coverage
 *.local
 test-e2e/node_modules
 public
+graphify-out/graph.html
 
 # Editor directories and files
 .vscode/*
