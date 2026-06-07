@@ -11,11 +11,12 @@ node_modules
 .opencode
 opencode.json
 .graphify_uncached.txt
+/graphify-out/graph.html
 coverage
 *.local
 test-e2e/node_modules
 public
-graphify-out/graph.html
+
 
 # Editor directories and files
 .vscode/*
