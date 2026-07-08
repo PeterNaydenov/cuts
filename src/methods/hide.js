@@ -17,31 +17,31 @@ return function hide ( endSteps=1 ) {
         , instructions = []
         , hasParents = currentParents.length > 0
         ;
-    let el;
-    
+
     shortcutMngr.pause ()   // Stop all shortcuts
     instructions.push ( setInstruction ( scenes[currentScene].hide ))   // Set instruction to hide current scene
 
     if ( !hasParents )    state.currentScene = null
-    
+
+    let namesToHide = []
     if ( hasParents && endSteps === '*' ) {
-                [...currentParents].reverse().forEach ( name => {
-                                                        el = state.currentParents.at ( -1 )
-                                                        state.currentScene = el
-                                                        instructions.push ( setInstruction ( scenes[name].hide)) 
-                                                })
+                namesToHide = [...currentParents].reverse ()
         }
     if ( hasParents && ![ '*', 1].includes(endSteps) ) {
-                currentParents.slice ( `-${endSteps-1}` ).reverse().map ( name => {
-                                                        el = state.currentParents.at ( -1 )
-                                                        state.currentScene = el
-                                                        instructions.push ( setInstruction (scenes[name].hide))
-                                                })
+                namesToHide = currentParents.slice ( `-${endSteps-1}` ).reverse ()
         }
-    endSteps = askForPromise.sequence ( instructions )
-    endSteps.onComplete ( () => {
+
+    namesToHide.forEach ( name => {
+                instructions.push ( setInstruction ( scenes[name].hide))
+                // Climb to the parent of the scene just hidden - same technique 'show' uses for its 'hide' steps.
+                state.currentScene   = scenes[name].parents.at ( -1 ) ?? null
+                state.currentParents = state.currentScene ? scenes[state.currentScene].parents : []
+        })
+
+    const goingTask = askForPromise.sequence ( instructions );
+    goingTask.onComplete ( () => {
                     shortcutMngr.changeContext ( state.currentScene )   // If state.currentScene is null, then all shortcuts are switched off and currentContext is null
-                    hideTask.done () 
+                    hideTask.done ()
             })
     return hideTask.promise
 }} // hide func.

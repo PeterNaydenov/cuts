@@ -42,8 +42,11 @@ function main ( cfg= {logLevel:0} ) {
         , logLevel = cfg.logLevel || 1
         , log = createLog ({ level:logLevel }, (arg) => {
                                             const { type } = arg;
-                                            if ( type === 'error' ) {  
-                                                      shortcutMngr.emit ( '@app-error', arg )
+                                            if ( type === 'error' ) {
+                                                      // Use the raw emitter (not shortcutMngr.emit) so '@app-error'
+                                                      // handlers keep receiving the log entry as their sole argument -
+                                                      // shortcutMngr.emit now prepends a { dependencies, type } context object.
+                                                      shortcutMngr.getDependencies().emit ( '@app-error', arg )
                                                   }
                                       })
         , state = {     
@@ -164,7 +167,9 @@ function main ( cfg= {logLevel:0} ) {
           * @param {...*} args - Extra data to pass to the listeners
           * @returns void
           */
-        API.emit = ( event, ...args ) => shortcutMngr.emit ( event, ...args )
+        // Use the raw emitter (not shortcutMngr.emit) so listeners keep receiving exactly the
+        // args passed here - shortcutMngr.emit prepends a { dependencies, type } context object.
+        API.emit = ( event, ...args ) => shortcutMngr.getDependencies().emit ( event, ...args )
         return API
 } // main func.
 

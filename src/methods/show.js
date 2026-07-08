@@ -59,12 +59,15 @@ function show ( dependencies, state ) {
                         }
                     
                     const { show, parents=[] } = scenes[requestedScene];
-                    
+
+                    if ( !state.currentParents )   state.currentParents = []
+
                      if ( parents[0] === '*' ) {
                                  const overlayTask = setInstruction(show, ...args)()
                                  overlayTask.then ( () => showTask.done ()   )
                                  state.currentParents.push ( state.currentScene )
                                  state.currentScene = requestedScene
+                                 shortcutMngr.changeContext ( requestedScene )   // Activate the overlay scene's own shortcuts
                                  return showTask.promise
                          }
 
@@ -86,14 +89,18 @@ function show ( dependencies, state ) {
                                         state.currentScene = name
                                     }
                                 else {
-                                        let el = scenes[name].parents.at ( -1 )
+                                        // Wildcard overlays aren't climbing their own declared parents ('*' isn't a
+                                        // real scene) - they climb back to whatever scene they were shown on top of.
+                                        let el = ( scenes[name].parents[0] === '*' )
+                                                    ? state.currentParents.pop ()
+                                                    : scenes[name].parents.at ( -1 )
+                                                ;
                                         state.currentScene = el
                                     }
                                 return scenes[name][action]
                         } // getStep func.
 
-                    if ( !state.currentParents )   state.currentParents = []  
-                    const 
+                    const
                           g = findInstructions ( state.currentScene, state.currentParents, requestedScene, parents )
                         , instructions = []
                         ;
@@ -109,7 +116,9 @@ function show ( dependencies, state ) {
                     goingTask.onComplete ( () => {
                                         state.opened = true
                                         state.currentScene = requestedScene
-                                        state.currentParents = scenes[requestedScene].parents || null 
+                                        // Copy - never alias state.currentParents to a scene's own 'parents' array,
+                                        // or later mutations (eg. the wildcard-overlay push above) corrupt the scene definition.
+                                        state.currentParents = scenes[requestedScene].parents ? [...scenes[requestedScene].parents] : null
                                         shortcutMngr.changeContext ( requestedScene )                                        
                                         if ( typeof scenes[requestedScene].afterShow === 'function' )   scenes[requestedScene].afterShow ({ dependencies: shortcutMngr.getDependencies(), done: () => {} })
                                         showTask.done () 
