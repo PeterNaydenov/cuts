@@ -1,6 +1,17 @@
 # Release History
 
 
+## 2.1.2 ( 2026-07-09 )
+- [x] Fix: `show()` crashed when a scene with `parents: ['*']` was the very first scene shown (`state.currentParents` was read before being initialized);
+- [x] Fix: `hide()` (including `hide('*')` and multi-step `hide(n)`) left `currentScene`/`currentParents` stale instead of updating them as each parent scene was closed;
+- [x] Fix: `listShortcuts()` still excluded the old `beforeUnload`/`afterLoad` property names, so the current `beforeHide`/`afterShow` scene methods leaked into the returned shortcuts list;
+- [x] Fix: `@app-error` handlers received a `{ dependencies, type: 'custom' }` context object instead of the log entry, because `@peter.naydenov/shortcuts` v4.1.x's `emit()` now injects that context ahead of the forwarded arguments. Cuts now emits through the raw (unwrapped) emitter for its internal error event;
+- [x] Fix: `script.emit()` had the same issue - listeners now receive exactly the arguments passed to `emit()`, with no injected context object;
+- [x] Fix: showing a wildcard-overlay scene (`parents: ['*']`) never switched the shortcuts context to it, so the overlay's own shortcut and event handlers never fired;
+- [x] Fix: showing a wildcard-overlay scene aliased `state.currentParents` to the underlying scene's own `parents` array; pushing onto it permanently corrupted that scene's `parents` definition and crashed later navigation back to it;
+
+
+
 ## 2.1.1 ( 2026-07-08 )
 - [x] Dependency update. @peter.naydenov/shortcuts - v.4.1.2 
 - [x] (fixes TypeScript declaration emit for `PluginAPI` and `ShortcutsAPI`);
