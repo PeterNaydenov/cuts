@@ -1,36 +1,72 @@
-# Graph Report - .  (2026-06-06)
+# Graph Report - git-cuts  (2026-07-08)
 
 ## Corpus Check
-- Corpus is ~16,367 words - fits in a single context window. You may not need a graph.
+- 52 files · ~14,604 words
+- Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 136 nodes · 138 edges · 44 communities detected
-- Extraction: 79% EXTRACTED · 21% INFERRED · 0% AMBIGUOUS · INFERRED: 29 edges (avg confidence: 0.86)
+- 257 nodes · 249 edges · 54 communities (48 shown, 6 thin omitted)
+- Extraction: 88% EXTRACTED · 12% INFERRED · 0% AMBIGUOUS · INFERRED: 30 edges (avg confidence: 0.86)
 - Token cost: 0 input · 0 output
 
+## Graph Freshness
+- Built from commit: `2f6beac4`
+- Run `git rev-parse HEAD` and compare to check if the graph is stale.
+- Run `graphify update .` after code changes (no API cost).
+
+## Community Hubs (Navigation)
+- [[_COMMUNITY_Community 0|Community 0]]
+- [[_COMMUNITY_Community 1|Community 1]]
+- [[_COMMUNITY_Community 2|Community 2]]
+- [[_COMMUNITY_Community 3|Community 3]]
+- [[_COMMUNITY_Community 4|Community 4]]
+- [[_COMMUNITY_Community 5|Community 5]]
+- [[_COMMUNITY_Community 6|Community 6]]
+- [[_COMMUNITY_Community 7|Community 7]]
+- [[_COMMUNITY_Community 8|Community 8]]
+- [[_COMMUNITY_Community 9|Community 9]]
+- [[_COMMUNITY_Community 10|Community 10]]
+- [[_COMMUNITY_Community 11|Community 11]]
+- [[_COMMUNITY_Community 12|Community 12]]
+- [[_COMMUNITY_Community 13|Community 13]]
+- [[_COMMUNITY_Community 14|Community 14]]
+- [[_COMMUNITY_Community 15|Community 15]]
+- [[_COMMUNITY_Community 16|Community 16]]
+- [[_COMMUNITY_Community 17|Community 17]]
+- [[_COMMUNITY_Community 18|Community 18]]
+- [[_COMMUNITY_Community 38|Community 38]]
+- [[_COMMUNITY_Community 39|Community 39]]
+- [[_COMMUNITY_Community 40|Community 40]]
+- [[_COMMUNITY_Community 41|Community 41]]
+- [[_COMMUNITY_Community 42|Community 42]]
+- [[_COMMUNITY_Community 43|Community 43]]
+
 ## God Nodes (most connected - your core abstractions)
-1. `Scene (SPA visual state)` - 13 edges
-2. `@peter.naydenov/shortcuts` - 9 edges
-3. `Cuts Library (@peter.naydenov/cuts)` - 8 edges
-4. `Cuts v2.0.0 Release` - 6 edges
-5. `enablePlugin() method` - 6 edges
-6. `g()` - 5 edges
-7. `getNthColumn()` - 5 edges
-8. `enableUI()` - 5 edges
-9. `loadPlugins() method` - 5 edges
-10. `makeCurrent()` - 4 edges
+1. `Release History` - 16 edges
+2. `Cuts (@peter.naydenov/cuts)` - 15 edges
+3. `Scene` - 14 edges
+4. `compilerOptions` - 12 edges
+5. `1.2.8 ( 2025-05-03)` - 12 edges
+6. `main()` - 11 edges
+7. `@peter.naydenov/shortcuts` - 9 edges
+8. `scripts` - 8 edges
+9. `Cuts Library (@peter.naydenov/cuts)` - 8 edges
+10. `exports` - 7 edges
 
 ## Surprising Connections (you probably didn't know these)
+- `Scene Hooks: afterShow and beforeHide` --references--> `Scene`  [INFERRED]
+  Changelog.md → README.md
 - `@app-error Event` --conceptually_related_to--> `Cuts Library (@peter.naydenov/cuts)`  [INFERRED]
   Changelog.md → README.md
 - `Cuts v2.0.0 Release` --references--> `Shortcuts v4.x Upgrade`  [INFERRED]
   Changelog.md → Migration.guide.md
-- `Scene Hooks: afterShow and beforeHide` --references--> `Scene (SPA visual state)`  [INFERRED]
-  Changelog.md → README.md
 - `clickTarget Array Migration` --conceptually_related_to--> `Click plugin (mouse)`  [INFERRED]
   Migration.guide.md → README.md
 - `hoverTarget Array Migration` --conceptually_related_to--> `Hover plugin`  [INFERRED]
   Migration.guide.md → README.md
+
+## Import Cycles
+- None detected.
 
 ## Hyperedges (group relationships)
 - **v1.x to v2.x Migration Concerns** — migration_v1_to_v2, migration_shortcuts_v4, migration_click_target, migration_hover_target, migration_rationale [EXTRACTED 0.90]
@@ -39,270 +75,103 @@
 - **Shortcut plugin system** — readme_loadplugins, readme_enableplugin, readme_disableplugin, readme_plugin_key, readme_plugin_click, readme_plugin_form, readme_plugin_hover, readme_plugin_scroll, readme_shortcuts [EXTRACTED 1.00]
 - **Cuts Logo Visual Composition** — cuts_wordmark, cuts_film_strip_icon, cuts_background_pattern, cuts_dark_theme_design [INFERRED 0.85]
 
-## Communities
+## Communities (54 total, 6 thin omitted)
 
-### Community 0 - "Scene Methods (README + Changelog)"
+### Community 0 - "Community 0"
 Cohesion: 0.14
 Nodes (17): Scene Hooks: afterShow and beforeHide, afterShow() method, beforeHide() method, hide() method, jump() method, jumpBack() method, jumpsReset() method, Jump Stack (+9 more)
 
-### Community 1 - "Release Notes & Migration"
-Cohesion: 0.16
-Nodes (16): @app-error Event, Bug: SSR First Scene Loading, logLevel Configuration, Cuts v2.0.0 Release, clickTarget Array Migration, hoverTarget Array Migration, Rationale: Array Target Flexibility, Shortcuts v4.x Upgrade (+8 more)
+### Community 1 - "Community 1"
+Cohesion: 0.15
+Nodes (17): @app-error Event, Bug: SSR First Scene Loading, logLevel Configuration, Cuts v2.0.0 Release, clickTarget Array Migration, hoverTarget Array Migration, Rationale: Array Target Flexibility, Shortcuts v4.x Upgrade (+9 more)
 
-### Community 2 - "Table Sorter Module"
-Cohesion: 0.27
-Nodes (11): addSortIndicators(), enableUI(), getNthColumn(), getTable(), getTableBody(), getTableHeader(), loadColumns(), loadData() (+3 more)
+### Community 2 - "Community 2"
+Cohesion: 0.08
+Nodes (24): allowScripts, fsevents@2.3.2, fsevents@2.3.3, author, dependencies, ask-for-promise, @peter.naydenov/log, @peter.naydenov/shortcuts (+16 more)
 
-### Community 3 - "Code Prettify Module"
-Cohesion: 0.35
-Nodes (8): a(), B(), D(), g(), i(), k(), Q(), y()
+### Community 3 - "Community 3"
+Cohesion: 0.12
+Nodes (16): AfterShow and BeforeHide, Configuration, Credits, Custom events via `emit`, Cuts (@peter.naydenov/cuts), Description, Emitting from inside a handler, Events (+8 more)
 
-### Community 4 - "Plugin System (README)"
+### Community 4 - "Community 4"
 Cohesion: 0.33
 Nodes (11): disablePlugin() method, emit() method, enablePlugin() method, loadPlugins() method, Click plugin (mouse), Form plugin (input), Hover plugin, Key plugin (keyboard) (+3 more)
 
-### Community 5 - "Brand & Visual Identity"
+### Community 5 - "Community 5"
 Cohesion: 0.38
 Nodes (7): Decorative N-Pattern Background, Git-Cuts Brand Identity, Cuts Brand Logo, Dark Theme Visual Design, Film Editing Metaphor, Film Strip Icon, Cuts Wordmark
 
-### Community 6 - "Block Navigation Module"
-Cohesion: 0.7
-Nodes (4): goToNext(), goToPrevious(), makeCurrent(), toggleClass()
+### Community 6 - "Community 6"
+Cohesion: 0.12
+Nodes (15): 1.3.0 ( 2025-08-15), 1.3.1 ( 2025-08-15), 1.4.0 ( 2025-09-06), 1.4.1. ( 2025-09-24), 1.4.2 ( 2025-09-29), 1.4.3 ( 2025-09-30), 1.4.4 ( 2025-10-10), 1.5.0 ( 2025-10-23 ) (+7 more)
 
-### Community 7 - "graphify Tooling (self)"
-Cohesion: 0.4
-Nodes (5): GRAPH_REPORT.md, graphify Knowledge Graph, graphify-out/ Directory, graphify.watch._rebuild_code, wiki/index.md
+### Community 7 - "Community 7"
+Cohesion: 0.33
+Nodes (5): GRAPH_REPORT.md, graphify, graphify-out/ Directory, graphify.watch._rebuild_code, wiki/index.md
 
-### Community 8 - "Coverage Report Assets"
+### Community 8 - "Community 8"
 Cohesion: 0.67
 Nodes (4): Dark architectural silhouette (dome + towers), lcov-report favicon, lcov HTML coverage report (parent context), Yellow/olive solid background fill
 
-### Community 9 - "Dependencies Object"
+### Community 9 - "Community 9"
 Cohesion: 0.67
 Nodes (3): Dependencies Object, getDependencies() method, setDependencies() method
 
-### Community 10 - "Entry Point"
-Cohesion: 1.0
-Nodes (0): 
+### Community 10 - "Community 10"
+Cohesion: 0.17
+Nodes (9): hide(), jump(), jumpBack(), jumpsReset(), listShortcuts(), setScenes(), show(), main() (+1 more)
 
-### Community 11 - "Set Instruction Module"
-Cohesion: 1.0
-Nodes (0): 
+### Community 11 - "Community 11"
+Cohesion: 0.13
+Nodes (14): compilerOptions, allowJs, checkJs, declaration, declarationMap, emitDeclarationOnly, module, moduleResolution (+6 more)
 
-### Community 12 - "List Shortcuts Module"
-Cohesion: 1.0
-Nodes (0): 
+### Community 12 - "Community 12"
+Cohesion: 0.14
+Nodes (14): devDependencies, @peter.naydenov/visual-controller-for-vue3, @playwright/test, rollup, @rollup/plugin-commonjs, @rollup/plugin-node-resolve, @rollup/plugin-terser, @types/node (+6 more)
 
-### Community 13 - "jumpsReset Module"
-Cohesion: 1.0
-Nodes (0): 
+### Community 13 - "Community 13"
+Cohesion: 0.15
+Nodes (12): dependencies, @peter.naydenov/shortcuts, @peter.naydenov/visual-controller-for-vue3, vue, devDependencies, vite, @vitejs/plugin-vue, name (+4 more)
 
-### Community 14 - "jump Module"
-Cohesion: 1.0
-Nodes (0): 
+### Community 14 - "Community 14"
+Cohesion: 0.17
+Nodes (12): 1.0.0 (2024-05-08), 1.0.1 (2024-05-10), 1.0.2 (2024-12-12), 1.1.0 (2024-12-13), 1.2.0 (2024-12-21), 1.2.1 ( 2024-12-21 ), 1.2.2 ( 2024-12-22 ), 1.2.3 ( 2024-12-23) (+4 more)
 
-### Community 15 - "show Module"
-Cohesion: 1.0
-Nodes (0): 
+### Community 15 - "Community 15"
+Cohesion: 0.25
+Nodes (7): Backward Compatibility, Example Migration, From version 1.x.x to version 2.x.x, Migration Guides, Package Dependencies Update, Per-Context Setup Examples Updated, Plugin Target Attributes Changes
 
-### Community 16 - "jumpBack Module"
-Cohesion: 1.0
-Nodes (0): 
+### Community 16 - "Community 16"
+Cohesion: 0.29
+Nodes (7): default, exports, ./dist/*, ./package.json, ./src/*, import, require
 
-### Community 17 - "setScenes Module"
-Cohesion: 1.0
-Nodes (0): 
+### Community 17 - "Community 17"
+Cohesion: 0.50
+Nodes (3): AskObject, sceneDescription, SceneObject
 
-### Community 18 - "hide Module"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 19 - "Playwright Config"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 20 - "Vite Config"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 21 - "Vitest Config"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 22 - "Rollup Config"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 23 - "findInstructions.d.ts"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 24 - "main.d.ts"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 25 - "setInstruction.d.ts"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 26 - "hide.d.ts"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 27 - "jumpsReset.d.ts"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 28 - "jump.d.ts"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 29 - "listShortcuts.d.ts"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 30 - "jumpBack.d.ts"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 31 - "index.d.ts"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 32 - "show.d.ts"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 33 - "setScenes.d.ts"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 34 - "findPosition test"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 35 - "cuts test"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 36 - "general test"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 37 - "findInstructions Module"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 38 - "Bug: Long Scene List"
-Cohesion: 1.0
-Nodes (1): Bug: Long Scene List State
-
-### Community 39 - "Jump Methods (Changelog)"
-Cohesion: 1.0
-Nodes (1): Jump/JumpBack/JumpsReset Methods
-
-### Community 40 - "listScenes() (doc)"
-Cohesion: 1.0
-Nodes (1): listScenes() method
-
-### Community 41 - "listShortcuts() (doc)"
-Cohesion: 1.0
-Nodes (1): listShortcuts() method
-
-### Community 42 - "getState() (doc)"
-Cohesion: 1.0
-Nodes (1): getState() method
-
-### Community 43 - "Sort Arrow Sprite"
-Cohesion: 1.0
-Nodes (1): Sort Arrow Sprite (lcov report)
+### Community 18 - "Community 18"
+Cohesion: 0.50
+Nodes (3): AskObject, sceneDescription, SceneObject
 
 ## Knowledge Gaps
-- **33 isolated node(s):** `logLevel Configuration`, `Bug: SSR First Scene Loading`, `Bug: Long Scene List State`, `Jump/JumpBack/JumpsReset Methods`, `Scene Hooks: afterShow and beforeHide` (+28 more)
+- **144 isolated node(s):** `name`, `description`, `version`, `license`, `author` (+139 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **Thin community `Entry Point`** (2 nodes): `main.js`, `main()`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Set Instruction Module`** (2 nodes): `setInstruction.js`, `setInstruction()`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `List Shortcuts Module`** (2 nodes): `listShortcuts.js`, `listShortcuts()`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `jumpsReset Module`** (2 nodes): `jumpsReset.js`, `jumpsReset()`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `jump Module`** (2 nodes): `jump.js`, `jump()`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `show Module`** (2 nodes): `show.js`, `show()`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `jumpBack Module`** (2 nodes): `jumpBack.js`, `jumpBack()`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `setScenes Module`** (2 nodes): `setScenes.js`, `setScenes()`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `hide Module`** (2 nodes): `hide.js`, `hide()`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Playwright Config`** (1 nodes): `playwright.config.js`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Vite Config`** (1 nodes): `vite.config.js`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Vitest Config`** (1 nodes): `vitest.config.js`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Rollup Config`** (1 nodes): `rollup.config.js`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `findInstructions.d.ts`** (1 nodes): `findInstructions.d.ts`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `main.d.ts`** (1 nodes): `main.d.ts`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `setInstruction.d.ts`** (1 nodes): `setInstruction.d.ts`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `hide.d.ts`** (1 nodes): `hide.d.ts`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `jumpsReset.d.ts`** (1 nodes): `jumpsReset.d.ts`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `jump.d.ts`** (1 nodes): `jump.d.ts`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `listShortcuts.d.ts`** (1 nodes): `listShortcuts.d.ts`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `jumpBack.d.ts`** (1 nodes): `jumpBack.d.ts`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `index.d.ts`** (1 nodes): `index.d.ts`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `show.d.ts`** (1 nodes): `show.d.ts`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `setScenes.d.ts`** (1 nodes): `setScenes.d.ts`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `findPosition test`** (1 nodes): `01-findPosition.test.js`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `cuts test`** (1 nodes): `02-cuts.test.js`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `general test`** (1 nodes): `01-general.test.js`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `findInstructions Module`** (1 nodes): `findInstructions.js`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Bug: Long Scene List`** (1 nodes): `Bug: Long Scene List State`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Jump Methods (Changelog)`** (1 nodes): `Jump/JumpBack/JumpsReset Methods`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `listScenes() (doc)`** (1 nodes): `listScenes() method`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `listShortcuts() (doc)`** (1 nodes): `listShortcuts() method`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `getState() (doc)`** (1 nodes): `getState() method`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Sort Arrow Sprite`** (1 nodes): `Sort Arrow Sprite (lcov report)`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **6 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `@peter.naydenov/shortcuts` connect `Plugin System (README)` to `Scene Methods (README + Changelog)`, `Release Notes & Migration`?**
-  _High betweenness centrality (0.066) - this node is a cross-community bridge._
-- **Why does `Scene (SPA visual state)` connect `Scene Methods (README + Changelog)` to `Plugin System (README)`?**
-  _High betweenness centrality (0.059) - this node is a cross-community bridge._
-- **Why does `Cuts Library (@peter.naydenov/cuts)` connect `Release Notes & Migration` to `Plugin System (README)`?**
-  _High betweenness centrality (0.041) - this node is a cross-community bridge._
-- **Are the 5 inferred relationships involving `@peter.naydenov/shortcuts` (e.g. with `Key plugin (keyboard)` and `Click plugin (mouse)`) actually correct?**
-  _`@peter.naydenov/shortcuts` has 5 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 2 inferred relationships involving `Cuts v2.0.0 Release` (e.g. with `Migration v1.x to v2.x` and `Shortcuts v4.x Upgrade`) actually correct?**
-  _`Cuts v2.0.0 Release` has 2 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 6 inferred relationships involving `enablePlugin() method` (e.g. with `Key plugin (keyboard)` and `Click plugin (mouse)`) actually correct?**
-  _`enablePlugin() method` has 6 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `logLevel Configuration`, `Bug: SSR First Scene Loading`, `Bug: Long Scene List State` to the rest of the system?**
-  _33 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `Scene` connect `Community 0` to `Community 3`, `Community 4`?**
+  _High betweenness centrality (0.034) - this node is a cross-community bridge._
+- **Why does `@peter.naydenov/shortcuts` connect `Community 4` to `Community 0`, `Community 1`?**
+  _High betweenness centrality (0.027) - this node is a cross-community bridge._
+- **Why does `Cuts (@peter.naydenov/cuts)` connect `Community 3` to `Community 0`?**
+  _High betweenness centrality (0.024) - this node is a cross-community bridge._
+- **What connects `name`, `description`, `version` to the rest of the system?**
+  _144 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Community 0` be split into smaller, more focused modules?**
+  _Cohesion score 0.13970588235294118 - nodes in this community are weakly interconnected._
+- **Should `Community 1` be split into smaller, more focused modules?**
+  _Cohesion score 0.14705882352941177 - nodes in this community are weakly interconnected._
+- **Should `Community 2` be split into smaller, more focused modules?**
+  _Cohesion score 0.08 - nodes in this community are weakly interconnected._
