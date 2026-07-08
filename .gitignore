@@ -11,7 +11,7 @@ node_modules
 .opencode
 opencode.json
 .graphify_uncached.txt
-/graphify-out/graph.html
+graphify-out
 coverage
 *.local
 test-e2e/node_modules
