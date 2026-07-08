@@ -89,7 +89,7 @@ declare function main(cfg?: {
      * @param {...*} args - Extra data to pass to the listeners
      * @returns void
      */
-    emit: (event: string, ...args: any[]) => void;
+    emit: (event: string, ...args: any[]) => any;
 };
 export default main;
 //# sourceMappingURL=main.d.ts.map
