@@ -1,4 +1,3 @@
-export default findInstructions;
 /**
  * @function findInstructions
  * @description Generator that yields instructions for transitioning between scenes
@@ -9,4 +8,5 @@ export default findInstructions;
  * @yields {Array.<string, 'show'|'hide'>} - instruction array with scene name and action
  */
 declare function findInstructions(currentName: string | null, currentParents: Array<string>, targetName: string, targetParents: Array<string>): Generator<string[], void, unknown>;
+export default findInstructions;
 //# sourceMappingURL=findInstructions.d.ts.map

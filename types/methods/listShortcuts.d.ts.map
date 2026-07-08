@@ -1,1 +1,1 @@
-{"version":3,"file":"listShortcuts.d.ts","sourceRoot":"","sources":["../../src/methods/listShortcuts.js"],"names":[],"mappings":";AAEA,gEAOgC,WAHrB,MAG8B,KAF5B,CAAC,KAAK,CAAE,MAAM,CAAC,GAAC,IAAI,CAAC,CAOhC"}
+{"version":3,"file":"listShortcuts.d.ts","sourceRoot":"","sources":["../../src/methods/listShortcuts.js"],"names":[],"mappings":"AAEA,iBAAS,aAAa,CAAG,YAAY,KAAA,EAAE,KAAK,KAAA,eAIjC,MAAM,KACJ,CAAC,KAAK,CAAE,MAAM,CAAC,GAAC,IAAI,CAAC,CAOhC;eAIa,aAAa"}

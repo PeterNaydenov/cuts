@@ -1,4 +1,3 @@
-export default setScenes;
 export type AskObject = {
     /**
      * - Mark the task as done
@@ -7,35 +6,29 @@ export type AskObject = {
 };
 export type SceneObject = {
     /**
-     * - load interface and prerequisites for the scene;
+     * ({task: AskObject, dependencies: *}): void} show - load interface and prerequisites for the scene;
      */
-    show: (arg0: {
-        task: AskObject;
-        dependencies: any;
-    }) => void;
+    : Function;
     /**
-     * - run after scene is loaded. Optional. Returns true to continue loading, false to cancel;
+     * ():boolean} [afterShow] - run after scene is loaded. Optional. Returns true to continue loading, false to cancel;
      */
-    afterShow?: (() => boolean) | undefined;
+    : Function;
     /**
-     * - Reverse the settings from 'show';
+     * ({task: AskObject, dependencies: *}): void} hide - Reverse the settings from 'show';
      */
-    hide: (arg0: {
-        task: AskObject;
-        dependencies: any;
-    }) => void;
+    : Function;
     /**
-     * - Run before scene is hidden. Optional;
+     * ():void} [beforeHide] - Run before scene is hidden. Optional;
      */
-    beforeHide?: (() => void) | undefined;
+    : Function;
     /**
      * - list of parent scene names.
      */
-    parents?: string[] | undefined;
+    parents?: Array<string>;
     /**
      * - shortcut descriptions
      */
-    "": any;
+    : any;
 };
 export type sceneDescription = {
     /**
@@ -66,4 +59,5 @@ export type sceneDescription = {
  * @property {SceneObject} scene - object should contain 'show' and 'hide' + shortcuts and action functions
  */
 declare function setScenes(dependencies: any, state: any): (list: sceneDescription[]) => void;
+export default setScenes;
 //# sourceMappingURL=setScenes.d.ts.map
