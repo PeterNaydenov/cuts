@@ -1,7 +1,6 @@
 # Release History
 
 
-
 ## 2.1.1 ( 2026-07-08 )
 - [x] Dependency update. @peter.naydenov/shortcuts - v.4.1.2 
 - [x] (fixes TypeScript declaration emit for `PluginAPI` and `ShortcutsAPI`);
