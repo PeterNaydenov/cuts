@@ -1,6 +1,14 @@
 # Release History
 
 
+
+## 2.1.3 ( 2026-07-09 )
+- [x] Fix: `getState()` returned a live reference to `state.currentParents` instead of a copy; a caller mutating the returned array corrupted cuts' own internal state;
+- [x] Fix: `hide()` on a wildcard-overlay scene left `currentScene`/`currentParents` pointing at the (now-hidden) overlay instead of climbing back to the scene it was shown on top of, so that scene's shortcuts context never reactivated;
+- [x] Fix: `cuts({ logLevel: 0 })` didn't actually silence errors - `cfg.logLevel || 1` treated the explicit `0` as falsy and forced it back to `1`, and even after correcting that, the internal log callback never checked the configured level before emitting `@app-error`;
+
+
+
 ## 2.1.2 ( 2026-07-09 )
 - [x] Fix: `show()` crashed when a scene with `parents: ['*']` was the very first scene shown (`state.currentParents` was read before being initialized);
 - [x] Fix: `hide()` (including `hide('*')` and multi-step `hide(n)`) left `currentScene`/`currentParents` stale instead of updating them as each parent scene was closed;
@@ -9,6 +17,7 @@
 - [x] Fix: `script.emit()` had the same issue - listeners now receive exactly the arguments passed to `emit()`, with no injected context object;
 - [x] Fix: showing a wildcard-overlay scene (`parents: ['*']`) never switched the shortcuts context to it, so the overlay's own shortcut and event handlers never fired;
 - [x] Fix: showing a wildcard-overlay scene aliased `state.currentParents` to the underlying scene's own `parents` array; pushing onto it permanently corrupted that scene's `parents` definition and crashed later navigation back to it;
+
 
 
 
