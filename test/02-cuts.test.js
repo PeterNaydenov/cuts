@@ -98,6 +98,75 @@ describe ( 'Cuts integration', () => {
 
 
 
+    it ( 'beforeHide with async function that resolves to false', async () => {
+                    // Regression test: beforeHide returning a Promise was ignored — the
+                    // return value was never awaited, so async blocking (e.g. confirm dialog)
+                    // could not work. Navigation proceeded before the Promise resolved.
+                    const script = cuts ();
+                    const calls = [];
+                    const scenes = [
+                                    { 
+                                          name: 'top'
+                                        , scene: { 
+                                                    show: ({task}) => { calls.push('show top'); task.done() }, 
+                                                    hide: ({task}) => { calls.push('hide top'); task.done() },
+                                                    // Async beforeHide that blocks:
+                                                    'beforeHide': ({ done }) => Promise.resolve().then ( () => done ( false ) ),
+                                            }
+                                        },
+                                        {
+                                          name: 'other'
+                                        , scene: {
+                                                    show: ({task}) => { calls.push('show other'); task.done() }, 
+                                                    hide: ({task}) => { calls.push('hide other'); task.done() }
+                                            }
+                                        }
+                                ];
+
+                    script.setScenes ( scenes );
+                    await script.show ({ scene: 'top' });
+                    expect ( calls ).toEqual (['show top']);
+
+                    await script.show ({ scene: 'other' }); // blocked by async beforeHide
+                    expect ( calls ).toEqual (['show top']); // 'show other' never fired
+                    expect ( script.getState().scene ).toEqual ( 'top' );
+        }) // it beforeHide with async function that resolves to false
+
+
+
+    it ( 'beforeHide with async function that resolves to true', async () => {
+                    const script = cuts ();
+                    const calls = [];
+                    const scenes = [
+                                    { 
+                                          name: 'top'
+                                        , scene: { 
+                                                    show: ({task}) => { calls.push('show top'); task.done() }, 
+                                                    hide: ({task}) => { calls.push('hide top'); task.done() },
+                                                    // Async beforeHide that allows navigation:
+                                                    'beforeHide': ({ done }) => Promise.resolve().then ( () => done ( true ) ),
+                                            }
+                                        },
+                                        {
+                                          name: 'other'
+                                        , scene: {
+                                                    show: ({task}) => { calls.push('show other'); task.done() }, 
+                                                    hide: ({task}) => { calls.push('hide other'); task.done() }
+                                            }
+                                        }
+                                ];
+
+                    script.setScenes ( scenes );
+                    await script.show ({ scene: 'top' });
+                    expect ( calls ).toEqual (['show top']);
+
+                    await script.show ({ scene: 'other' }); // allowed by async beforeHide
+                    expect ( calls ).toEqual (['show top', 'hide top', 'show other']);
+                    expect ( script.getState().scene ).toEqual ( 'other' );
+        }) // it beforeHide with async function that resolves to true
+
+
+
     it ( 'Call no existing scene', async () => {
                     const script = cuts ({ logLevel : 1 });
                     const calls = [];
