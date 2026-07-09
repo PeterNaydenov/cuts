@@ -206,7 +206,7 @@ const script = cuts ();
 const script = cuts ({ logLevel: 0 });
 ```
 
-The option is also exposed in `types/main.d.ts` as `logLevel: number`.
+The option is also exposed in `types/main.d.ts` as `logLevel?: 0 | 1`.
 
 ### Custom events via `emit`
 
