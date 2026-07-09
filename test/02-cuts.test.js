@@ -669,6 +669,7 @@ describe ( 'Cuts integration', () => {
                                            name: 'A'
                                          , scene: {
                                                      show : ({task}) => task.done(),
+                                                     hide : ({task}) => task.done(),
                                                      '@ping' : () => seen.push ( 'A' )
                                              }
                                          },
