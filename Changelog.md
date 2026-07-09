@@ -2,6 +2,22 @@
 
 
 
+## 2.1.5 ( 2026-07-09 )
+- [x] Types: `CutsConfig` is now an exported type in `types/main.d.ts` with `logLevel?: 0 | 1`. Previously only documented in README, not in the type declarations;
+- [x] Types: `pluginNames` is now an exported union type (`'Key'|'Click'|'Form'|'Hover'|'Scroll'`) in `types/main.d.ts`, matching the values accepted by `loadPlugins`;
+- [x] Types: new exported `CutsState` type in `types/main.d.ts` (`{ scene, parents, opened }`), used as the return type of `getState()`;
+- [x] Types: `getState()` now returns `CutsState` instead of untyped `Object` — IntelliSense now autocompletes `{ scene, parents, opened }`;
+- [x] Types: `hide()` return type corrected to `Promise<void>` instead of `Promise<any>`;
+- [x] Fix: `jumpBack()` function body renamed from `jumpReset` to `jumpsReset` — implementation now matches the exported name;
+- [x] Types: `jumpBack()` parameter default documented as `@param {number} [options.hops=1]` instead of the previous non-standard `{hops}=...` form;
+- [x] Types: `hide()` `@param` annotation now clarifies the default (`1` = current scene only) and the `'*'` wildcard meaning;
+- [x] Docs: README note on `logLevel` type updated from `logLevel: number` to `logLevel?: 0 | 1` to match the new typedef;
+- [x] Fix: `beforeHide` now works correctly when it returns a Promise. Previously the return value was ignored entirely — async blocking logic (e.g. confirm dialogs) was silently broken, and the navigation proceeded before the Promise resolved. Both `show()` and `hide()` now detect Promise returns and await them before calling `unloadTask.done`. Errors in the Promise chain are caught and treated as `done(false)`;
+- [x] Fix: scene functions (`show`/`hide`) that reject without being caught no longer produce unhandled promise rejections. `setInstruction` wraps the returned promise with `.catch(() => {})`. `jump()` and `jumpBack()` do the same on their `show()` call;
+- [x] Tests: two new regression tests for async `beforeHide` — one verifying navigation is blocked when the Promise resolves to `false`, one verifying it proceeds when the Promise resolves to `true`;
+
+
+
 ## 2.1.4 ( 2026-07-09 )
 - [x] Fix: `hide()` with the default single step (or any `endSteps` short of the full chain) left `currentScene`/`currentParents` pointing at the just-hidden scene instead of climbing to its still-visible parent, so no scene's shortcuts context was active afterward. This affected every nested scene, not only wildcard overlays - the 2.1.3 fix was scoped too narrowly. `hide()` is rewritten to climb the recorded ancestor chain directly, which also removes the need for the wildcard-specific special-casing from 2.1.3;
 - [x] Fix: server-side-rendered (`options.ssr: true`) first loads never recorded the scene's `parents`, so navigating away from a deep SSR-loaded scene skipped hiding its ancestors entirely, leaving them stale;
