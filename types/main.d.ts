@@ -1,6 +1,4 @@
-declare function main(cfg?: {
-    logLevel: number;
-}): {
+declare function main(cfg?: {}): {
     hide: (endSteps?: number | string) => Promise<any>;
     listShortcuts: (sceneName: string) => (Array<string> | null);
     setScenes: (list: import("./methods/setScenes.js").sceneDescription[]) => void;
