@@ -2,6 +2,18 @@
 
 
 
+## 2.1.4 ( 2026-07-09 )
+- [x] Fix: `hide()` with the default single step (or any `endSteps` short of the full chain) left `currentScene`/`currentParents` pointing at the just-hidden scene instead of climbing to its still-visible parent, so no scene's shortcuts context was active afterward. This affected every nested scene, not only wildcard overlays - the 2.1.3 fix was scoped too narrowly. `hide()` is rewritten to climb the recorded ancestor chain directly, which also removes the need for the wildcard-specific special-casing from 2.1.3;
+- [x] Fix: server-side-rendered (`options.ssr: true`) first loads never recorded the scene's `parents`, so navigating away from a deep SSR-loaded scene skipped hiding its ancestors entirely, leaving them stale;
+- [x] Docs: `afterShow`'s typedef claimed it could return `false` to cancel the show - it never could (the return value was always ignored) and the README never documented that behavior either. The typedef now describes the actual fire-and-forget contract;
+- [x] Fix: `hide()` never checked `beforeHide`, so it always bypassed the "prevent navigation away" guard that `show()` already respected - calling `hide()` directly could skip it entirely even when it returned `false`;
+- [x] Fix: `jump()` pushed onto the jump stack unconditionally, even when the underlying navigation was blocked (eg. by `beforeHide`) or failed - leaving a phantom entry that desynced `jumpBack()` from what actually happened;
+- [x] Fix: `show()` passed `state.currentParents` into `findInstructions` by reference; since `findInstructions` is a lazy generator, mutating that same array mid-iteration (as the wildcard-overlay climb in `getStep` now does) corrupted its still-pending computation and silently dropped a `hide` step, leaking the scene an overlay was covering as permanently visible after navigating elsewhere;
+- [x] Fix: showing a wildcard-overlay scene with no underlying scene (`currentScene` was `null`) recorded a literal `null` placeholder in `currentParents`, which crashed any later navigation away from it;
+- [x] Fix: re-showing a wildcard-overlay scene while it was already current pushed it onto its own ancestor chain, so a later `hide()` reported the overlay as still current even though it had actually just been hidden;
+
+
+
 ## 2.1.3 ( 2026-07-09 )
 - [x] Fix: `getState()` returned a live reference to `state.currentParents` instead of a copy; a caller mutating the returned array corrupted cuts' own internal state;
 - [x] Fix: `hide()` on a wildcard-overlay scene left `currentScene`/`currentParents` pointing at the (now-hidden) overlay instead of climbing back to the scene it was shown on top of, so that scene's shortcuts context never reactivated;
