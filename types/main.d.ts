@@ -1,5 +1,44 @@
+export type CutsConfig = {
+    /**
+     * - Logging level. `1` emits '@app-error' events; `0` silences them silently.
+     */
+    logLevel?: 0 | 1;
+};
+export type pluginNames = 'Key' | 'Click' | 'Form' | 'Hover' | 'Scroll';
+export type CutsState = {
+    /**
+     * - current scene name
+     */
+    scene: string | null;
+    /**
+     * - current parent scene names
+     */
+    parents: Array<string> | null;
+    /**
+     * - whether the scene manager is opened
+     */
+    opened: boolean;
+};
+/**
+ *  Cuts
+ *  @param {CutsConfig} [cfg] - configuration object
+ */
+/**
+ * @typedef {Object} CutsConfig
+ * @property {0|1} [logLevel=1] - Logging level. `1` emits '@app-error' events; `0` silences them silently.
+ */
+/**
+ * @typedef {'Key'|'Click'|'Form'|'Hover'|'Scroll'} pluginNames
+ * @description List of available shortcut plugins.
+ */
+/**
+ * @typedef {Object} CutsState
+ * @property {string|null} scene - current scene name
+ * @property {Array.<string>|null} parents - current parent scene names
+ * @property {boolean} opened - whether the scene manager is opened
+ */
 declare function main(cfg?: {}): {
-    hide: (endSteps?: number | string) => Promise<any>;
+    hide: (endSteps?: number | string) => Promise<void>;
     listShortcuts: (sceneName: string) => (Array<string> | null);
     setScenes: (list: import("./methods/setScenes.js").sceneDescription[]) => void;
     show: ({ scene: requestedScene, options }: {
@@ -74,12 +113,9 @@ declare function main(cfg?: {}): {
     /**
      * Get the current state of the application
      * @function getState
-     * @returns {Object} with properties:
-     *  - scene: current scene name
-     *  - parents: current parent scene names
-     *  - opened: boolean indicating if the application is opened
+     * @returns {CutsState} current scene, parents, and opened flag
      */
-    getState: () => Object;
+    getState: () => CutsState;
     /**
      * @function emit
      * @description Emit an event
