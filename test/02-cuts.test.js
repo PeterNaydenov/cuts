@@ -455,7 +455,7 @@ describe ( 'Cuts integration', () => {
                      await script.show ({ scene: 'overlay' });
                      expect ( calls ).toEqual (['show overlay']);
                      expect ( script.getState().scene ).toEqual ( 'overlay' );
-                     expect ( script.getState().parents ).toEqual ( [null] ); // No previous scene, saved as null
+                     expect ( script.getState().parents ).toEqual ( [] ); // No underlying scene to remember
          }) // it Show scene with wildcard parent as the very first scene
 
 
@@ -655,6 +655,274 @@ describe ( 'Cuts integration', () => {
                      await defaultScript.show ({ scene: 'nope' });
                      expect ( defaultSeen ).toHaveLength ( 1 );
          }) // it logLevel: 0 is honored as explicitly silent, and the no-args default stays 1
+
+
+
+     it ( 'hide() with the default single step climbs to the parent and restores its shortcuts context', async () => {
+                     // Regression test: hide() used to leave currentScene/currentParents pointing at
+                     // the just-hidden scene instead of climbing to its (still visible) parent, so
+                     // NEITHER scene's shortcuts context was active afterward.
+                     const seen = [];
+                     const script = cuts();
+                     const scenes = [
+                                     {
+                                           name: 'A'
+                                         , scene: {
+                                                     show : ({task}) => task.done(),
+                                                     '@ping' : () => seen.push ( 'A' )
+                                             }
+                                         },
+                                         {
+                                           name: 'B'
+                                         , scene: {
+                                                     show : ({task}) => task.done(),
+                                                     hide : ({task}) => task.done(),
+                                                     parents: ['A'],
+                                                     '@ping' : () => seen.push ( 'B' )
+                                             }
+                                         }
+                                 ];
+
+                     script.setScenes ( scenes );
+                     await script.show ({ scene: 'A' });
+                     await script.show ({ scene: 'B' });
+
+                     await script.hide (); // default endSteps = 1
+                     expect ( script.getState() ).toEqual ({ scene: 'A', parents: [], opened: true });
+
+                     script.emit ( '@ping' );
+                     expect ( seen ).toEqual ([ 'A' ]);
+         }) // it hide() with the default single step climbs to the parent and restores its shortcuts context
+
+
+
+     it ( 'hide(n) climbs exactly n levels', async () => {
+                     const calls = [];
+                     const script = cuts();
+                     const scenes = [
+                                     { name: 'top' , scene: { show: ({task}) => { calls.push('show top');  task.done() }, hide: ({task}) => { calls.push('hide top');  task.done() } } },
+                                     { name: 'mid' , scene: { show: ({task}) => { calls.push('show mid');  task.done() }, hide: ({task}) => { calls.push('hide mid');  task.done() }, parents: ['top'] } },
+                                     { name: 'deep', scene: { show: ({task}) => { calls.push('show deep'); task.done() }, hide: ({task}) => { calls.push('hide deep'); task.done() }, parents: ['top', 'mid'] } }
+                                 ];
+
+                     script.setScenes ( scenes );
+                     await script.show ({ scene: 'deep' });
+                     calls.length = 0;
+
+                     await script.hide ( 2 );
+                     expect ( calls ).toEqual ([ 'hide deep', 'hide mid' ]);
+                     expect ( script.getState() ).toEqual ({ scene: 'top', parents: [], opened: true });
+         }) // it hide(n) climbs exactly n levels
+
+
+
+     it ( 'SSR first load records the scene\'s parents, so leaving it hides them too', async () => {
+                     // Regression test: the SSR branch of show() set currentScene but never
+                     // currentParents, so navigating away from a deep SSR-loaded scene skipped
+                     // hiding its ancestors entirely, leaving them stale in the DOM.
+                     const calls = [];
+                     const script = cuts();
+                     const scenes = [
+                                     { name: 'top' , scene: { show: ({task}) => { calls.push('show top');  task.done() }, hide: ({task}) => { calls.push('hide top');  task.done() } } },
+                                     { name: 'mid' , scene: { show: ({task}) => { calls.push('show mid');  task.done() }, hide: ({task}) => { calls.push('hide mid');  task.done() }, parents: ['top'] } },
+                                     { name: 'deep', scene: { show: ({task}) => { calls.push('show deep'); task.done() }, hide: ({task}) => { calls.push('hide deep'); task.done() }, parents: ['top', 'mid'] } },
+                                     { name: 'other', scene: { show: ({task}) => { calls.push('show other'); task.done() }, hide: ({task}) => { calls.push('hide other'); task.done() } } }
+                                 ];
+
+                     script.setScenes ( scenes );
+                     await script.show ({ scene: 'deep', options: { ssr: true } });
+                     expect ( script.getState() ).toEqual ({ scene: 'deep', parents: [ 'top', 'mid' ], opened: true });
+
+                     calls.length = 0;
+                     await script.show ({ scene: 'other' });
+                     expect ( calls ).toEqual ([ 'hide deep', 'hide mid', 'hide top', 'show other' ]);
+         }) // it SSR first load records the scene's parents, so leaving it hides them too
+
+
+
+     it ( 'afterShow return value has no effect on the completed show()', async () => {
+                     // Regression test: setScenes.js's typedef documented afterShow as
+                     // 'returns false to cancel', but show() never read its return value, so
+                     // the scene was always shown regardless. The typedef is now corrected to
+                     // describe the actual (README-documented) fire-and-forget behavior.
+                     const calls = [];
+                     const script = cuts();
+                     const scenes = [
+                                     {
+                                           name: 'top'
+                                         , scene: {
+                                                     show      : ({task}) => { calls.push('show'); task.done() },
+                                                     hide      : ({task}) => task.done(),
+                                                     afterShow : () => { calls.push('afterShow'); return false }
+                                             }
+                                         }
+                                 ];
+
+                     script.setScenes ( scenes );
+                     await script.show ({ scene: 'top' });
+
+                     expect ( calls ).toEqual ([ 'show', 'afterShow' ]);
+                     expect ( script.getState() ).toEqual ({ scene: 'top', parents: [], opened: true });
+         }) // it afterShow return value has no effect on the completed show()
+
+
+
+     it ( 'hide() honors beforeHide, same as show() does', async () => {
+                     // Regression test: hide() used to ignore beforeHide entirely, so it could
+                     // never be blocked - even though show() already respected it when navigating
+                     // away to a different scene.
+                     const calls = [];
+                     const script = cuts();
+                     const scenes = [
+                                     {
+                                           name: 'top'
+                                         , scene: {
+                                                     show       : ({task}) => { calls.push('show top'); task.done() },
+                                                     hide       : ({task}) => { calls.push('hide top'); task.done() },
+                                                     beforeHide : ({ done }) => { calls.push('beforeHide'); done ( false ) }
+                                             }
+                                         }
+                                 ];
+
+                     script.setScenes ( scenes );
+                     await script.show ({ scene: 'top' });
+                     calls.length = 0;
+
+                     await script.hide ();
+                     expect ( calls ).toEqual ([ 'beforeHide' ]); // hide() never actually ran
+                     expect ( script.getState() ).toEqual ({ scene: 'top', parents: [], opened: true });
+         }) // it hide() honors beforeHide, same as show() does
+
+
+
+     it ( 'jump() does not record a jump-stack entry when the navigation is blocked', async () => {
+                     // Regression test: jump() pushed onto the jump stack unconditionally, even when
+                     // the underlying show() was blocked (eg. by beforeHide) and nothing actually
+                     // changed - leaving a phantom entry that desynced jumpBack() from real history.
+                     const calls = [];
+                     const script = cuts();
+                     let block = true;
+                     const scenes = [
+                                     {
+                                           name: 'home'
+                                         , scene: {
+                                                     show       : ({task}) => { calls.push('show home'); task.done() },
+                                                     hide       : ({task}) => { calls.push('hide home'); task.done() },
+                                                     beforeHide : ({ done }) => done ( !block )
+                                             }
+                                         },
+                                         {
+                                           name: 'settings'
+                                         , scene: {
+                                                     show : ({task}) => { calls.push('show settings'); task.done() },
+                                                     hide : ({task}) => { calls.push('hide settings'); task.done() }
+                                             }
+                                         },
+                                         {
+                                           name: 'other'
+                                         , scene: {
+                                                     show : ({task}) => { calls.push('show other'); task.done() },
+                                                     hide : ({task}) => { calls.push('hide other'); task.done() }
+                                             }
+                                         }
+                                 ];
+
+                     script.setScenes ( scenes );
+                     await script.show ({ scene: 'home' });
+
+                     await script.jump ({ scene: 'settings' }); // blocked by beforeHide - no stack entry
+                     expect ( script.getState().scene ).toEqual ( 'home' );
+
+                     block = false;
+                     await script.jump ({ scene: 'other' }); // succeeds - exactly one real stack entry
+                     expect ( script.getState().scene ).toEqual ( 'other' );
+
+                     calls.length = 0;
+                     await script.jumpBack ();
+                     expect ( calls ).toEqual ([ 'hide other', 'show home' ]);
+                     expect ( script.getState().scene ).toEqual ( 'home' );
+
+                     calls.length = 0;
+                     await script.jumpBack (); // stack should already be empty - true no-op
+                     expect ( calls ).toEqual ([]);
+                     expect ( script.getState().scene ).toEqual ( 'home' );
+         }) // it jump() does not record a jump-stack entry when the navigation is blocked
+
+
+
+     it ( 'Navigating from a wildcard overlay to an unrelated scene hides the scene it was covering', async () => {
+                     // Regression test: findInstructions is a lazy generator, and show() passed it
+                     // state.currentParents by reference. getStep's wildcard climb (state.currentParents.pop())
+                     // mutated that same array mid-iteration, corrupting the generator's still-pending reads
+                     // and silently dropping the 'hide' instruction for the scene the overlay was covering -
+                     // leaking it as permanently visible.
+                     const calls = [];
+                     const script = cuts();
+                     const scenes = [
+                                     { name: 'G', scene: { show: ({task}) => { calls.push('show G'); task.done() }, hide: ({task}) => { calls.push('hide G'); task.done() } } },
+                                     { name: 'OV', scene: { show: ({task}) => { calls.push('show OV'); task.done() }, hide: ({task}) => { calls.push('hide OV'); task.done() }, parents: ['*'] } },
+                                     { name: 'D', scene: { show: ({task}) => { calls.push('show D'); task.done() }, hide: ({task}) => { calls.push('hide D'); task.done() } } }
+                                 ];
+
+                     script.setScenes ( scenes );
+                     await script.show ({ scene: 'G' });
+                     await script.show ({ scene: 'OV' });
+                     calls.length = 0;
+
+                     await script.show ({ scene: 'D' });
+                     expect ( calls ).toEqual ([ 'hide OV', 'hide G', 'show D' ]);
+                     expect ( script.getState() ).toEqual ({ scene: 'D', parents: [], opened: true });
+         }) // it Navigating from a wildcard overlay to an unrelated scene hides the scene it was covering
+
+
+
+     it ( 'Showing a wildcard overlay with no underlying scene does not crash later navigation', async () => {
+                     // Regression test: showing an overlay when state.currentScene was null recorded a
+                     // literal 'null' placeholder in currentParents. Navigating away from it later crashed,
+                     // because findInstructions/getStep treated that placeholder as a real scene name to hide.
+                     const script = cuts();
+                     const scenes = [
+                                     { name: 'F', scene: { show: ({task}) => task.done(), hide: ({task}) => task.done() } },
+                                     { name: 'OV', scene: { show: ({task}) => task.done(), hide: ({task}) => task.done(), parents: ['*'] } },
+                                     { name: 'A', scene: { show: ({task}) => task.done(), hide: ({task}) => task.done() } }
+                                 ];
+
+                     script.setScenes ( scenes );
+                     await script.show ({ scene: 'F' });
+                     await script.hide ( 1 ); // back to nothing - currentScene becomes null
+                     await script.show ({ scene: 'OV' }); // overlay with no underlying scene
+
+                     expect ( script.getState() ).toEqual ({ scene: 'OV', parents: [], opened: true });
+
+                     await script.show ({ scene: 'A' }); // used to throw
+                     expect ( script.getState() ).toEqual ({ scene: 'A', parents: [], opened: true });
+         }) // it Showing a wildcard overlay with no underlying scene does not crash later navigation
+
+
+
+     it ( 'Re-showing the same wildcard overlay does not push it onto its own ancestor chain', async () => {
+                     // Regression test: showing an overlay while it was ALREADY the current scene pushed
+                     // it onto its own currentParents (self-reference). A later hide() would then pop that
+                     // self-reference and report the overlay as still current, even though it had just been
+                     // hidden - a state/reality desync.
+                     const script = cuts();
+                     const visible = new Set();
+                     const scenes = [
+                                     { name: 'C', scene: { show: ({task}) => { visible.add('C'); task.done() }, hide: ({task}) => { visible.delete('C'); task.done() } } },
+                                     { name: 'OV', scene: { show: ({task}) => { visible.add('OV'); task.done() }, hide: ({task}) => { visible.delete('OV'); task.done() }, parents: ['*'] } }
+                                 ];
+
+                     script.setScenes ( scenes );
+                     await script.show ({ scene: 'C' });
+                     await script.show ({ scene: 'OV' });
+                     await script.show ({ scene: 'OV' }); // show the same overlay again while already current
+
+                     expect ( script.getState() ).toEqual ({ scene: 'OV', parents: [ 'C' ], opened: true });
+
+                     await script.hide ( 1 );
+                     expect ( script.getState() ).toEqual ({ scene: 'C', parents: [], opened: true });
+                     expect ( [...visible] ).toEqual ([ 'C' ]); // OV must actually be gone, matching reported state
+         }) // it Re-showing the same wildcard overlay does not push it onto its own ancestor chain
 
 
 
