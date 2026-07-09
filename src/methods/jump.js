@@ -14,7 +14,7 @@ function jump ( state, show ) {
                         // blocked (beforeHide) or invalid navigation, and pushing anyway would leave
                         // a phantom entry that desyncs jumpBack() from what actually happened.
                         if ( state.currentScene === scene )   state.jumpStack.push ( previousScene )
-                })
+                }).catch ( () => {} )   // Swallow rejections so they don't become unhandled
         }
     return jump
 } // jump func.

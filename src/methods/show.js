@@ -22,11 +22,18 @@ function show ( dependencies, state ) {
         , hasBeforeHide = currentScene && (typeof scenes[currentScene].beforeHide === 'function')
         ;
 
-    if ( hasBeforeHide ) { // Execute 'beforeUnload' function if exists
+    if ( hasBeforeHide ) { // Execute 'beforeHide' function if exists
                 const closingFn = scenes[currentScene].beforeHide;
-                // TODO: If async elements in beforeUnload, we will 
-                // need full unloadTask and function should return a promise
-                closingFn ({ done:unloadTask.done, dependencies: shortcutMngr.getDependencies() })
+                try {
+                    const result = closingFn ({ done:unloadTask.done, dependencies: shortcutMngr.getDependencies() });
+                    // If beforeHide returns a Promise, resolve it and pass the result to unloadTask.done
+                    // so async blocking logic works correctly (e.g. confirm dialog → done(false)).
+                    if ( result != null && typeof result.then === 'function' ) {
+                        result.then ( unloadTask.done ).catch ( () => unloadTask.done ( false ) );
+                    }
+                } catch ( err ) {
+                    unloadTask.done ( false );
+                }
         } // if currentScene
     else  unloadTask.done ( true )
 

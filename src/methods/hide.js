@@ -6,8 +6,8 @@ function hide ( dependencies, state ) {
 /**
  * @function hide
  * @description Hide the current scene and returns to the parent one
- * @param {number|string} endSteps - number of steps to end or '*' to end all scenes to the root
- * @returns {Promise} - promise that resolves when the process 'end' is completed
+ * @param {number|string} [endSteps=1] - number of steps to end; omit or `1` for current scene only; `'*'` to end all scenes to root
+ * @returns {Promise<void>} - promise that resolves when the process 'end' is completed
  */
 return function hide ( endSteps=1 ) {
     const
@@ -20,7 +20,14 @@ return function hide ( endSteps=1 ) {
 
     if ( hasBeforeHide ) { // Execute 'beforeHide' function if exists - same guard 'show' honors when navigating away
                 const closingFn = scenes[currentScene].beforeHide;
-                closingFn ({ done:unloadTask.done, dependencies: shortcutMngr.getDependencies() })
+                try {
+                    const result = closingFn ({ done:unloadTask.done, dependencies: shortcutMngr.getDependencies() });
+                    if ( result != null && typeof result.then === 'function' ) {
+                        result.then ( unloadTask.done ).catch ( () => unloadTask.done ( false ) );
+                    }
+                } catch ( err ) {
+                    unloadTask.done ( false );
+                }
         }
     else  unloadTask.done ( true )
 

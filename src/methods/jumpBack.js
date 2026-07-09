@@ -7,13 +7,13 @@ function jumpBack ( state, show ) {
      * @param {Array} [args] - arguments to pass to the scene method
      * @returns {Promise|undefined} - promise that resolves when the jump back is completed, or undefined if no scenes in stack
      */
-    function jumpBack ({hops}={hops:1}, ...args ) {
+    function jumpBack ( { hops = 1 } = {}, ...args ) {
             for ( let i = 0; i < hops-1; i++ ) {
                     state.jumpStack.pop ()
                 }
             if  ( state.jumpStack.length === 0 ) return
             const lastScene = state.jumpStack.pop ();
-            return show ( { scene : lastScene }, ...args )
+            return show ( { scene : lastScene }, ...args ).catch ( () => {} )   // Swallow rejections so they don't become unhandled
         }
     return jumpBack
 } // jumpBack func.

@@ -4,7 +4,7 @@ function jumpsReset ( state ) {
      * @description Reset the jump stack, clearing all saved jump positions
      * @returns {void}
      */
-    return function jumpReset () {
+    return function jumpsReset () {
                     state.jumpStack = []
             }
 } // jumpsReset func.

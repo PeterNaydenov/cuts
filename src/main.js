@@ -36,7 +36,29 @@ import jumpBack      from './methods/jumpBack.js'
 import jumpsReset    from './methods/jumpsReset.js'
 
 
-function main ( cfg= {} ) {
+/**
+ *  Cuts
+ *  @param {CutsConfig} [cfg] - configuration object
+ */
+
+/**
+ * @typedef {Object} CutsConfig
+ * @property {0|1} [logLevel=1] - Logging level. `1` emits '@app-error' events; `0` silences them silently.
+ */
+
+/**
+ * @typedef {'Key'|'Click'|'Form'|'Hover'|'Scroll'} pluginNames
+ * @description List of available shortcut plugins.
+ */
+
+/**
+ * @typedef {Object} CutsState
+ * @property {string|null} scene - current scene name
+ * @property {Array.<string>|null} parents - current parent scene names
+ * @property {boolean} opened - whether the scene manager is opened
+ */
+
+function main ( cfg = {} ) {
      const 
           shortcutMngr = shortcuts ({ errorEventName: '@app-error' })
         , logLevel = ( cfg.logLevel ?? 1 )
@@ -146,14 +168,11 @@ function main ( cfg= {} ) {
          */
         API.disablePlugin = ( pluginName )  => shortcutMngr.disablePlugin ( pluginName )
         
-        /**
-         * Get the current state of the application
-         * @function getState
-         * @returns {Object} with properties:
-         *  - scene: current scene name
-         *  - parents: current parent scene names
-         *  - opened: boolean indicating if the application is opened
-         */
+         /**
+          * Get the current state of the application
+          * @function getState
+          * @returns {CutsState} current scene, parents, and opened flag
+          */
         API.getState = () =>  ({
                                  scene   : state.currentScene
                                  // Copy - never leak the live array, or callers mutating it corrupt internal state.
