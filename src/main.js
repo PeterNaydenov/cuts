@@ -36,12 +36,13 @@ import jumpBack      from './methods/jumpBack.js'
 import jumpsReset    from './methods/jumpsReset.js'
 
 
-function main ( cfg= {logLevel:0} ) {
+function main ( cfg= {} ) {
      const 
           shortcutMngr = shortcuts ({ errorEventName: '@app-error' })
-        , logLevel = cfg.logLevel || 1
+        , logLevel = ( cfg.logLevel ?? 1 )
         , log = createLog ({ level:logLevel }, (arg) => {
-                                            const { type } = arg;
+                                            const { type, logLevel:configuredLevel } = arg;
+                                            if ( configuredLevel === 0 )   return   // Silent mode: no @app-error events
                                             if ( type === 'error' ) {
                                                       // Use the raw emitter (not shortcutMngr.emit) so '@app-error'
                                                       // handlers keep receiving the log entry as their sole argument -
@@ -155,7 +156,8 @@ function main ( cfg= {logLevel:0} ) {
          */
         API.getState = () =>  ({
                                  scene   : state.currentScene
-                               , parents : state.currentParents
+                                 // Copy - never leak the live array, or callers mutating it corrupt internal state.
+                               , parents : state.currentParents ? [ ...state.currentParents ] : state.currentParents
                                , opened  : state.opened
                             })
 

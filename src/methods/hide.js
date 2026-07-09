@@ -31,10 +31,23 @@ return function hide ( endSteps=1 ) {
                 namesToHide = currentParents.slice ( `-${endSteps-1}` ).reverse ()
         }
 
+    if ( hasParents && namesToHide.length === 0 && scenes[currentScene].parents[0] === '*' ) {
+                // A wildcard overlay has no fixed scene to 'stay pointed at' once hidden - unlike a
+                // regular single-step hide(), always climb back to whatever scene it was shown on top
+                // of, so the shortcuts context returns to the (still visible) underlying scene.
+                state.currentScene   = state.currentParents.pop ()
+                state.currentParents = state.currentScene ? [ ...scenes[state.currentScene].parents ] : []
+        }
+
     namesToHide.forEach ( name => {
                 instructions.push ( setInstruction ( scenes[name].hide))
                 // Climb to the parent of the scene just hidden - same technique 'show' uses for its 'hide' steps.
-                state.currentScene   = scenes[name].parents.at ( -1 ) ?? null
+                // A wildcard overlay isn't climbing its own declared parent ('*' isn't a real scene) - and
+                // there's no reliable way to recover what it originally covered once it's this deep in the
+                // chain, so fall back to treating it as the end of the chain rather than crashing.
+                state.currentScene   = ( scenes[name].parents[0] === '*' )
+                                            ? null
+                                            : ( scenes[name].parents.at ( -1 ) ?? null )
                 state.currentParents = state.currentScene ? scenes[state.currentScene].parents : []
         })
 
