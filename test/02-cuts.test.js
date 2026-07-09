@@ -578,4 +578,84 @@ describe ( 'Cuts integration', () => {
 
 
 
+     it ( 'getState() does not leak a mutable reference to internal state', async () => {
+                     // Regression test: getState() used to return state.currentParents by
+                     // reference, so a caller mutating the returned array corrupted cuts' own state.
+                     const script = cuts();
+                     script.setScenes ([
+                                     { name: 'home', scene: { show: ({task}) => task.done(), hide: ({task}) => task.done() } }
+                             ]);
+
+                     await script.show ({ scene: 'home' });
+                     const firstRead = script.getState ();
+                     firstRead.parents.push ( 'INJECTED' );
+
+                     expect ( script.getState().parents ).toEqual ([]);
+         }) // it getState() does not leak a mutable reference to internal state
+
+
+
+     it ( 'hide() restores state and shortcuts context after dismissing a wildcard overlay', async () => {
+                     // Regression test: hide() on a wildcard-overlay scene left currentScene/currentParents
+                     // stale (still pointing at the now-hidden overlay), so the underlying scene's
+                     // shortcuts context was never reactivated even though it was still visible.
+                     const seen = [];
+                     const script = cuts();
+                     const scenes = [
+                                     {
+                                           name: 'base'
+                                         , scene: {
+                                                     show : ({task}) => task.done(),
+                                                     hide : ({task}) => task.done(),
+                                                     '@ping' : () => seen.push ( 'base' )
+                                             }
+                                         },
+                                         {
+                                           name: 'overlay'
+                                         , scene: {
+                                                     show : ({task}) => task.done(),
+                                                     hide : ({task}) => task.done(),
+                                                     parents: ['*'],
+                                                     '@ping' : () => seen.push ( 'overlay' )
+                                             }
+                                         }
+                                 ];
+
+                     script.setScenes ( scenes );
+                     await script.show ({ scene: 'base' });
+                     await script.show ({ scene: 'overlay' });
+
+                     await script.hide (); // Dismiss the overlay
+                     expect ( script.getState() ).toEqual ({ scene: 'base', parents: [], opened: true });
+
+                     script.emit ( '@ping' );
+                     expect ( seen ).toEqual ([ 'base' ]);
+         }) // it hide() restores state and shortcuts context after dismissing a wildcard overlay
+
+
+
+     it ( 'logLevel: 0 is honored as explicitly silent, and the no-args default stays 1', async () => {
+                     // Regression test: 'cfg.logLevel || 1' treated an explicit 0 as falsy and
+                     // silently forced logLevel back to 1, so 'silent mode' never actually worked.
+                     const silentSeen = [];
+                     const silentScript = cuts ({ logLevel: 0 });
+                     silentScript.setScenes ([
+                                     { name: 'top', scene: { show: ({task}) => task.done(), hide: ({task}) => task.done(), '@app-error': (e) => silentSeen.push(e) } }
+                             ]);
+                     await silentScript.show ({ scene: 'top' });
+                     await silentScript.show ({ scene: 'nope' });
+                     expect ( silentSeen ).toEqual ([]);
+
+                     const defaultSeen = [];
+                     const defaultScript = cuts (); // No config at all - README default is logLevel 1
+                     defaultScript.setScenes ([
+                                     { name: 'top', scene: { show: ({task}) => task.done(), hide: ({task}) => task.done(), '@app-error': (e) => defaultSeen.push(e) } }
+                             ]);
+                     await defaultScript.show ({ scene: 'top' });
+                     await defaultScript.show ({ scene: 'nope' });
+                     expect ( defaultSeen ).toHaveLength ( 1 );
+         }) // it logLevel: 0 is honored as explicitly silent, and the no-args default stays 1
+
+
+
  }) // describe
