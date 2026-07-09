@@ -8,7 +8,7 @@
 /**
  * @typedef {Object} SceneObject
  * @property {function({task: AskObject, dependencies: *}): void} show - load interface and prerequisites for the scene;
- * @property {function():boolean} [afterShow] - run after scene is loaded. Optional. Returns true to continue loading, false to cancel;
+ * @property {function({dependencies: *, done: function}):void} [afterShow] - run after the scene is shown. Optional. Fire-and-forget - its return value is not used, and it cannot cancel or affect the already-completed 'show';
  * @property {function({task: AskObject, dependencies: *}): void} hide - Reverse the settings from 'show';
  * @property {function():void} [beforeHide] - Run before scene is hidden. Optional;
  * @property {Array.<string>} [parents] - list of parent scene names.

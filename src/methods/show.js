@@ -53,6 +53,9 @@ function show ( dependencies, state ) {
                                 // Executes only once when the scene manager is started
                                 state.opened = true
                                 state.currentScene = requestedScene
+                                // The server-rendered scene's ancestors are assumed already rendered too -
+                                // record them, or navigating away later won't know to hide them.
+                                state.currentParents = scenes[requestedScene].parents ? [ ...scenes[requestedScene].parents ] : []
                                 shortcutMngr.changeContext ( requestedScene )
                                 showTask.done ()
                                 return showTask.promise
@@ -65,7 +68,11 @@ function show ( dependencies, state ) {
                      if ( parents[0] === '*' ) {
                                  const overlayTask = setInstruction(show, ...args)()
                                  overlayTask.then ( () => showTask.done ()   )
-                                 state.currentParents.push ( state.currentScene )
+                                 // Only remember a real underlying scene - pushing 'null' as a placeholder
+                                 // makes later navigation treat it as a scene name to hide, and crash.
+                                 // Re-showing the SAME overlay that's already current must not push it onto
+                                 // its own ancestor chain either, or hide() later climbs back onto itself.
+                                 if ( state.currentScene && state.currentScene !== requestedScene )   state.currentParents.push ( state.currentScene )
                                  state.currentScene = requestedScene
                                  shortcutMngr.changeContext ( requestedScene )   // Activate the overlay scene's own shortcuts
                                  return showTask.promise
@@ -101,7 +108,10 @@ function show ( dependencies, state ) {
                         } // getStep func.
 
                     const
-                          g = findInstructions ( state.currentScene, state.currentParents, requestedScene, parents )
+                          // Snapshot - findInstructions is a lazy generator, and getStep (in the loop below)
+                          // mutates state.currentParents in place; without a copy, that mutation corrupts
+                          // the generator's still-pending reads of the very array it was given.
+                          g = findInstructions ( state.currentScene, [ ...state.currentParents ], requestedScene, parents )
                         , instructions = []
                         ;
 

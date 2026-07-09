@@ -12,55 +12,55 @@ function hide ( dependencies, state ) {
 return function hide ( endSteps=1 ) {
     const
           { askForPromise, shortcutMngr, setInstruction } = dependencies
-        , { currentScene, currentParents, scenes } = state
+        , { currentScene, scenes } = state
         , hideTask = askForPromise ()
-        , instructions = []
-        , hasParents = currentParents.length > 0
+        , unloadTask = askForPromise ()
+        , hasBeforeHide = typeof scenes[currentScene].beforeHide === 'function'
         ;
 
-    shortcutMngr.pause ()   // Stop all shortcuts
-    instructions.push ( setInstruction ( scenes[currentScene].hide ))   // Set instruction to hide current scene
-
-    if ( !hasParents )    state.currentScene = null
-
-    let namesToHide = []
-    if ( hasParents && endSteps === '*' ) {
-                namesToHide = [...currentParents].reverse ()
+    if ( hasBeforeHide ) { // Execute 'beforeHide' function if exists - same guard 'show' honors when navigating away
+                const closingFn = scenes[currentScene].beforeHide;
+                closingFn ({ done:unloadTask.done, dependencies: shortcutMngr.getDependencies() })
         }
-    if ( hasParents && ![ '*', 1].includes(endSteps) ) {
-                namesToHide = currentParents.slice ( `-${endSteps-1}` ).reverse ()
-        }
+    else  unloadTask.done ( true )
 
-    if ( hasParents && namesToHide.length === 0 && scenes[currentScene].parents[0] === '*' ) {
-                // A wildcard overlay has no fixed scene to 'stay pointed at' once hidden - unlike a
-                // regular single-step hide(), always climb back to whatever scene it was shown on top
-                // of, so the shortcuts context returns to the (still visible) underlying scene.
-                state.currentScene   = state.currentParents.pop ()
-                state.currentParents = state.currentScene ? [ ...scenes[state.currentScene].parents ] : []
-        }
+    unloadTask.onComplete ( continueHiding => {
+                    if ( !continueHiding ) {
+                                // 'beforeHide' returned false - cancel, nothing was torn down or changed
+                                hideTask.done ()
+                                return hideTask.promise
+                        }
 
-    namesToHide.forEach ( name => {
-                instructions.push ( setInstruction ( scenes[name].hide))
-                // Climb to the parent of the scene just hidden - same technique 'show' uses for its 'hide' steps.
-                // A wildcard overlay isn't climbing its own declared parent ('*' isn't a real scene) - and
-                // there's no reliable way to recover what it originally covered once it's this deep in the
-                // chain, so fall back to treating it as the end of the chain rather than crashing.
-                state.currentScene   = ( scenes[name].parents[0] === '*' )
-                                            ? null
-                                            : ( scenes[name].parents.at ( -1 ) ?? null )
-                state.currentParents = state.currentScene ? scenes[state.currentScene].parents : []
-        })
+                    const
+                          instructions = []
+                        // Work on a copy of the recorded ancestor chain - it's the source of truth for what to
+                        // climb back to, including for wildcard-overlay scenes ('*' itself is never stored here,
+                        // only the real scene name that was current when the overlay was shown).
+                        , remaining = [ ...state.currentParents ]
+                        ;
 
-    const goingTask = askForPromise.sequence ( instructions );
-    goingTask.onComplete ( () => {
-                    shortcutMngr.changeContext ( state.currentScene )   // If state.currentScene is null, then all shortcuts are switched off and currentContext is null
-                    hideTask.done ()
-            })
+                    shortcutMngr.pause ()   // Stop all shortcuts
+                    instructions.push ( setInstruction ( scenes[currentScene].hide ))   // Hiding the current scene is always at least 1 step
+
+                    const ancestorsToHide = ( endSteps === '*' ) ? remaining.length : Math.min ( endSteps - 1, remaining.length )
+                    for ( let i = 0; i < ancestorsToHide; i++ ) {
+                                const name = remaining.pop ()
+                                instructions.push ( setInstruction ( scenes[name].hide ))
+                        }
+
+                    state.currentScene   = remaining.length > 0 ? remaining.pop () : null
+                    state.currentParents = remaining
+
+                    const goingTask = askForPromise.sequence ( instructions );
+                    goingTask.onComplete ( () => {
+                                    shortcutMngr.changeContext ( state.currentScene )   // If state.currentScene is null, then all shortcuts are switched off and currentContext is null
+                                    hideTask.done ()
+                            })
+        }) // unloadTask onComplete
     return hideTask.promise
 }} // hide func.
 
 
 
 export default hide
-
 
