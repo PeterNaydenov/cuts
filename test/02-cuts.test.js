@@ -810,6 +810,169 @@ describe ( 'Cuts integration', () => {
 
 
 
+     it ( 'SSR first load + overlay lifts cleanly when navigating away', async () => {
+                     // SSR-loads record the scene's state but do not call its 'show' function.
+                     // Subsequent normal navigation (including a wildcard overlay) should work
+                     // as if the SSR-loaded scene had been shown normally: its 'hide' fires
+                     // when navigated away from, and any overlay on top of it lifts correctly.
+                     const calls = [];
+                     const script = cuts();
+                     const scenes = [
+                                     { name: 'G',  scene: { show: ({task}) => { calls.push('show G');  task.done() }, hide: ({task}) => { calls.push('hide G');  task.done() } } },
+                                     { name: 'OV', scene: { show: ({task}) => { calls.push('show OV'); task.done() }, hide: ({task}) => { calls.push('hide OV'); task.done() }, parents: ['*'] } },
+                                     { name: 'D',  scene: { show: ({task}) => { calls.push('show D');  task.done() }, hide: ({task}) => { calls.push('hide D');  task.done() } } }
+                                 ];
+
+                     script.setScenes ( scenes );
+
+                     await script.show ({ scene: 'G', options: { ssr: true } });
+                     expect ( calls ).toEqual ([]);
+                     expect ( script.getState () ).toEqual ({ scene: 'G', parents: [], opened: true });
+
+                     await script.show ({ scene: 'OV' });
+                     expect ( calls ).toEqual ([ 'show OV' ]);
+                     expect ( script.getState () ).toEqual ({ scene: 'OV', parents: [ 'G' ], opened: true });
+
+                     calls.length = 0;
+                     await script.show ({ scene: 'D' });
+                     expect ( calls ).toEqual ([ 'hide OV', 'hide G', 'show D' ]);
+                     expect ( script.getState () ).toEqual ({ scene: 'D', parents: [], opened: true });
+         }) // it SSR first load + overlay lifts cleanly when navigating away
+
+
+
+     it ( 'SSR first load + jump stack works for subsequent navigation', async () => {
+                     // After SSR-loading the first scene, the jump stack should be
+                     // empty and ready to record subsequent jumps. jumpBack should
+                     // return to the SSR-loaded scene correctly. Note that the
+                     // SSR-loaded scene's 'hide' still fires on navigation away -
+                     // only its 'show' is skipped - matching the existing SSR
+                     // re-show test (the SSR branch is one-shot, not stateful).
+                     const calls = [];
+                     const script = cuts();
+                     const scenes = [
+                                     { name: 'home',     scene: { show: ({task}) => { calls.push('show home');     task.done() }, hide: ({task}) => { calls.push('hide home');     task.done() } } },
+                                     { name: 'settings', scene: { show: ({task}) => { calls.push('show settings'); task.done() }, hide: ({task}) => { calls.push('hide settings'); task.done() } } },
+                                     { name: 'profile',  scene: { show: ({task}) => { calls.push('show profile');  task.done() }, hide: ({task}) => { calls.push('hide profile');  task.done() } } }
+                                 ];
+
+                     script.setScenes ( scenes );
+
+                     await script.show ({ scene: 'home', options: { ssr: true } });
+                     expect ( calls ).toEqual ([]);
+                     expect ( script.getState () ).toEqual ({ scene: 'home', parents: [], opened: true });
+
+                     await script.jump ({ scene: 'settings' });
+                     expect ( calls ).toEqual ([ 'hide home', 'show settings' ]);
+
+                     await script.jump ({ scene: 'profile' });
+                     expect ( calls ).toEqual ([ 'hide home', 'show settings', 'hide settings', 'show profile' ]);
+
+                     calls.length = 0;
+                     await script.jumpBack ();   // back to 'settings' (top of stack)
+                     expect ( calls ).toEqual ([ 'hide profile', 'show settings' ]);
+                     expect ( script.getState () ).toEqual ({ scene: 'settings', parents: [], opened: true });
+
+                     calls.length = 0;
+                     await script.jumpBack ();   // back to 'home' (next on stack - the SSR-loaded scene)
+                     expect ( calls ).toEqual ([ 'hide settings', 'show home' ]);
+                     expect ( script.getState () ).toEqual ({ scene: 'home', parents: [], opened: true });
+
+                     calls.length = 0;
+                     await script.jumpBack ();   // stack already empty - no-op
+                     expect ( calls ).toEqual ([]);
+                     expect ( script.getState () ).toEqual ({ scene: 'home', parents: [], opened: true });
+         }) // it SSR first load + jump stack works for subsequent navigation
+
+
+
+     it ( 'SSR first load + beforeHide guards subsequent navigation', async () => {
+                     // The SSR path sets state but does not call 'show' or 'afterShow'.
+                     // When the user then tries to navigate away, the current scene's
+                     // beforeHide must still be honoured - a navigation guard should
+                     // work the same way whether the scene was SSR-loaded or normal-loaded.
+                     const calls = [];
+                     let block = true;
+                     const script = cuts();
+                     const scenes = [
+                                     {
+                                           name: 'home'
+                                         , scene: {
+                                                     show       : ({task}) => { calls.push('show home'); task.done() },
+                                                     hide       : ({task}) => { calls.push('hide home'); task.done() },
+                                                     beforeHide : ({ done }) => done ( !block )
+                                             }
+                                         },
+                                     { name: 'about', scene: { show: ({task}) => { calls.push('show about'); task.done() }, hide: ({task}) => { calls.push('hide about'); task.done() } } }
+                                 ];
+
+                     script.setScenes ( scenes );
+
+                     await script.show ({ scene: 'home', options: { ssr: true } });
+                     expect ( calls ).toEqual ([]);
+                     expect ( script.getState () ).toEqual ({ scene: 'home', parents: [], opened: true });
+
+                     // Blocked by beforeHide - navigation is a no-op, no 'about' show, no state change
+                     await script.show ({ scene: 'about' });
+                     expect ( calls ).toEqual ([]);
+                     expect ( script.getState () ).toEqual ({ scene: 'home', parents: [], opened: true });
+
+                     // Unblock and retry - navigation lands normally
+                     block = false;
+                     await script.show ({ scene: 'about' });
+                     expect ( calls ).toEqual ([ 'hide home', 'show about' ]);
+                     expect ( script.getState () ).toEqual ({ scene: 'about', parents: [], opened: true });
+         }) // it SSR first load + beforeHide guards subsequent navigation
+
+
+
+     it ( 'SSR first load + hide() closes the SSR-loaded scene', async () => {
+                     // hide() should correctly tear down an SSR-loaded scene:
+                     // its 'hide' function fires even though 'show' was never called.
+                     const calls = [];
+                     const script = cuts();
+                     const scenes = [
+                                     { name: 'home', scene: { show: ({task}) => { calls.push('show home'); task.done() }, hide: ({task}) => { calls.push('hide home'); task.done() } } }
+                                 ];
+
+                     script.setScenes ( scenes );
+
+                     await script.show ({ scene: 'home', options: { ssr: true } });
+                     expect ( calls ).toEqual ([]);
+                     expect ( script.getState () ).toEqual ({ scene: 'home', parents: [], opened: true });
+
+                     await script.hide ();
+                     expect ( calls ).toEqual ([ 'hide home' ]);
+                     expect ( script.getState () ).toEqual ({ scene: null, parents: [], opened: true });
+         }) // it SSR first load + hide() closes the SSR-loaded scene
+
+
+
+     it ( 'SSR first load + hide("*") climbs back through the recorded parent chain', async () => {
+                     // The 2.1.4 fix: SSR loads now record the scene's 'parents' so
+                     // that subsequent hide("*") can walk back through them. Verify
+                     // that the full climb order is correct.
+                     const calls = [];
+                     const script = cuts();
+                     const scenes = [
+                                     { name: 'top',  scene: { show: ({task}) => { calls.push('show top');  task.done() }, hide: ({task}) => { calls.push('hide top');  task.done() } } },
+                                     { name: 'mid',  scene: { show: ({task}) => { calls.push('show mid');  task.done() }, hide: ({task}) => { calls.push('hide mid');  task.done() }, parents: [ 'top' ] } },
+                                     { name: 'deep', scene: { show: ({task}) => { calls.push('show deep'); task.done() }, hide: ({task}) => { calls.push('hide deep'); task.done() }, parents: [ 'top', 'mid' ] } }
+                                 ];
+
+                     script.setScenes ( scenes );
+
+                     await script.show ({ scene: 'deep', options: { ssr: true } });
+                     expect ( calls ).toEqual ([]);
+                     expect ( script.getState () ).toEqual ({ scene: 'deep', parents: [ 'top', 'mid' ], opened: true });
+
+                     await script.hide ( '*' );
+                     expect ( calls ).toEqual ([ 'hide deep', 'hide mid', 'hide top' ]);
+                     expect ( script.getState () ).toEqual ({ scene: null, parents: [], opened: true });
+         }) // it SSR first load + hide("*") climbs back through the recorded parent chain
+
+
+
      it ( 'afterShow return value has no effect on the completed show()', async () => {
                      // Regression test: setScenes.js's typedef documented afterShow as
                      // 'returns false to cancel', but show() never read its return value, so
