@@ -6,7 +6,7 @@
        "checkJs": false,
        "declaration": true,
        "emitDeclarationOnly": true,
-       "outDir": "types",
+       "outDir": "dist/types",
         "rootDir": "./src",
        "declarationMap": true,
        "moduleResolution": "bundler",
