@@ -2,6 +2,22 @@
 
 
 
+## 2.1.6 (2026-07-15)
+- [x] Docs: Rewrote README to put the first-time-developer mental model up front — explicit "what cuts is and isn't" framing, scene/parent/overlay/jump mental model, async reference table, per-call-site argument reference, shortcut plugin reference, error reference, SSR section, and full TypeScript public type surface. The previous README was comprehensive but assumed the reader already knew what a "scene manager" was; this one builds the model from scratch;
+- [x] Docs: Added an "Improving IntelliSense for shortcut keys" section showing how to augment the `SceneObject` type via TypeScript declaration merging so shortcut keys (e.g. `click: left-1`, `key: ctrl+s`) autocomplete inside scene definitions;
+- [x] Types: Expanded the public type surface in `types/main.d.ts` beyond the 2.1.5 baseline. Added: `AskObject`, `ShowContext`/`HideContext`/`AfterShowContext`/`BeforeHideContext`/`ShortcutHandlerContext`, full `SceneObject` (with `show`, `hide`, `afterShow`, `beforeHide`, `parents`, and an index signature for shortcut handlers), `SceneDescription`, `PluginHandle`, and a top-level `CutsAPI` interface that the `cuts()` factory return type now references. Tightened `hide()` to `Promise<void>`. Corrected `CutsState.parents` to `string[] | null` (the runtime returns `null` before the first `show()`). Preserves the 2.1.5 exports (`CutsConfig`, `pluginNames`, `CutsState`);
+- [x] Build: Moved the `tsc` postbuild output directory from `types/` to `dist/types/` so the hand-written public type surface is not overwritten on every `npm run build`. Auto-generated internal type artefacts now live in `dist/types/`, matching the typical `dist/` layout for a published library;
+- [x] Tests: Added 5 new SSR test cases covering previously-untested paths:
+  - `SSR first load + overlay lifts cleanly when navigating away` — wildcard overlay shown on top of an SSR-loaded base, then navigated to an unrelated scene (verifies the overlay lifts, the SSR-loaded base's `hide` fires, and the target is shown in the correct order);
+  - `SSR first load + jump stack works for subsequent navigation` — multi-level jump/jumpBack round-trip starting from an SSR-loaded base, including the empty-stack no-op case;
+  - `SSR first load + beforeHide guards subsequent navigation` — confirms that an SSR-loaded scene's `beforeHide` is still honoured by subsequent navigation, matching the behaviour of a normally-loaded scene;
+  - `SSR first load + hide() closes the SSR-loaded scene` — verifies `hide()` with no argument correctly tears down a scene that was never `show()`-n;
+  - `SSR first load + hide("*") climbs back through the recorded parent chain` — regression test for the 2.1.4 SSR-parents fix, ensuring `hide('*')` walks the full ancestor chain in the correct order on a deep SSR-loaded scene;
+
+No breaking changes to the public API. Existing callers continue to type-check: `cuts({ logLevel: 1 })`, `setScenes([...])`, `getState()` callers, etc. all keep working. No dependency updates.
+
+
+
 ## 2.1.5 ( 2026-07-09 )
 - [x] Types: `CutsConfig` is now an exported type in `types/main.d.ts` with `logLevel?: 0 | 1`. Previously only documented in README, not in the type declarations;
 - [x] Types: `pluginNames` is now an exported union type (`'Key'|'Click'|'Form'|'Hover'|'Scroll'`) in `types/main.d.ts`, matching the values accepted by `loadPlugins`;
