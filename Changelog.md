@@ -2,6 +2,10 @@
 
 
 
+## 2.1.7 (2026-07-20)
+- [x] Dependency update. Ask-for-promise - v.3.2.0;
+
+
 ## 2.1.6 (2026-07-15)
 - [x] Docs: Rewrote README to put the first-time-developer mental model up front — explicit "what cuts is and isn't" framing, scene/parent/overlay/jump mental model, async reference table, per-call-site argument reference, shortcut plugin reference, error reference, SSR section, and full TypeScript public type surface. The previous README was comprehensive but assumed the reader already knew what a "scene manager" was; this one builds the model from scratch;
 - [x] Docs: Added an "Improving IntelliSense for shortcut keys" section showing how to augment the `SceneObject` type via TypeScript declaration merging so shortcut keys (e.g. `click: left-1`, `key: ctrl+s`) autocomplete inside scene definitions;
