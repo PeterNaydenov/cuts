@@ -27,7 +27,7 @@
     "cover": "vitest run --coverage"
   },
   "devDependencies": {
-    "@peter.naydenov/visual-controller-for-vue3": "^2.3.1",
+    "@peter.naydenov/visual-controller-for-vue3": "^3.0.0",
     "@playwright/test": "^1.62.1",
     "@rollup/plugin-commonjs": "^29.0.3",
     "@rollup/plugin-node-resolve": "^16.0.3",
