@@ -28,3 +28,4 @@ public
 *.njsproj
 *.sln
 *.sw?
+graphify-out
