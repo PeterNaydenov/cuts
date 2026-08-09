@@ -1,6 +1,6 @@
 <template>
     <div class="blue">
-        <div id="subgray"></div>
+        <div data-region="subgray"></div>
     </div>
 </template>
 

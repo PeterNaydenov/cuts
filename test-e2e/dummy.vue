@@ -1,12 +1,12 @@
 <template>
     <div>
         <h1>Test</h1>
-        <p id="target">Test <a href="#">lorem ipsum</a></p>
-        <div id="container">
+        <p id="target" data-target>Test <a href="#">lorem ipsum</a></p>
+        <div data-region="container">
             
         </div>
-        <div id="blue"></div>
-        <div id="gray"></div>
+        <div data-region="blue"></div>
+        <div data-region="gray"></div>
     </div>
 </template>
 
@@ -23,12 +23,14 @@ body.dark {
     background-color: var(--background-color);
 }
 
-#target {
+#target,
+[data-target] {
     --blue: var(--link-color);
      color: var(--blue);
 }
 
-#target a {
+#target a,
+[data-target] a {
     color: var(--link-color);
 }
 </style>
