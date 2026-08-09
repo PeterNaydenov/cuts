@@ -145,8 +145,8 @@
     "semantic_hash": ""
   },
   "test-e2e/01-general.test.js": {
-    "mtime": 1775748664.7938879,
-    "ast_hash": "756bc0b1b3bdaed16406ce6aebf70dd1",
+    "mtime": 1786256445.0367048,
+    "ast_hash": "76f9bc12535941b103719b4e0550d96f",
     "semantic_hash": ""
   },
   "coverage/lcov-report/block-navigation.js": {
@@ -215,8 +215,8 @@
     "semantic_hash": ""
   },
   "Changelog.md": {
-    "mtime": 1784003765.4595907,
-    "ast_hash": "dc0ec0f4fc94c60dd7925640eb169aa9",
+    "mtime": 1784569550.5590594,
+    "ast_hash": "3d5f5a549288a29ffaa3d677156772c2",
     "semantic_hash": ""
   },
   "Migration.guide.md": {
@@ -250,18 +250,18 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1783623939.4629638,
-    "ast_hash": "5a981d0838d0309980c408cae7433c70",
+    "mtime": 1786255886.1941576,
+    "ast_hash": "a98b8f150b74635b439fc5c3a3e04496",
     "semantic_hash": ""
   },
   "test-e2e/blue.vue": {
-    "mtime": 1702928911.621158,
-    "ast_hash": "e827023682d04a76cf3f07bbae57d09b",
+    "mtime": 1786255904.6493404,
+    "ast_hash": "cd7d9e1203f857820c7b5e2b07cb8cee",
     "semantic_hash": ""
   },
   "test-e2e/dummy.vue": {
-    "mtime": 1702928911.6212878,
-    "ast_hash": "8a44cbc803e94b4834ac4f494ab239be",
+    "mtime": 1786256011.0785012,
+    "ast_hash": "13be72ffc020f6ad92cc593e6570bde7",
     "semantic_hash": ""
   },
   "test-e2e/gray.vue": {
@@ -270,8 +270,8 @@
     "semantic_hash": ""
   },
   "test-e2e/package.json": {
-    "mtime": 1775747107.5161173,
-    "ast_hash": "bed21e7025c16867b7176fe9fa25e4c8",
+    "mtime": 1786255886.4452035,
+    "ast_hash": "2fd4a3ab92369c9c260954ae07124692",
     "semantic_hash": ""
   },
   "test-e2e/red.vue": {
@@ -280,7 +280,7 @@
     "semantic_hash": ""
   },
   "test-results/.last-run.json": {
-    "mtime": 1775749625.6012325,
+    "mtime": 1786256448.446635,
     "ast_hash": "f196824657d8858bc7fa44eecbba38b1",
     "semantic_hash": ""
   },
@@ -295,8 +295,8 @@
     "semantic_hash": ""
   },
   "test-e2e/index.html": {
-    "mtime": 1775749479.7263045,
-    "ast_hash": "5b44f88a65f0e46b8433cbc3944748bb",
+    "mtime": 1786255904.306463,
+    "ast_hash": "37be2224fb345e52903b7bcb95a4b03e",
     "semantic_hash": ""
   },
   ".claude/settings.local.json": {

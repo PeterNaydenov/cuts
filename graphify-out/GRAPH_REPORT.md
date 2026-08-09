@@ -1,16 +1,16 @@
-# Graph Report - git-cuts  (2026-07-14)
+# Graph Report - git-cuts  (2026-08-09)
 
 ## Corpus Check
-- 53 files · ~24,612 words
+- 53 files · ~24,686 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 305 nodes · 299 edges · 52 communities (47 shown, 5 thin omitted)
+- 307 nodes · 301 edges · 53 communities (48 shown, 5 thin omitted)
 - Extraction: 90% EXTRACTED · 10% INFERRED · 0% AMBIGUOUS · INFERRED: 30 edges (avg confidence: 0.86)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `027fff6f`
+- Built from commit: `77ba4ba1`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -19,6 +19,7 @@
 - [[_COMMUNITY_Community 1|Community 1]]
 - [[_COMMUNITY_Community 2|Community 2]]
 - [[_COMMUNITY_Community 3|Community 3]]
+- [[_COMMUNITY_Community 4|Community 4]]
 - [[_COMMUNITY_Community 5|Community 5]]
 - [[_COMMUNITY_Community 6|Community 6]]
 - [[_COMMUNITY_Community 7|Community 7]]
@@ -41,7 +42,7 @@
 - [[_COMMUNITY_Community 43|Community 43]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `Release History` - 21 edges
+1. `Release History` - 22 edges
 2. `Cuts (@peter.naydenov/cuts)` - 19 edges
 3. `Scene` - 15 edges
 4. `Method reference` - 13 edges
@@ -74,7 +75,7 @@
 - **Shortcut plugin system** — readme_loadplugins, readme_enableplugin, readme_disableplugin, readme_plugin_key, readme_plugin_click, readme_plugin_form, readme_plugin_hover, readme_plugin_scroll, readme_shortcuts [EXTRACTED 1.00]
 - **Cuts Logo Visual Composition** — cuts_wordmark, cuts_film_strip_icon, cuts_background_pattern, cuts_dark_theme_design [INFERRED 0.85]
 
-## Communities (52 total, 5 thin omitted)
+## Communities (53 total, 5 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.11
@@ -85,20 +86,24 @@ Cohesion: 0.11
 Nodes (27): @app-error Event, Bug: SSR First Scene Loading, logLevel Configuration, Cuts v2.0.0 Release, clickTarget Array Migration, hoverTarget Array Migration, Rationale: Array Target Flexibility, Shortcuts v4.x Upgrade (+19 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.06
-Nodes (31): allowScripts, fsevents@2.3.2, fsevents@2.3.3, author, default, dependencies, ask-for-promise, @peter.naydenov/log (+23 more)
+Cohesion: 0.08
+Nodes (24): allowScripts, fsevents@2.3.2, fsevents@2.3.3, author, dependencies, ask-for-promise, @peter.naydenov/log, @peter.naydenov/shortcuts (+16 more)
 
 ### Community 3 - "Community 3"
 Cohesion: 0.07
 Nodes (29): Best practices, Chaining gestures, Credits, Custom events, Cuts (@peter.naydenov/cuts), Don't rely on parents for ordering side effects, Error reference, Events (+21 more)
+
+### Community 4 - "Community 4"
+Cohesion: 0.29
+Nodes (7): default, exports, ./dist/*, ./package.json, ./src/*, import, require
 
 ### Community 5 - "Community 5"
 Cohesion: 0.38
 Nodes (7): Decorative N-Pattern Background, Git-Cuts Brand Identity, Cuts Brand Logo, Dark Theme Visual Design, Film Editing Metaphor, Film Strip Icon, Cuts Wordmark
 
 ### Community 6 - "Community 6"
-Cohesion: 0.10
-Nodes (20): 1.3.0 ( 2025-08-15), 1.3.1 ( 2025-08-15), 1.4.0 ( 2025-09-06), 1.4.1. ( 2025-09-24), 1.4.2 ( 2025-09-29), 1.4.3 ( 2025-09-30), 1.4.4 ( 2025-10-10), 1.5.0 ( 2025-10-23 ) (+12 more)
+Cohesion: 0.09
+Nodes (21): 1.3.0 ( 2025-08-15), 1.3.1 ( 2025-08-15), 1.4.0 ( 2025-09-06), 1.4.1. ( 2025-09-24), 1.4.2 ( 2025-09-29), 1.4.3 ( 2025-09-30), 1.4.4 ( 2025-10-10), 1.5.0 ( 2025-10-23 ) (+13 more)
 
 ### Community 7 - "Community 7"
 Cohesion: 0.33
@@ -153,7 +158,7 @@ Cohesion: 0.15
 Nodes (13): Async reference, `cuts(cfg?)`, `emit(event, ...args)`, `getState()`, `hide(endSteps?)`, `jump({ scene }, ...args)` / `jumpBack({ hops? }, ...args)` / `jumpsReset()`, `listScenes()` / `listShortcuts(sceneName)`, `loadPlugins(plugins)` / `enablePlugin(plugin, options?)` / `disablePlugin(pluginName)` (+5 more)
 
 ## Knowledge Gaps
-- **188 isolated node(s):** `name`, `description`, `version`, `license`, `author` (+183 more)
+- **189 isolated node(s):** `name`, `description`, `version`, `license`, `author` (+184 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -167,10 +172,10 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `@peter.naydenov/shortcuts` connect `Community 1` to `Community 0`?**
   _High betweenness centrality (0.031) - this node is a cross-community bridge._
 - **What connects `name`, `description`, `version` to the rest of the system?**
-  _188 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _189 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.10952380952380952 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
   _Cohesion score 0.11396011396011396 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.0625 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08 - nodes in this community are weakly interconnected._
