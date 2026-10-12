@@ -59,7 +59,7 @@ function setScenes ( dependencies, state ) {
                     state.sceneNames.add ( name )
                     
                     const 
-                          { show, hide, parents, ...shortcuts } = scene
+                          { show, hide, parents, afterShow, beforeHide, ...shortcuts } = scene   // Lifecycle functions are not shortcuts
                         , context = {}
                         ;
                     

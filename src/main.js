@@ -79,6 +79,7 @@ function main ( cfg = {} ) {
                    , scenes         : {}         // Collection of all scenes;
                    , opened         : false      // Flag to indicate if the scene manager is opened
                    , jumpStack      : []         // Stack of jump instructions
+                   , busy           : null       // Token of the running navigation, or null when idle
                 }
         , API = {}
         , inAPI = {}
@@ -93,10 +94,34 @@ function main ( cfg = {} ) {
                         }
         ;
 
-        API.hide          = hide ( dependencies, state )
+        /**
+         *  Navigation runs one at a time. Signals that arrive while a scene is still
+         *  loading or hiding are ignored - they resolve at once without changes.
+         */
+        function oneAtATime ( navigate ) {
+                return function ( ...args ) {
+                            if ( state.busy )   return Promise.resolve ()
+                            const token = state.busy = {};
+                            let result;
+                            try {
+                                    result = navigate ( ...args )
+                                }
+                            catch ( err ) {   // Never leave the lock on
+                                    state.busy = null
+                                    throw err
+                                }
+                            return result.finally ( () => {
+                                                    // 'show' releases the lock before 'afterShow', which may already
+                                                    // have started a new navigation - don't release that one.
+                                                    if ( state.busy === token )   state.busy = null
+                                            })
+                    }
+        } // oneAtATime func.
+
+        API.hide          = oneAtATime ( hide ( dependencies, state ) )
         API.listShortcuts = listShortcuts ( dependencies, state )
         API.setScenes     = setScenes ( dependencies, state )
-        API.show          = show ( dependencies, state )
+        API.show          = oneAtATime ( show ( dependencies, state ) )
         API.jump          = jump ( state, API.show )
         API.jumpBack      = jumpBack ( state, API.show )
         API.jumpsReset    = jumpsReset ( state )
@@ -163,10 +188,11 @@ function main ( cfg = {} ) {
         /**
          * Disable a shortcut plugin
          * @function disablePlugin
-         * @param {string} pluginName - plugin name
+         * @param {string} pluginName - plugin name, case-insensitive: 'Click' or 'click'
          * @returns void
          */
-        API.disablePlugin = ( pluginName )  => shortcutMngr.disablePlugin ( pluginName )
+        // Shortcuts matches the lower-case plugin prefix - accept the 'Click' form used by loadPlugins too.
+        API.disablePlugin = ( pluginName )  => shortcutMngr.disablePlugin ( typeof pluginName === 'string' ? pluginName.toLowerCase () : pluginName )
         
          /**
           * Get the current state of the application

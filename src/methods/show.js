@@ -22,6 +22,13 @@ function show ( dependencies, state ) {
         , hasBeforeHide = currentScene && (typeof scenes[currentScene].beforeHide === 'function')
         ;
 
+    function ready () {   // The requested scene is shown - accept new navigation, run 'afterShow', resolve
+                state.busy = null   // Released before 'afterShow', so 'afterShow' can start a new navigation
+                const { afterShow } = scenes[requestedScene];
+                if ( typeof afterShow === 'function' )   afterShow ({ dependencies: shortcutMngr.getDependencies(), done: () => {} })
+                showTask.done ()
+        } // ready func.
+
     if ( hasBeforeHide ) { // Execute 'beforeHide' function if exists
                 const closingFn = scenes[currentScene].beforeHide;
                 try {
@@ -64,7 +71,7 @@ function show ( dependencies, state ) {
                                 // record them, or navigating away later won't know to hide them.
                                 state.currentParents = scenes[requestedScene].parents ? [ ...scenes[requestedScene].parents ] : []
                                 shortcutMngr.changeContext ( requestedScene )
-                                showTask.done ()
+                                ready ()   // Only 'show' is skipped - the HTML is already there
                                 return showTask.promise
                         }
                     
@@ -74,7 +81,7 @@ function show ( dependencies, state ) {
 
                      if ( parents[0] === '*' ) {
                                  const overlayTask = setInstruction(show, ...args)()
-                                 overlayTask.then ( () => showTask.done ()   )
+                                 overlayTask.then ( ready )
                                  // Only remember a real underlying scene - pushing 'null' as a placeholder
                                  // makes later navigation treat it as a scene name to hide, and crash.
                                  // Re-showing the SAME overlay that's already current must not push it onto
@@ -137,8 +144,7 @@ function show ( dependencies, state ) {
                                         // or later mutations (eg. the wildcard-overlay push above) corrupt the scene definition.
                                         state.currentParents = scenes[requestedScene].parents ? [...scenes[requestedScene].parents] : null
                                         shortcutMngr.changeContext ( requestedScene )                                        
-                                        if ( typeof scenes[requestedScene].afterShow === 'function' )   scenes[requestedScene].afterShow ({ dependencies: shortcutMngr.getDependencies(), done: () => {} })
-                                        showTask.done () 
+                                        ready ()
                                 })
         }) // unloadTask onComplete
     return showTask.promise

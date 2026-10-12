@@ -15,8 +15,14 @@ return function hide ( endSteps=1 ) {
         , { currentScene, scenes } = state
         , hideTask = askForPromise ()
         , unloadTask = askForPromise ()
-        , hasBeforeHide = typeof scenes[currentScene].beforeHide === 'function'
         ;
+
+    if ( currentScene == null ) {   // Nothing to hide
+                hideTask.done ()
+                return hideTask.promise
+        }
+
+    const hasBeforeHide = typeof scenes[currentScene].beforeHide === 'function';
 
     if ( hasBeforeHide ) { // Execute 'beforeHide' function if exists - same guard 'show' honors when navigating away
                 const closingFn = scenes[currentScene].beforeHide;

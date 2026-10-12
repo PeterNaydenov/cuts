@@ -11,28 +11,29 @@
  * @yields {Array.<string, 'show'|'hide'>} - instruction array with scene name and action
  */
 function* findInstructions ( currentName, currentParents, targetName, targetParents ) {
-    let backToName, backIndex=null, isNoParent=true;
+    let backToName, backIndex=null;
 
     if ( currentName === null ) {   // When the scene manager is just started
             yield* targetParents.map ( name => [ name, 'show' ])
             yield [ targetName, 'show' ]
             return
-        } 
+        }
+
+    if ( currentParents && currentParents.includes ( targetName ) ) {   // Target is already open underneath. Hide down to it, don't show it again.
+            yield [ currentName, 'hide' ]
+            let index = currentParents.indexOf ( targetName );
+            let filtered = currentParents.filter ( (x,i) => i > index )
+            filtered.reverse ()
+            yield* filtered.map ( name => [ name, 'hide' ])
+            return
+        }
 
     if ( targetParents.length === 0 ) {  // Need to close all current parents, then open the target
             yield [ currentName, 'hide' ]
-            if ( currentParents.includes ( targetName ) ) {
-                    let index = currentParents.indexOf ( targetName );
-                    let filtered = currentParents.filter ( (x,i) => i > index )
-                    filtered.reverse ()
-                    yield* filtered.map ( name => [ name, 'hide' ])
-                    isNoParent = false
-                } else {
-                    let cp = [...currentParents]
-                    cp.reverse ()
-                    yield* cp.map ( name => [ name, 'hide' ])
-                }
-            if ( isNoParent )   yield [ targetName, 'show'   ]
+            let cp = [...currentParents]
+            cp.reverse ()
+            yield* cp.map ( name => [ name, 'hide' ])
+            yield [ targetName, 'show'   ]
             return
         }
 
