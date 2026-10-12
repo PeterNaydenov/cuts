@@ -111,6 +111,8 @@ Some scenes need other scenes underneath them. A `users` page may need an `app` 
 }
 ```
 
+`parents` is the **full path**, root first and direct parent last. A scene under `users-page` declares `parents: ['app-shell', 'users-page']`, not just `['users-page']`.
+
 When you `show({ scene: 'users-page' })`, cuts walks the parent chain: opens `app-shell` if it isn't already, then opens `users-page` on top. When you `show` something else, cuts walks *back* the chain, closing in reverse order.
 
 ### Overlay (`parents: ['*']`)
@@ -134,6 +136,12 @@ When you `show` an overlay, cuts records the currently-active scene and puts the
 
 `show` is *forgetful* — once you navigate, you don't remember where you came from. `jump` is *remembering* — you can come back with `jumpBack`. Internally, cuts keeps a stack of "where you jumped from". You can jump as deep as you like, and `jumpBack` returns one level at a time (`{ hops: 2 }` to skip multiple). `jumpsReset` clears the stack.
 
+### One navigation at a time
+
+While a navigation (`show`, `hide`, `jump`, `jumpBack`) is running, new navigation signals are **ignored**: they resolve at once without changes. "Running" lasts until every `show`/`hide` in the transition has called `task.done()`, including the wait for a `beforeHide` answer. Once the scene is ready, signals are accepted again.
+
+A scene's `show` and `hide` load and release the scene's resources; they are not meant to navigate. If a scene needs to send the user on (a redirect), do it from `afterShow`, which runs when the scene is ready.
+
 ---
 
 ## Scene reference
@@ -144,7 +152,8 @@ A scene is a `SceneObject` (see [TypeScript](#typescript) for the exact shape):
 {
   show       (context)  // required. Must call context.task.done() to signal completion.
   hide       (context)  // required. Must call context.task.done() to signal completion.
-  afterShow  (context)  // optional. Fire-and-forget. Runs after the scene is fully shown.
+  afterShow  (context)  // optional. Fire-and-forget. Runs after the scene is fully shown,
+                        //   also for overlays and for an SSR-hydrated scene.
   beforeHide (context)  // optional. Can block hiding by calling context.done(false).
   parents    string[]   // optional. Path of scene names that must be open first.
                         //   Use ['*'] for an overlay that goes on top of the current scene.
@@ -167,7 +176,7 @@ All methods live on the object returned by `cuts()`. Below, every method, what i
 | `show` | `Promise<any>` | yes | via `beforeHide` of current scene | Awaits all `show` and `hide` calls in the transition. |
 | `hide` | `Promise<any>` | yes | via `beforeHide` of current scene | Same as `show`, in reverse. |
 | `jump` | `Promise<any>` | yes | via `beforeHide` of current scene | Only pushes onto the jump stack if navigation actually lands. |
-| `jumpBack` | `Promise<any> \| undefined` | yes | via `beforeHide` of current scene | Returns `undefined` if the stack is empty (no-op). |
+| `jumpBack` | `Promise<any> \| undefined` | yes | via `beforeHide` of current scene | Returns `undefined` if the stack has fewer than `hops` entries (no-op). |
 | `jumpsReset` | `void` | n/a | n/a | Sync. Clears the jump stack immediately. |
 | `setScenes` | `void` | n/a | n/a | Sync. Errors are logged but do not throw. |
 | `setDependencies` | `void` | n/a | n/a | Sync. Merges into the dependencies bag. |
@@ -205,8 +214,8 @@ await script.show({ scene: 'prefilled', options: { ssr: true } }, payload)
 ```
 
 - `scene` — name of the scene to show
-- `options.ssr` — set to `true` to mark this scene as already rendered externally (e.g. by SSR). The scene's `show` function is **not** called; the state is recorded as if it had been. SSR applies only to the first show on a fresh manager.
-- `...args` — additional arguments forwarded to the scene's `show`, `hide`, and `afterShow` functions
+- `options.ssr` — set to `true` to mark this scene as already rendered externally (e.g. by SSR). The scene's `show` function is **not** called; the state is recorded as if it had been, and `afterShow` still runs. SSR applies only to the first show on a fresh manager.
+- `...args` — additional arguments forwarded to every `show` and `hide` call in the transition, after the context object: `show({ task, dependencies }, ...args)`. `afterShow` does not receive them.
 
 If the current scene's `beforeHide` returns `false`, navigation is cancelled and the call resolves without changing state.
 
@@ -234,7 +243,7 @@ await script.jumpBack({ hops: 2 })         // skip two levels at once
 script.jumpsReset()                        // forget every jump
 ```
 
-`jump` only pushes onto the stack if the navigation actually landed (didn't get blocked by `beforeHide` or fail). `jumpBack` returns `undefined` if the stack is empty (a no-op — your code should handle this).
+`jump` only pushes onto the stack if the navigation actually landed (didn't get blocked by `beforeHide` or fail). In the same way, `jumpBack` removes entries only when it reaches the scene, so a Back blocked by `beforeHide` can be retried. `jumpBack` returns `undefined` if the stack has fewer than `hops` entries (a no-op — your code should handle this).
 
 ### `setScenes(list)`
 
@@ -253,7 +262,7 @@ You can call `setScenes` multiple times to add more scenes later.
 
 `setDependencies` merges a bag of values into the `dependencies` object passed to every scene function and shortcut handler. `getDependencies` reads the current bag back.
 
-The bag also contains a built-in `emit` function (added in v2.1.0+) that you can call from any handler to fire a shortcut or event name. See [Events](#events).
+The bag also contains a built-in `emit` function (added in v2.1.0+) that you can call from any handler to fire a custom event. See [Events](#events).
 
 ```js
 script.setDependencies({ analytics, user, locale })
@@ -262,7 +271,7 @@ script.setDependencies({ analytics, user, locale })
 'click: left-1': ({ target, dependencies }) => {
   if (target?.id === 'save') {
     dependencies.analytics.track('save')
-    dependencies.emit('key: ctrl+s', { target: document.getElementById('save-btn') })
+    dependencies.emit('@save', dependencies)
   }
 }
 ```
@@ -284,10 +293,10 @@ const [pluginClick] = await script.loadPlugins(['Click'])
 script.enablePlugin(pluginClick, { clickTarget: ['data-click'] })
 
 // later, to remove it:
-script.disablePlugin('Click')   // by NAME, not by handle
+script.disablePlugin('Click')   // by NAME, not by handle. 'click' works too
 ```
 
-⚠️ **Signature asymmetry**: `enablePlugin` takes the plugin **function** (the loaded handle). `disablePlugin` takes the plugin **name** (the string you passed to `loadPlugins`). Get this wrong and you'll get a confusing error from the underlying shortcuts library.
+⚠️ **Signature asymmetry**: `enablePlugin` takes the plugin **function** (the loaded handle). `disablePlugin` takes the plugin **name**: the string you passed to `loadPlugins` (`'Click'`) or the shortcut prefix (`'click'`). The name is case-insensitive since v2.2.0. Before that, only the lower-case prefix worked, and `'Click'` was silently ignored.
 
 ### `getState()`
 
@@ -305,7 +314,7 @@ The returned `parents` is a fresh copy — mutating it won't corrupt cuts' inter
 
 ### `emit(event, ...args)`
 
-Fires an event by name. Handlers in the current scene that match the name will be called with `...args`. See [Events](#events).
+Fires an event by name. Handlers in the current scene that match the name will be called with exactly `...args` — no `dependencies` object is added. Use it for custom events (`'@save'`). Plugin shortcut names like `'key: ctrl+s'` are not normalized here, so they don't match any handler. See [Events](#events).
 
 ---
 
@@ -321,7 +330,7 @@ A single `dependencies` bag is passed around, but the *wrapper* differs per call
 | `beforeHide({ dependencies, done })` | `done(true)` to allow, `done(false)` to cancel | Called *before* the scene is hidden. Use for unsaved-changes warnings. |
 | Shortcut handler (click/key/...) | `{ target, dependencies, event }` | Exact shape depends on the plugin. |
 | `@app-error` handler | `logEntry` directly | The full log entry, not a dependencies bag. |
-| Custom event handler (via `emit`) | Whatever args you passed to `emit` | Don't rely on `dependencies` being present unless you've registered the handler on every scene. |
+| Custom event handler (via `emit`) | Exactly the args you passed to `emit` | No `dependencies` object is added. Pass what the handler needs as an argument. |
 
 ---
 
@@ -364,7 +373,7 @@ script.enablePlugin(pluginHover, {
 })
 ```
 
-For the full plugin API (including custom plugins), see the [shortcuts library documentation](https://github.com/PeterNaydenov/shortcuts). Cuts re-exports everything you need; you shouldn't have to install `shortcuts` separately.
+For the full plugin API (including custom plugins), see the [shortcuts library documentation](https://github.com/PeterNaydenov/shortcuts). Get the plugins from `script.loadPlugins` — you don't need to install or import `shortcuts` yourself.
 
 ### Writing a shortcut handler
 
@@ -384,12 +393,13 @@ A shortcut handler is a function on a scene, keyed by the shortcut name:
     },
 
     'key: ctrl+s' : ({ dependencies }) => {
-      // forward to the same handler a click would trigger
-      dependencies.emit('click: left-1', { target: document.getElementById('save-btn') })
+      dependencies.analytics.track('save')
     }
   }
 }
 ```
+
+To share one implementation between several gestures, see [Chaining gestures](#chaining-gestures).
 
 The shortcut name format is `<plugin>:<event-detail>`. For `Key` it's `key: <combo>` (e.g. `key: ctrl+s`). For `Click` it's `click: <button>`. For `Form` it's `form: <event>`. There's no schema or validation — typos mean the handler never fires, with no error.
 
@@ -422,7 +432,7 @@ Whether this fires depends on `logLevel`:
 - `logLevel: 1` (default) — fires for every error
 - `logLevel: 0` — never fires (cuts is fully silent)
 
-A handler is only active while its scene is the current context. To make a global error handler, register it on every scene, or on a scene that stays mounted (e.g. a root scene).
+A handler is only active while its scene is the current context. A parent scene's handlers are not active while one of its children is current. To make a global error handler, register it on every scene, for example by spreading a shared object into each scene definition.
 
 ### Custom events
 
@@ -451,16 +461,19 @@ For custom event names, a leading `@` is a common convention (e.g. `@analytics`)
 
 ### Chaining gestures
 
-A common pattern: a keyboard shortcut fires the same handler that a click would. Use `dependencies.emit` to forward:
+A common pattern: a keyboard shortcut and a click do the same thing. Put the logic in a custom event and emit it from both gestures with `dependencies.emit`:
 
 ```js
-'click: left-1': ({ target, dependencies }) => { /* save logic */ },
-'key: ctrl+s':   ({ dependencies }) => {
-  dependencies.emit('click: left-1', { target: document.getElementById('save-btn') })
-}
+'click: left-1': ({ target, dependencies }) => {
+  if (target?.id === 'save-btn') dependencies.emit('@save', dependencies)
+},
+'key: ctrl+s':   ({ dependencies }) => dependencies.emit('@save', dependencies),
+'@save':         (dependencies) => dependencies.api.save()
 ```
 
-`dependencies.emit` is always available in handlers — you don't need to call `setDependencies` to get it.
+`dependencies.emit` is always available in handlers — you don't need to call `setDependencies` to get it. Two rules:
+- The handler receives exactly the arguments you emit. Pass `dependencies` (or whatever it needs) explicitly.
+- Emit custom names. `emit` doesn't normalize plugin shortcut names, so `dependencies.emit('click: left-1')` doesn't reach the `'click: left-1'` handler.
 
 ---
 
@@ -475,7 +488,7 @@ const script = cuts()
 script.setScenes(scenes)
 await script.show({ scene: 'home', options: { ssr: true } })
 // → The 'home' scene's show function is NOT called.
-//   state is recorded as if it had been.
+//   state is recorded as if it had been, and afterShow runs as usual.
 ```
 
 `options.ssr` only takes effect on the very first `show` after the manager is created. After that, the `opened` flag is `true` and SSR is a no-op.
@@ -506,7 +519,7 @@ Plus errors forwarded from `@peter.naydenov/shortcuts` (e.g. unknown plugin, bad
 
 ## TypeScript
 
-Cuts ships with TypeScript declarations. The default import gives you a `cuts()` factory whose return type is fully described:
+Cuts ships with TypeScript declarations. ES module imports work with any TypeScript version. CommonJS (`require`) types need TypeScript 5.3+. The default import gives you a `cuts()` factory whose return type is fully described:
 
 ```ts
 import cuts from '@peter.naydenov/cuts'
@@ -546,10 +559,10 @@ interface AfterShowContext { dependencies: Record<string, any>; done: () => void
 interface BeforeHideContext { dependencies: Record<string, any>; done: (continueHiding: boolean) => void }
 
 interface SceneObject {
-  show:    (ctx: ShowContext)                       => void | Promise<void>
-  hide:    (ctx: HideContext)                       => void | Promise<void>
+  show:    (ctx: ShowContext, ...args: any[])       => void | Promise<void>
+  hide:    (ctx: HideContext, ...args: any[])       => void | Promise<void>
   afterShow?:  (ctx: AfterShowContext)              => void
-  beforeHide?: (ctx: BeforeHideContext)             => void
+  beforeHide?: (ctx: BeforeHideContext)             => void | boolean | Promise<boolean>
   parents?:    string[]
   [shortcut: string]: any                           // see shortcut plugins
 }
@@ -579,7 +592,7 @@ interface CutsAPI {
   setNote(note: string): void
   loadPlugins(plugins: PluginName[]): Promise<Function[]>
   enablePlugin(plugin: Function, options?: Record<string, any>): void
-  disablePlugin(pluginName: PluginName): void
+  disablePlugin(pluginName: PluginName | Lowercase<PluginName>): void
   getState(): CutsState
   emit(event: string, ...args: any[]): void
 }
@@ -674,6 +687,26 @@ Cuts decides the show/hide order based on the parent chain. If you need cross-sc
 ### SSR only on the first show
 
 `options.ssr` is a one-shot flag. After the first `show` lands, `state.opened` is `true` and SSR is silently ignored. If you need to re-trigger SSR (e.g. on a hard navigation), create a fresh `cuts()` instance.
+
+---
+
+## AI Agent Skill
+
+The package ships an [Agent Skill](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview) in `skills/cuts/`. It teaches AI coding agents (Claude Code and other agents that support skills) how to use cuts: scenes, parent chains, overlays, the jump stack, `beforeHide` guards, per-scene shortcuts, `@app-error`, SSR and common mistakes.
+
+Shortcut syntax (key names, click targets, plugin options) belongs to `@peter.naydenov/shortcuts`, which ships its own skill. Install both. The cuts skill covers what is different inside cuts and sends the agent to the shortcuts skill for the rest.
+
+For one project:
+
+```bash
+mkdir -p .claude/skills
+cp -r node_modules/@peter.naydenov/cuts/skills/cuts .claude/skills/
+cp -r node_modules/@peter.naydenov/shortcuts/skills/shortcuts .claude/skills/
+```
+
+For all your projects, copy them into `~/.claude/skills/` instead.
+
+If npm nested shortcuts under cuts, its skill is at `node_modules/@peter.naydenov/cuts/node_modules/@peter.naydenov/shortcuts/skills/shortcuts`. The skills match the package versions they ship with, so copy them again after upgrading.
 
 ---
 
