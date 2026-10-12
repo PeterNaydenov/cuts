@@ -2,9 +2,7 @@
 //  Cuts - public type surface
 // =============================================================================
 //  This file is hand-written and is the source of truth for the public API
-//  shape. The postbuild step (`tsc -p tsconfig.json`) emits auto-generated
-//  internal type artefacts to `dist/types/` so that this file is not
-//  overwritten on every build.
+//  shape. `main.d.cts` re-exports these types for CommonJS (`require`) users.
 // =============================================================================
 
 
@@ -108,10 +106,16 @@ export interface ShortcutHandlerContext {
  * and which user inputs it responds to.
  */
 export interface SceneObject {
-    /** Required. Render the scene. Call `task.done()` when finished. */
-    show: (context: ShowContext) => void | Promise<void>
-    /** Required. Tear the scene down. Call `task.done()` when finished. */
-    hide: (context: HideContext) => void | Promise<void>
+    /**
+     * Required. Render the scene. Call `task.done()` when finished.
+     * Extra arguments passed to `show()` / `jump()` follow the context.
+     */
+    show: (context: ShowContext, ...args: any[]) => void | Promise<void>
+    /**
+     * Required. Tear the scene down. Call `task.done()` when finished.
+     * Receives the extra arguments of the navigation that hides it.
+     */
+    hide: (context: HideContext, ...args: any[]) => void | Promise<void>
     /**
      * Optional. Runs after the scene is fully shown.
      * Fire-and-forget — return value is ignored, `done` is a no-op.
@@ -119,9 +123,10 @@ export interface SceneObject {
     afterShow?: (context: AfterShowContext) => void
     /**
      * Optional. Runs before the scene is hidden.
-     * Call `done(false)` to block the hide.
+     * Call `done(false)` to block the hide, or return a Promise that
+     * resolves to `false`. Throwing also blocks it.
      */
-    beforeHide?: (context: BeforeHideContext) => void
+    beforeHide?: (context: BeforeHideContext) => void | boolean | Promise<boolean>
     /**
      * Optional. Path of scene names that must be open before this one.
      * Use `['*']` for an overlay (modal, toast, drawer) that sits on
@@ -211,7 +216,7 @@ export interface CutsAPI {
      * scene only). Pass a number to close more steps, or `'*'` to
      * close everything back to the root.
      */
-    hide(endSteps?: number | string): Promise<void>
+    hide(endSteps?: number | '*'): Promise<void>
 
     /**
      * Navigate to a scene and remember the current one on the jump
@@ -222,8 +227,9 @@ export interface CutsAPI {
 
     /**
      * Return from a `jump`. Default returns 1 level. Pass `{ hops: N }`
-     * to skip multiple levels. Returns `undefined` if the stack is
-     * empty (a no-op).
+     * to skip multiple levels. Returns `undefined` if the stack has
+     * fewer than `hops` entries (a no-op). Entries are removed only if
+     * the navigation lands.
      */
     jumpBack(options?: { hops?: number }, ...args: any[]): Promise<any> | undefined
 
@@ -280,9 +286,9 @@ export interface CutsAPI {
     /**
      * Deactivate a loaded plugin. **Takes the plugin name (string),
      * not the handle** — inverse operation of `enablePlugin` with a
-     * different signature.
+     * different signature. Case-insensitive: `'Click'` or `'click'`.
      */
-    disablePlugin(pluginName: PluginName): void
+    disablePlugin(pluginName: PluginName | Lowercase<PluginName>): void
 
     /**
      * Return a snapshot of the current state. The returned `parents`
