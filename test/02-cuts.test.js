@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import cuts from "../src/main.js"
 
 
@@ -423,6 +423,43 @@ describe ( 'Cuts integration', () => {
                      await script.jumpBack ({ hops: 2 });
                      expect ( script.getState().scene ).toEqual ( 'scene1' );
          }) // it Jump with hops
+
+
+
+    it ( 'Blocked jumpBack keeps the jump stack', async () => {
+                    // Regression test: jumpBack popped the stack before navigating, so a 'beforeHide'
+                    // that blocked it lost the entry and a retried Back did nothing.
+                    let allow = false;
+                    const sc = ( name, extra = {} ) => ({ name, scene: { show: ({task}) => task.done(), hide: ({task}) => task.done(), ...extra } });
+                    const script = cuts ();
+                    script.setScenes ([ sc ( 'list' ), sc ( 'other' ), sc ( 'editor', { beforeHide: ({ done }) => done ( allow ) }) ]);
+                    await script.show ({ scene: 'list' });
+                    await script.jump ({ scene: 'other' });
+                    await script.jump ({ scene: 'editor' });            // stack: [ list, other ]
+
+                    await script.jumpBack ({ hops: 2 });                 // blocked
+                    expect ( script.getState().scene ).toBe ( 'editor' );
+                    await script.jumpBack ();                            // blocked
+                    expect ( script.getState().scene ).toBe ( 'editor' );
+
+                    allow = true;
+                    await script.jumpBack ({ hops: 2 });                 // retry lands on 'list'
+                    expect ( script.getState().scene ).toBe ( 'list' );
+                    expect ( script.jumpBack () ).toBeUndefined ();      // both entries consumed
+        }) // it Blocked jumpBack keeps the jump stack
+
+
+
+    it ( 'jumpBack with more hops than entries changes nothing', async () => {
+                    const sc = name => ({ name, scene: { show: ({task}) => task.done(), hide: ({task}) => task.done() } });
+                    const script = cuts ();
+                    script.setScenes ([ sc ( 'a' ), sc ( 'b' ) ]);
+                    await script.show ({ scene: 'a' });
+                    await script.jump ({ scene: 'b' });                  // stack: [ a ]
+                    expect ( script.jumpBack ({ hops: 3 }) ).toBeUndefined ();
+                    await script.jumpBack ();
+                    expect ( script.getState().scene ).toBe ( 'a' );
+        }) // it jumpBack with more hops than entries changes nothing
 
 
 
@@ -1156,6 +1193,178 @@ describe ( 'Cuts integration', () => {
                      expect ( script.getState() ).toEqual ({ scene: 'C', parents: [], opened: true });
                      expect ( [...visible] ).toEqual ([ 'C' ]); // OV must actually be gone, matching reported state
          }) // it Re-showing the same wildcard overlay does not push it onto its own ancestor chain
+
+
+
+     it ( 'Showing an open non-root ancestor hides down to it without re-showing it', async () => {
+                     const calls = [];
+                     const mk = ( name, parents ) => ({ name, scene: { parents, show: ({task}) => { calls.push(`show ${name}`); task.done() }, hide: ({task}) => { calls.push(`hide ${name}`); task.done() } } });
+                     const script = cuts();
+                     script.setScenes ([ mk ( 'app', [] ), mk ( 'users', ['app'] ), mk ( 'user', ['app', 'users'] ), mk ( 'confirm', ['*'] ) ]);
+
+                     await script.show ({ scene: 'user' });
+                     calls.length = 0;
+                     await script.show ({ scene: 'users' });
+                     expect ( calls ).toEqual ([ 'hide user' ]);
+                     expect ( script.getState() ).toEqual ({ scene: 'users', parents: [ 'app' ], opened: true });
+
+                     // Overlay on top of 'users' - showing 'users' again only lifts the overlay
+                     await script.show ({ scene: 'confirm' });
+                     calls.length = 0;
+                     await script.show ({ scene: 'users' });
+                     expect ( calls ).toEqual ([ 'hide confirm' ]);
+                     expect ( script.getState() ).toEqual ({ scene: 'users', parents: [ 'app' ], opened: true });
+
+                     // Showing the current scene still re-shows it
+                     calls.length = 0;
+                     await script.show ({ scene: 'users' });
+                     expect ( calls ).toEqual ([ 'hide users', 'show users' ]);
+         }) // it Showing an open non-root ancestor hides down to it without re-showing it
+
+
+
+     it ( 'disablePlugin accepts the capitalized plugin name', async () => {
+                     // Regression test: shortcuts matches the lower-case prefix ('click'), so
+                     // disablePlugin('Click') - the name used by loadPlugins - was silently ignored.
+                     const doc = { addEventListener: vi.fn(), removeEventListener: vi.fn() };
+                     const win = { addEventListener: vi.fn(), removeEventListener: vi.fn() };
+                     vi.stubGlobal ( 'document', doc );
+                     vi.stubGlobal ( 'window', win );
+                     try {
+                             const script = cuts();
+                             const [ pluginClick ] = await script.loadPlugins ([ 'Click' ]);
+                             script.enablePlugin ( pluginClick );
+                             script.setScenes ([{ name: 'home', scene: { show: ({task}) => task.done(), hide: ({task}) => task.done(), 'click: left-1': () => {} } }]);
+                             await script.show ({ scene: 'home' });
+                             expect ( doc.addEventListener ).toHaveBeenCalledWith ( 'click', expect.any(Function) );
+
+                             script.disablePlugin ( 'Click' );
+                             expect ( doc.removeEventListener ).toHaveBeenCalledWith ( 'click', expect.any(Function) );
+                         }
+                     finally {
+                             vi.unstubAllGlobals ();
+                         }
+         }) // it disablePlugin accepts the capitalized plugin name
+
+
+
+     it ( 'hide() without a current scene resolves without changes', async () => {
+                     const script = cuts();
+                     script.setScenes ([{ name: 'home', scene: { show: ({task}) => task.done(), hide: ({task}) => task.done() } }]);
+                     await script.hide ();
+                     expect ( script.getState() ).toEqual ({ scene: null, parents: null, opened: false });
+
+                     await script.show ({ scene: 'home' });
+                     await script.hide ();
+                     await script.hide ();   // Nothing is current anymore
+                     expect ( script.getState() ).toEqual ({ scene: null, parents: [], opened: true });
+         }) // it hide() without a current scene resolves without changes
+
+
+
+     it ( 'afterShow and beforeHide are not registered as shortcuts', async () => {
+                     const calls = [];
+                     const script = cuts();
+                     script.setScenes ([{ name: 'home', scene: {
+                                               show: ({task}) => task.done()
+                                             , hide: ({task}) => task.done()
+                                             , afterShow:  () => calls.push ( 'afterShow' )
+                                             , beforeHide: ({ done }) => { calls.push ( 'beforeHide' ); done ( true ) }
+                                         }}]);
+                     await script.show ({ scene: 'home' });
+                     expect ( calls ).toEqual ([ 'afterShow' ]);
+                     script.emit ( 'afterShow' );
+                     script.emit ( 'beforeHide', { done: () => {} } );
+                     expect ( calls ).toEqual ([ 'afterShow' ]);
+         }) // it afterShow and beforeHide are not registered as shortcuts
+
+
+
+     it ( 'afterShow runs for overlays and for the SSR-hydrated scene', async () => {
+                     // Regression test: both paths resolved 'show' without calling 'afterShow'.
+                     const calls = [];
+                     const sc = ( name, parents = [] ) => ({ name, scene: { parents, show: ({task}) => { calls.push(`show ${name}`); task.done() }, hide: ({task}) => task.done(), afterShow: () => calls.push(`afterShow ${name}`) } });
+                     const script = cuts ();
+                     script.setScenes ([ sc ( 'home' ), sc ( 'modal', ['*'] ) ]);
+                     await script.show ({ scene: 'home', options: { ssr: true } });
+                     expect ( calls ).toEqual ([ 'afterShow home' ]);   // 'show' skipped, 'afterShow' runs
+                     await script.show ({ scene: 'modal' });
+                     expect ( calls ).toEqual ([ 'afterShow home', 'show modal', 'afterShow modal' ]);
+         }) // it afterShow runs for overlays and for the SSR-hydrated scene
+
+
+
+     describe ( 'One navigation at a time', () => {
+             const slowScenes = ( visible, calls ) => {
+                         const mk = ( name, parents = [], extra = {} ) => ({ name, scene: { parents, ...extra,
+                                             show: ({task}) => setTimeout ( () => { visible.add(name); calls.push(`show ${name}`); task.done() }, 10 ),
+                                             hide: ({task}) => setTimeout ( () => { visible.delete(name); calls.push(`hide ${name}`); task.done() }, 10 ) } });
+                         return mk
+                 }
+
+             it ( 'Ignores navigation signals while a scene is loading', async () => {
+                             const visible = new Set (), calls = [];
+                             const mk = slowScenes ( visible, calls );
+                             const script = cuts ();
+                             script.setScenes ([ mk ( 'app' ), mk ( 'users', ['app'] ), mk ( 'settings', ['app'] ) ]);
+                             await script.show ({ scene: 'users' });
+                             calls.length = 0;
+
+                             await Promise.all ([
+                                         script.show ({ scene: 'settings' })
+                                       , script.show ({ scene: 'users' })     // ignored - 'settings' is still loading
+                                       , script.hide ()                       // ignored
+                                 ]);
+                             expect ( calls ).toEqual ([ 'hide users', 'show settings' ]);
+                             expect ( script.getState().scene ).toBe ( 'settings' );
+                             expect ( [...visible] ).toEqual ([ 'app', 'settings' ]);   // Screen matches the state
+
+                             await script.show ({ scene: 'users' });   // Accepted again once the page is ready
+                             expect ( script.getState().scene ).toBe ( 'users' );
+                 }) // it Ignores navigation signals while a scene is loading
+
+             it ( 'afterShow can start a new navigation', async () => {
+                             const script = cuts ();
+                             script.setScenes ([
+                                       { name: 'login', scene: { show: ({task}) => task.done(), hide: ({task}) => task.done(), afterShow: () => script.show ({ scene: 'home' }) } }
+                                     , { name: 'home' , scene: { show: ({task}) => task.done(), hide: ({task}) => task.done() } }
+                                 ]);
+                             await script.show ({ scene: 'login' });
+                             await new Promise ( r => setTimeout ( r, 0 ) );
+                             expect ( script.getState().scene ).toBe ( 'home' );
+                 }) // it afterShow can start a new navigation
+
+             it ( 'Navigation is accepted again after beforeHide blocks it', async () => {
+                             let allow = false;
+                             const script = cuts ();
+                             script.setScenes ([
+                                       { name: 'a', scene: { show: ({task}) => task.done(), hide: ({task}) => task.done(), beforeHide: ({ done }) => done ( allow ) } }
+                                     , { name: 'b', scene: { show: ({task}) => task.done(), hide: ({task}) => task.done() } }
+                                 ]);
+                             await script.show ({ scene: 'a' });
+                             await script.show ({ scene: 'b' });
+                             expect ( script.getState().scene ).toBe ( 'a' );
+                             allow = true;
+                             await script.show ({ scene: 'b' });
+                             expect ( script.getState().scene ).toBe ( 'b' );
+                 }) // it Navigation is accepted again after beforeHide blocks it
+
+             it ( 'jump and jumpBack signals during loading leave the jump stack untouched', async () => {
+                             const visible = new Set (), calls = [];
+                             const mk = slowScenes ( visible, calls );
+                             const script = cuts ();
+                             script.setScenes ([ mk ( 'a' ), mk ( 'b' ), mk ( 'c' ) ]);
+                             await script.show ({ scene: 'a' });
+                             await script.jump ({ scene: 'b' });                                     // stack: [ 'a' ]
+
+                             await Promise.all ([ script.show ({ scene: 'c' }), script.jumpBack (), script.jump ({ scene: 'a' }) ]);   // both ignored
+                             expect ( script.getState().scene ).toBe ( 'c' );
+
+                             await script.jumpBack ();                                               // stack still had 'a'
+                             expect ( script.getState().scene ).toBe ( 'a' );
+                             expect ( script.jumpBack () ).toBeUndefined ();                         // and nothing else
+                 }) // it jump and jumpBack signals during loading leave the jump stack untouched
+         }) // describe One navigation at a time
 
 
 

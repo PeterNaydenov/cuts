@@ -24,119 +24,19 @@
     "ast_hash": "cc94eb190cb2b90e8dbf35dccddba6f7",
     "semantic_hash": ""
   },
-  "types/findInstructions.d.ts": {
-    "mtime": 1783623924.581036,
-    "ast_hash": "98a75d2c0b05b7afdbea430a1590557b",
-    "semantic_hash": ""
-  },
   "types/main.d.ts": {
-    "mtime": 1784003757.685656,
-    "ast_hash": "5cf4a9dd3106686715745dc58f3b9605",
-    "semantic_hash": ""
-  },
-  "types/setInstruction.d.ts": {
-    "mtime": 1783623924.5806935,
-    "ast_hash": "320eecb32d022a084b0c682d576cc86e",
-    "semantic_hash": ""
-  },
-  "types/methods/hide.d.ts": {
-    "mtime": 1783623924.580637,
-    "ast_hash": "87c9b61ea16f56018c90d1c06d9c1f63",
-    "semantic_hash": ""
-  },
-  "types/methods/jumpsReset.d.ts": {
-    "mtime": 1783623924.580596,
-    "ast_hash": "5f915e1ed57047066eb23bce1246a4fa",
-    "semantic_hash": ""
-  },
-  "types/methods/jump.d.ts": {
-    "mtime": 1783623924.5806024,
-    "ast_hash": "e8150e61f44db4d8dfcb1bb200663ad8",
-    "semantic_hash": ""
-  },
-  "types/methods/listShortcuts.d.ts": {
-    "mtime": 1783623924.580602,
-    "ast_hash": "9a994d0a00c5146770124e3b1d27b385",
-    "semantic_hash": ""
-  },
-  "types/methods/jumpBack.d.ts": {
-    "mtime": 1783623924.580617,
-    "ast_hash": "f12d0743eba6e7024e1ac59b6978b0f3",
-    "semantic_hash": ""
-  },
-  "types/methods/index.d.ts": {
-    "mtime": 1734032993.8985457,
-    "ast_hash": "efaa8e9c9544d3e6e35775b93eda835e",
-    "semantic_hash": ""
-  },
-  "types/methods/show.d.ts": {
-    "mtime": 1783623924.5807106,
-    "ast_hash": "b17ebeef974e4e9e67ad63477e2dbe07",
-    "semantic_hash": ""
-  },
-  "types/methods/setScenes.d.ts": {
-    "mtime": 1783623924.5807226,
-    "ast_hash": "e5023db83048a54c3e4de9e110d8a654",
-    "semantic_hash": ""
-  },
-  "types/src/findInstructions.d.ts": {
-    "mtime": 1774331028.2620726,
-    "ast_hash": "7e6c6681490eb78b61fba265d254bf8b",
-    "semantic_hash": ""
-  },
-  "types/src/main.d.ts": {
-    "mtime": 1774331028.2866547,
-    "ast_hash": "4636f053d4be7f40dbbd36b943b3e6a2",
-    "semantic_hash": ""
-  },
-  "types/src/setInstruction.d.ts": {
-    "mtime": 1774331028.2635846,
-    "ast_hash": "dfdd8df7409736f6d6ab16ce75275786",
-    "semantic_hash": ""
-  },
-  "types/src/methods/hide.d.ts": {
-    "mtime": 1774331028.2649617,
-    "ast_hash": "4d2c8131db9d91cdcdb1fd21296639b7",
-    "semantic_hash": ""
-  },
-  "types/src/methods/jumpsReset.d.ts": {
-    "mtime": 1774331028.2733746,
-    "ast_hash": "68de7cbee36bbda74d5a751fcafa7449",
-    "semantic_hash": ""
-  },
-  "types/src/methods/jump.d.ts": {
-    "mtime": 1774331028.2712362,
-    "ast_hash": "f01c13b561194ea9a96065752e7c9f2a",
-    "semantic_hash": ""
-  },
-  "types/src/methods/listShortcuts.d.ts": {
-    "mtime": 1774331028.2657318,
-    "ast_hash": "b6123139eb545a56ba5182511dabf484",
-    "semantic_hash": ""
-  },
-  "types/src/methods/jumpBack.d.ts": {
-    "mtime": 1774331028.272342,
-    "ast_hash": "8223b9c9142689849a1e6f0276464729",
-    "semantic_hash": ""
-  },
-  "types/src/methods/show.d.ts": {
-    "mtime": 1774331028.2705016,
-    "ast_hash": "a1b7c91cfd5bcc35876eb793ef16c92d",
-    "semantic_hash": ""
-  },
-  "types/src/methods/setScenes.d.ts": {
-    "mtime": 1774331028.2690504,
-    "ast_hash": "46a38dcab8e723ada98d444a9229c679",
+    "mtime": 1791746855.0163548,
+    "ast_hash": "4870638ea772a2be8885a0e31cf0a918",
     "semantic_hash": ""
   },
   "test/01-findPosition.test.js": {
-    "mtime": 1762684004.7208605,
-    "ast_hash": "c385c0cba0d70a503073a6dce9b14567",
+    "mtime": 1791738215.6180298,
+    "ast_hash": "2882472c1ad22816de16fa7fbae8d3e5",
     "semantic_hash": ""
   },
   "test/02-cuts.test.js": {
-    "mtime": 1784003630.1033103,
-    "ast_hash": "e5731a753418492bef0d42bbb86d0a44",
+    "mtime": 1791748235.3146362,
+    "ast_hash": "190a44c85ecab6b3c71c3f2280bdc1c0",
     "semantic_hash": ""
   },
   "test-e2e/vite.config.js": {
@@ -165,13 +65,13 @@
     "semantic_hash": ""
   },
   "src/main.js": {
-    "mtime": 1783580893.8813539,
-    "ast_hash": "a5a3bbee3ad0ace1a08d046ddc7e59e5",
+    "mtime": 1791743084.1945643,
+    "ast_hash": "643184f3f6474e2c324f29cbce21c6d7",
     "semantic_hash": ""
   },
   "src/findInstructions.js": {
-    "mtime": 1761203709.521908,
-    "ast_hash": "7b8eb9645663150b2aec77052849bcf4",
+    "mtime": 1791743084.194363,
+    "ast_hash": "a9aa843273381ad868db6bf0a1f9907e",
     "semantic_hash": ""
   },
   "src/setInstruction.js": {
@@ -195,28 +95,28 @@
     "semantic_hash": ""
   },
   "src/methods/show.js": {
-    "mtime": 1783596883.1527731,
-    "ast_hash": "146a390a095d49b5fa7637449754d53b",
+    "mtime": 1791748236.9165747,
+    "ast_hash": "a5f4f941c5f3cdf9f116cb0a595832c3",
     "semantic_hash": ""
   },
   "src/methods/jumpBack.js": {
-    "mtime": 1783596871.63,
-    "ast_hash": "4cc55f8acc4aa5cd67d87e122ea40b75",
+    "mtime": 1791746836.4096794,
+    "ast_hash": "2f6ed2386c61d722f3051503845a5615",
     "semantic_hash": ""
   },
   "src/methods/setScenes.js": {
-    "mtime": 1783568684.5151818,
-    "ast_hash": "4e1f501a0a8e2677b914e028539db232",
+    "mtime": 1791743084.194968,
+    "ast_hash": "86a2eae1d942aa21a2f9d31cb54be55e",
     "semantic_hash": ""
   },
   "src/methods/hide.js": {
-    "mtime": 1783596889.7962546,
-    "ast_hash": "c8a3cc81c9d8288f1e37294e422d5ffd",
+    "mtime": 1791743084.194699,
+    "ast_hash": "67949190fbc35a174ed83a15b9af42ed",
     "semantic_hash": ""
   },
   "Changelog.md": {
-    "mtime": 1784569550.5590594,
-    "ast_hash": "3d5f5a549288a29ffaa3d677156772c2",
+    "mtime": 1791748253.6107013,
+    "ast_hash": "657be50039c381d017a0cd289dd00953",
     "semantic_hash": ""
   },
   "Migration.guide.md": {
@@ -225,8 +125,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1784003392.6973217,
-    "ast_hash": "156300a706f6773b6a0f2b74dab9e1b9",
+    "mtime": 1791748298.0568752,
+    "ast_hash": "75745cac3f2aaa447c6212ea0b0eabcf",
     "semantic_hash": ""
   },
   "AGENTS.md": {
@@ -250,8 +150,8 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1786255886.1941576,
-    "ast_hash": "a98b8f150b74635b439fc5c3a3e04496",
+    "mtime": 1791748474.4842281,
+    "ast_hash": "c102afd2d4beef84bf77a442713637a7",
     "semantic_hash": ""
   },
   "test-e2e/blue.vue": {
@@ -280,7 +180,7 @@
     "semantic_hash": ""
   },
   "test-results/.last-run.json": {
-    "mtime": 1786256448.446635,
+    "mtime": 1791748501.4280396,
     "ast_hash": "f196824657d8858bc7fa44eecbba38b1",
     "semantic_hash": ""
   },
@@ -302,6 +202,31 @@
   ".claude/settings.local.json": {
     "mtime": 1783543710.228954,
     "ast_hash": "91bb36cab1d2bd4d24d9bfb2a5364103",
+    "semantic_hash": ""
+  },
+  "skills/cuts/SKILL.md": {
+    "mtime": 1791746855.0160737,
+    "ast_hash": "b851c835f4ead89e29509e5e87058aa8",
+    "semantic_hash": ""
+  },
+  "skills/cuts/references/api.md": {
+    "mtime": 1791748253.61047,
+    "ast_hash": "1ac7f2c814ca8a542c0f3b39efdb02ef",
+    "semantic_hash": ""
+  },
+  "skills/cuts/references/navigation.md": {
+    "mtime": 1791748253.6105816,
+    "ast_hash": "a2f7c108ded801a11460b2b114ff283a",
+    "semantic_hash": ""
+  },
+  "skills/cuts/references/recipes.md": {
+    "mtime": 1791743102.6217709,
+    "ast_hash": "ca4cd073a4fcd186b7d1cd2cfb844764",
+    "semantic_hash": ""
+  },
+  ".claude/launch.json": {
+    "mtime": 1791748490.9390109,
+    "ast_hash": "f50ea793a1a6a7294c88a4d3e18e1e26",
     "semantic_hash": ""
   }
 }

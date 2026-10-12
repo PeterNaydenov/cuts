@@ -1,16 +1,16 @@
-# Graph Report - git-cuts  (2026-08-09)
+# Graph Report - git-cuts  (2026-10-11)
 
 ## Corpus Check
-- 53 files · ~24,686 words
+- 38 files · ~31,106 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 307 nodes · 301 edges · 53 communities (48 shown, 5 thin omitted)
-- Extraction: 90% EXTRACTED · 10% INFERRED · 0% AMBIGUOUS · INFERRED: 30 edges (avg confidence: 0.86)
+- 335 nodes · 345 edges · 37 communities (32 shown, 5 thin omitted)
+- Extraction: 91% EXTRACTED · 9% INFERRED · 0% AMBIGUOUS · INFERRED: 30 edges (avg confidence: 0.86)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `77ba4ba1`
+- Built from commit: `1763a3e7`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -31,8 +31,8 @@
 - [[_COMMUNITY_Community 13|Community 13]]
 - [[_COMMUNITY_Community 14|Community 14]]
 - [[_COMMUNITY_Community 15|Community 15]]
+- [[_COMMUNITY_Community 16|Community 16]]
 - [[_COMMUNITY_Community 17|Community 17]]
-- [[_COMMUNITY_Community 18|Community 18]]
 - [[_COMMUNITY_Community 34|Community 34]]
 - [[_COMMUNITY_Community 38|Community 38]]
 - [[_COMMUNITY_Community 39|Community 39]]
@@ -40,18 +40,20 @@
 - [[_COMMUNITY_Community 41|Community 41]]
 - [[_COMMUNITY_Community 42|Community 42]]
 - [[_COMMUNITY_Community 43|Community 43]]
+- [[_COMMUNITY_Community 54|Community 54]]
+- [[_COMMUNITY_Community 55|Community 55]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `Release History` - 22 edges
-2. `Cuts (@peter.naydenov/cuts)` - 19 edges
+1. `Release History` - 24 edges
+2. `Cuts (@peter.naydenov/cuts)` - 20 edges
 3. `Scene` - 15 edges
 4. `Method reference` - 13 edges
 5. `compilerOptions` - 12 edges
 6. `1.2.8 ( 2025-05-03)` - 12 edges
 7. `main()` - 11 edges
-8. `@peter.naydenov/shortcuts` - 9 edges
-9. `scripts` - 8 edges
-10. `Cuts Library (@peter.naydenov/cuts)` - 8 edges
+8. `Navigation` - 10 edges
+9. `Recipes` - 10 edges
+10. `@peter.naydenov/shortcuts` - 9 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Scene Hooks: afterShow and beforeHide` --references--> `Scene`  [INFERRED]
@@ -75,35 +77,35 @@
 - **Shortcut plugin system** — readme_loadplugins, readme_enableplugin, readme_disableplugin, readme_plugin_key, readme_plugin_click, readme_plugin_form, readme_plugin_hover, readme_plugin_scroll, readme_shortcuts [EXTRACTED 1.00]
 - **Cuts Logo Visual Composition** — cuts_wordmark, cuts_film_strip_icon, cuts_background_pattern, cuts_dark_theme_design [INFERRED 0.85]
 
-## Communities (53 total, 5 thin omitted)
+## Communities (37 total, 5 thin omitted)
 
 ### Community 0 - "Community 0"
-Cohesion: 0.11
-Nodes (21): Scene Hooks: afterShow and beforeHide, afterShow() method, beforeHide() method, hide() method, jump() method, Jump stack, jumpBack() method, jumpsReset() method (+13 more)
+Cohesion: 0.10
+Nodes (22): Scene Hooks: afterShow and beforeHide, afterShow() method, beforeHide() method, hide() method, jump() method, Jump stack, jumpBack() method, jumpsReset() method (+14 more)
 
 ### Community 1 - "Community 1"
 Cohesion: 0.11
 Nodes (27): @app-error Event, Bug: SSR First Scene Loading, logLevel Configuration, Cuts v2.0.0 Release, clickTarget Array Migration, hoverTarget Array Migration, Rationale: Array Target Flexibility, Shortcuts v4.x Upgrade (+19 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.08
-Nodes (24): allowScripts, fsevents@2.3.2, fsevents@2.3.3, author, dependencies, ask-for-promise, @peter.naydenov/log, @peter.naydenov/shortcuts (+16 more)
+Cohesion: 0.06
+Nodes (30): allowScripts, fsevents@2.3.2, fsevents@2.3.3, author, bugs, url, dependencies, ask-for-promise (+22 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.07
-Nodes (29): Best practices, Chaining gestures, Credits, Custom events, Cuts (@peter.naydenov/cuts), Don't rely on parents for ordering side effects, Error reference, Events (+21 more)
+Cohesion: 0.06
+Nodes (30): AI Agent Skill, Best practices, Chaining gestures, Credits, Custom events, Cuts (@peter.naydenov/cuts), Don't rely on parents for ordering side effects, Error reference (+22 more)
 
 ### Community 4 - "Community 4"
-Cohesion: 0.29
-Nodes (7): default, exports, ./dist/*, ./package.json, ./src/*, import, require
+Cohesion: 0.18
+Nodes (10): App shell with pages, Contents, Modal / confirm dialog, Mounting framework components, Project layout, Recipes, Syncing with a URL router, Testing scenes (+2 more)
 
 ### Community 5 - "Community 5"
 Cohesion: 0.38
 Nodes (7): Decorative N-Pattern Background, Git-Cuts Brand Identity, Cuts Brand Logo, Dark Theme Visual Design, Film Editing Metaphor, Film Strip Icon, Cuts Wordmark
 
 ### Community 6 - "Community 6"
-Cohesion: 0.09
-Nodes (21): 1.3.0 ( 2025-08-15), 1.3.1 ( 2025-08-15), 1.4.0 ( 2025-09-06), 1.4.1. ( 2025-09-24), 1.4.2 ( 2025-09-29), 1.4.3 ( 2025-09-30), 1.4.4 ( 2025-10-10), 1.5.0 ( 2025-10-23 ) (+13 more)
+Cohesion: 0.08
+Nodes (23): 1.3.0 ( 2025-08-15), 1.3.1 ( 2025-08-15), 1.4.0 ( 2025-09-06), 1.4.1. ( 2025-09-24), 1.4.2 ( 2025-09-29), 1.4.3 ( 2025-09-30), 1.4.4 ( 2025-10-10), 1.5.0 ( 2025-10-23 ) (+15 more)
 
 ### Community 7 - "Community 7"
 Cohesion: 0.33
@@ -141,13 +143,13 @@ Nodes (12): 1.0.0 (2024-05-08), 1.0.1 (2024-05-10), 1.0.2 (2024-12-12), 1.1.0 (2
 Cohesion: 0.25
 Nodes (7): Backward Compatibility, Example Migration, From version 1.x.x to version 2.x.x, Migration Guides, Package Dependencies Update, Per-Context Setup Examples Updated, Plugin Target Attributes Changes
 
-### Community 17 - "Community 17"
-Cohesion: 0.50
-Nodes (3): AskObject, sceneDescription, SceneObject
+### Community 16 - "Community 16"
+Cohesion: 0.18
+Nodes (10): Contents, Guards: beforeHide, hide() steps, How show() computes a transition, Jump stack, Navigation, One navigation at a time, Overlays: parents ['*'] (+2 more)
 
-### Community 18 - "Community 18"
-Cohesion: 0.50
-Nodes (3): AskObject, sceneDescription, SceneObject
+### Community 17 - "Community 17"
+Cohesion: 0.18
+Nodes (11): default, exports, ./dist/*, ./package.json, ./src/*, import, default, types (+3 more)
 
 ### Community 34 - "Community 34"
 Cohesion: 0.12
@@ -157,8 +159,16 @@ Nodes (15): AfterShowContext, AskObject, BeforeHideContext, CutsAPI, CutsConfig,
 Cohesion: 0.15
 Nodes (13): Async reference, `cuts(cfg?)`, `emit(event, ...args)`, `getState()`, `hide(endSteps?)`, `jump({ scene }, ...args)` / `jumpBack({ hops? }, ...args)` / `jumpsReset()`, `listScenes()` / `listShortcuts(sceneName)`, `loadPlugins(plugins)` / `enablePlugin(plugin, options?)` / `disablePlugin(pluginName)` (+5 more)
 
+### Community 54 - "Community 54"
+Cohesion: 0.22
+Nodes (8): Common mistakes, Cuts (@peter.naydenov/cuts), Cuts vs. plain shortcuts, Navigation, References, Scene object, TypeScript, Workflow
+
+### Community 55 - "Community 55"
+Cohesion: 0.22
+Nodes (8): API reference, Contents, Errors, Factory, Methods, Per-call-site arguments, SSR hydration, Types
+
 ## Knowledge Gaps
-- **189 isolated node(s):** `name`, `description`, `version`, `license`, `author` (+184 more)
+- **225 isolated node(s):** `name`, `description`, `version`, `license`, `author` (+220 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -166,16 +176,16 @@ Nodes (13): Async reference, `cuts(cfg?)`, `emit(event, ...args)`, `getState()`,
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `Cuts (@peter.naydenov/cuts)` connect `Community 3` to `Community 0`, `Community 42`?**
-  _High betweenness centrality (0.059) - this node is a cross-community bridge._
+  _High betweenness centrality (0.052) - this node is a cross-community bridge._
 - **Why does `Scene` connect `Community 0` to `Community 1`, `Community 3`?**
-  _High betweenness centrality (0.047) - this node is a cross-community bridge._
+  _High betweenness centrality (0.041) - this node is a cross-community bridge._
 - **Why does `@peter.naydenov/shortcuts` connect `Community 1` to `Community 0`?**
-  _High betweenness centrality (0.031) - this node is a cross-community bridge._
+  _High betweenness centrality (0.027) - this node is a cross-community bridge._
 - **What connects `name`, `description`, `version` to the rest of the system?**
-  _189 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _225 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.10952380952380952 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.1038961038961039 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
   _Cohesion score 0.11396011396011396 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.08 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06451612903225806 - nodes in this community are weakly interconnected._

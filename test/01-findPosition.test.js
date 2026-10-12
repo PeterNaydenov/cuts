@@ -116,4 +116,20 @@ describe ( 'Find a Position', () => {
             expect ( result[1] ).toEqual ( [ 'token-pop', 'hide' ])
        }) // it Target scene is in the list of parents of the current scene
 
+
+
+   it ( 'Target scene with own parents is in the list of parents of the current scene', () => {
+            // Regression test: a target that is already open underneath (and is not a root scene)
+            // was hidden and shown again, instead of just hiding the scenes above it.
+            let result = []
+            let g = findInstructions ( 'user', ['app', 'users'], 'users', ['app'] )
+            for (const n of g) { result.push(n) }
+            expect ( result ).toEqual ([ [ 'user', 'hide' ] ])
+
+            result = []
+            g = findInstructions ( 'deep', ['app', 'users', 'user'], 'users', ['app'] )
+            for (const n of g) { result.push(n) }
+            expect ( result ).toEqual ([ [ 'deep', 'hide' ], [ 'user', 'hide' ] ])
+       }) // it Target scene with own parents is in the list of parents of the current scene
+
 }) // describe
