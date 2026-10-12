@@ -2,6 +2,26 @@
 
 
 
+## 2.2.0 (2026-10-12)
+- [x] Dependency update. @peter.naydenov/shortcuts - v.4.2.0;
+- [x] Dependency update. ask-for-promise - v.3.2.1;
+- [x] Create a skill for 'cuts';
+- [x] Fix: `show` of a scene that is already open underneath the current one (a non-root ancestor, or the scene under an overlay) hid and re-showed it. Now it only hides the scenes above it, as it already did for root scenes;
+- [x] Fix: `disablePlugin` is case-insensitive. `disablePlugin('Click')` was silently ignored because shortcuts expects the lower-case prefix;
+- [x] Fix: One navigation at a time. Navigation signals that arrive while a scene is still loading or hiding are ignored. Before, they ran in parallel, and the screen could show two pages while the state named one;
+- [x] Fix: `jumpBack` removes stack entries only when navigation lands. A Back blocked by `beforeHide` lost its entry before. `hops` larger than the stack returns `undefined` without emptying the stack;
+- [x] Fix: `afterShow` runs for overlays (`parents: ['*']`) and for the SSR-hydrated first scene. Both skipped it before;
+- [x] Fix: `hide()` with no current scene resolves without changes. It threw a `TypeError` before;
+- [x] Fix: `afterShow` and `beforeHide` were registered as shortcut handlers, so `emit('beforeHide')` called the guard;
+- [x] Types: TypeScript now finds the types. `exports` had no `types` condition, so `bundler` and `nodenext` resolution reported 'Could not find a declaration file' and everything was `any`;
+- [x] Types: New `types/main.d.cts` for `require()` users (`export =`, same types as the ESM entry);
+- [x] Types: `show` and `hide` accept the extra navigation arguments, `hide()` takes `number | '*'`, `beforeHide` may return `boolean | Promise<boolean>`;
+- [x] Package: Added a `files` list and removed `.npmignore`. The package drops from 54 MB / 1205 files to about 170 kB / 24 files (no more `test-e2e/node_modules`, coverage, graphify output or local tool settings);
+- [x] Package: Added `repository`, `homepage` and `bugs` fields. Removed stale generated files from `types/`;
+- [x] Docs: README corrections - `emit` passes arguments as-is and doesn't match plugin shortcut names (chaining gestures now uses custom events), `afterShow` doesn't receive navigation args, `parents` is the full path, parent scene handlers are inactive while a child is current;
+
+
+
 ## 2.1.8 (2026-08-09)
 - [x] Dependency update. @peter.naydenov/shortcuts - v.4.1.4;
 - [x] Dependency update. @peter.naydenov/log - v.1.1.3;
