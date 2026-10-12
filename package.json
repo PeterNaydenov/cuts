@@ -4,23 +4,47 @@
   "version": "2.1.8",
   "license": "MIT",
   "author": "Peter Naydenov",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PeterNaydenov/cuts.git"
+  },
+  "homepage": "https://github.com/PeterNaydenov/cuts#readme",
+  "bugs": {
+    "url": "https://github.com/PeterNaydenov/cuts/issues"
+  },
   "main": "./src/main.js",
   "type": "module",
   "types": "./types/main.d.ts",
   "exports": {
     ".": {
-      "import": "./src/main.js",
-      "require": "./dist/cuts.cjs",
+      "import": {
+        "types": "./types/main.d.ts",
+        "default": "./src/main.js"
+      },
+      "require": {
+        "types": "./types/main.d.cts",
+        "default": "./dist/cuts.cjs"
+      },
       "default": "./src/main.js"
     },
     "./package.json": "./package.json",
     "./dist/*": "./dist/*",
     "./src/*": "./src/*"
   },
+  "files": [
+    "src",
+    "dist/cuts.cjs",
+    "dist/cuts.esm.mjs",
+    "dist/cuts.umd.js",
+    "types/main.d.ts",
+    "types/main.d.cts",
+    "skills",
+    "Changelog.md",
+    "Migration.guide.md"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "rollup -c",
-    "postbuild": "tsc -p tsconfig.json",
     "preview": "vite preview",
     "test": "vitest --run",
     "test:e2e": "playwright test",
@@ -32,10 +56,10 @@
     "@rollup/plugin-commonjs": "^29.0.3",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^1.0.0",
-    "@types/node": "^26.6.4",
-    "@vitejs/plugin-vue": "^6.0.9",
+    "@types/node": "^26.6.5",
+    "@vitejs/plugin-vue": "^6.0.10",
     "@vitest/coverage-v8": "^5.0.3",
-    "rollup": "^4.64.3",
+    "rollup": "^4.64.5",
     "typescript": "^7.0.2",
     "vite": "^8.3.4",
     "vitest": "^5.0.3",
@@ -43,8 +67,8 @@
   },
   "dependencies": {
     "@peter.naydenov/log": "^1.1.3",
-    "@peter.naydenov/shortcuts": "^4.1.4",
-    "ask-for-promise": "^3.2.0"
+    "@peter.naydenov/shortcuts": "^4.2.0",
+    "ask-for-promise": "^3.2.1"
   },
   "keywords": [
     "script",
