@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "test-e2e",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "test-e2e", "run", "dev"],
+      "port": 4174
+    }
+  ]
+}
